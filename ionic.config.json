@@ -1,0 +1,7 @@
+{
+  "name": "appColibri",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic-angular"
+}

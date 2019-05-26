@@ -1,0 +1,4 @@
+#Mon Apr 01 14:45:05 ART 2019
+base.0=/home/paire/Documentos/github/appColibri/platforms/android/app/build/intermediates/transforms/dexMerger/debug/0
+path.0=classes.dex
+renamed.0=classes.dex

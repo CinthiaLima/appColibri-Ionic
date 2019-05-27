@@ -12,11 +12,10 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 /**import propios */
 import { FormulariosPage } from '../pages/formularios/formularios';
-/*import { HttpClientModule } from '@angular/common/http';
-import { HttpModule } from '@angular/http';*/
 import { PerfilPage } from '../pages/perfil/perfil';
 import { VerFormularioPage } from '../pages/ver-formulario/ver-formulario';
 import { ConectorProvider } from '../providers/conector/conector';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -30,7 +29,8 @@ import { ConectorProvider } from '../providers/conector/conector';
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    HttpClientModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [

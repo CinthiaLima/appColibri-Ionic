@@ -4,7 +4,7 @@ webpackJsonp([3],{
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return PerfilPage; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return FormulariosPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(25);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -19,33 +19,100 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 /**
+ * Generated class for the FormulariosPage page.
+ *
+ * See https://ionicframework.com/docs/components/#navigation for more info on
+ * Ionic pages and navigation.
+ */
+var FormulariosPage = /** @class */ (function () {
+    function FormulariosPage(navCtrl, navParams) {
+        this.navCtrl = navCtrl;
+        this.navParams = navParams;
+    }
+    FormulariosPage.prototype.ionViewDidLoad = function () {
+        console.log('ionViewDidLoad FormulariosPage');
+    };
+    FormulariosPage = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
+            selector: 'page-formularios',template:/*ion-inline-start:"/home/paire/Documentos/github/appColibri-Ionic/src/pages/formularios/formularios.html"*/'<!--\n  Generated template for the FormulariosPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n  <ion-navbar>\n    <ion-title>Formularios disponibles</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n  <form>\n  <h6>Checkboxes</h6>\n  <p>descripción descripción descripción descripción descripción</p>\n  <ion-list>\n    <ion-item>\n      <ion-label>Pepperoni</ion-label>\n      <ion-checkbox slot="end" value="pepperoni" checked></ion-checkbox>\n    </ion-item>\n    <ion-item>\n      <ion-label>Sausage</ion-label>\n      <ion-checkbox slot="end" value="sausage" disable></ion-checkbox>\n    </ion-item>\n    <ion-item>\n      <ion-label>Mushrooms</ion-label>\n      <ion-checkbox slot="end" value="mushrooms"></ion-checkbox>\n    </ion-item>\n  </ion-list>\n  <h6>Texto</h6>\n  <ion-item>\n    <ion-label stacked color="primary" required>Nombre</ion-label>\n    <ion-input type="text" placeholder="fdsf"></ion-input>\n  </ion-item>\n  <span>Nombre</span>\n    <ion-input type="text" placeholder="fdsf"></ion-input>\n  <ion-item>\n    <ion-label stacked>Email</ion-label>\n    <ion-input type="email"></ion-input>\n  </ion-item>\n  <ion-item>\n    <ion-label stacked>Edad</ion-label>\n    <ion-input type="number"></ion-input>\n  </ion-item>\n  <h6>Area de texto</h6>\n  <p>descipción descipción descipción descipción descipción descipción descipción</p>\n  <ion-item>\n    <ion-label stacked>Escriba algo</ion-label>\n    <ion-textarea placeholder="Pista . . ." rows="2"></ion-textarea>\n  </ion-item> \n  <h6>Radio button</h6>\n  <ion-list radio-group>\n        <ion-list-header>\n          Auto Manufacturers\n        </ion-list-header>\n    \n        <ion-item>\n          <ion-label>Cord</ion-label>\n          <ion-radio value="cord"></ion-radio>\n        </ion-item>\n    \n        <ion-item>\n          <ion-label>Duesenberg</ion-label>\n          <ion-radio value="duesenberg"></ion-radio>\n        </ion-item>\n    \n        <ion-item>\n          <ion-label>Hudson</ion-label>\n          <ion-radio value="hudson"></ion-radio>\n        </ion-item>\n    \n        <ion-item>\n          <ion-label>Packard</ion-label>\n          <ion-radio value="packard"></ion-radio>\n        </ion-item>\n    \n        <ion-item>\n          <ion-label>Studebaker</ion-label>\n          <ion-radio value="studebaker"></ion-radio>\n        </ion-item>\n    </ion-list>\n    <h6>Fecha</h6>\n    <ion-item>\n      <ion-label stacked color="primary">Fecha de nacimiento</ion-label>\n      <ion-icon name="calendar"></ion-icon>\n      <ion-datetime display-format="MMM DD, YYYY HH:mm" cancelText="Cancelar" doneText="Aceptar"></ion-datetime>\n    </ion-item>\n    <h6>Lista desplegable</h6>\n    <ion-item>\n    <ion-label>Hair Color</ion-label>\n    <ion-select value="1" okText="Ok" cancelText="Cancelar">\n      <ion-option option value="1">Brown</ion-option>\n      <ion-option value="2">Blonde</ion-option>\n      <ion-option value="3">Black</ion-option>\n      <ion-option value="4">Red</ion-option>\n    </ion-select>\n  </ion-item>\n  </form>\n</ion-content>'/*ion-inline-end:"/home/paire/Documentos/github/appColibri-Ionic/src/pages/formularios/formularios.html"*/,
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavParams */]])
+    ], FormulariosPage);
+    return FormulariosPage;
+}());
+
+//# sourceMappingURL=formularios.js.map
+
+/***/ }),
+
+/***/ 101:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return PerfilPage; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(25);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_common_http__ = __webpack_require__(77);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+/**
  * Generated class for the PerfilPage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
  */
 var PerfilPage = /** @class */ (function () {
-    function PerfilPage(navCtrl, navParams) {
+    function PerfilPage(navCtrl, navParams, http) {
         this.navCtrl = navCtrl;
         this.navParams = navParams;
+        this.http = http;
+        this.datosFormulario = {};
+        this.url = "http://localhost/ionicPost.php";
+        this.recuperarDatos();
     }
+    PerfilPage.prototype.enviarDatos = function () {
+        console.log(this.datosFormulario);
+        this.http.post(this.url, JSON.stringify(this.datosFormulario))
+            .subscribe(function (data) {
+            console.log(data);
+        });
+    };
     PerfilPage.prototype.ionViewDidLoad = function () {
         console.log('ionViewDidLoad PerfilPage');
     };
+    PerfilPage.prototype.recuperarDatos = function () {
+        var _this = this;
+        this.http.get("https://jsonplaceholder.typicode.com/users")
+            .subscribe(function (usuarios) {
+            console.log(usuarios);
+            _this.usuarios = usuarios;
+        });
+    };
     PerfilPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-perfil',template:/*ion-inline-start:"/home/paire/Documentos/github/appColibri/src/pages/perfil/perfil.html"*/'<!--\n  Generated template for the PerfilPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n  <ion-navbar>\n    <ion-title>perfil</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n\n</ion-content>\n'/*ion-inline-end:"/home/paire/Documentos/github/appColibri/src/pages/perfil/perfil.html"*/,
+            selector: 'page-perfil',template:/*ion-inline-start:"/home/paire/Documentos/github/appColibri-Ionic/src/pages/perfil/perfil.html"*/'<!--\n  Generated template for the PerfilPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n  <ion-navbar>\n    <ion-title>Enviando y recuperando datos</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n  <h1>Post - enviando datos</h1>\n    <form (ngSubmit)="enviarDatos()">\n        <ion-item>\n          <ion-label>Titulo</ion-label>\n          <ion-input type="text" [(ngModel)]="datosFormulario.titulo" name="titulo"></ion-input>\n        </ion-item>\n        <ion-item>\n          <ion-label>Descripción</ion-label>\n          <ion-textarea [(ngModel)]="datosFormulario.descripcion" name="descripcion"></ion-textarea>\n        </ion-item>\n        <button ion-button type="submit" block>Add Todo</button>\n      </form>\n  \n      <h1>Get - recuperando datos</h1>\n  <ion-list>\n    <ion-item *ngFor="let usuario of usuarios">\n      <h1>{{usuario.name}}</h1>\n      <h2>{{usuario.email}}</h2>\n    </ion-item>\n  </ion-list>\n\n</ion-content>\n'/*ion-inline-end:"/home/paire/Documentos/github/appColibri-Ionic/src/pages/perfil/perfil.html"*/,
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavParams */]])
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavParams */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__angular_common_http__["a" /* HttpClient */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_common_http__["a" /* HttpClient */]) === "function" && _c || Object])
     ], PerfilPage);
     return PerfilPage;
+    var _a, _b, _c;
 }());
 
 //# sourceMappingURL=perfil.js.map
 
 /***/ }),
 
-/***/ 112:
+/***/ 113:
 /***/ (function(module, exports) {
 
 function webpackEmptyAsyncContext(req) {
@@ -58,11 +125,11 @@ function webpackEmptyAsyncContext(req) {
 webpackEmptyAsyncContext.keys = function() { return []; };
 webpackEmptyAsyncContext.resolve = webpackEmptyAsyncContext;
 module.exports = webpackEmptyAsyncContext;
-webpackEmptyAsyncContext.id = 112;
+webpackEmptyAsyncContext.id = 113;
 
 /***/ }),
 
-/***/ 154:
+/***/ 155:
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
@@ -90,21 +157,21 @@ function webpackAsyncContext(req) {
 webpackAsyncContext.keys = function webpackAsyncContextKeys() {
 	return Object.keys(map);
 };
-webpackAsyncContext.id = 154;
+webpackAsyncContext.id = 155;
 module.exports = webpackAsyncContext;
 
 /***/ }),
 
-/***/ 198:
+/***/ 199:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return TabsPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__about_about__ = __webpack_require__(199);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__home_home__ = __webpack_require__(200);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__formularios_formularios__ = __webpack_require__(99);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__perfil_perfil__ = __webpack_require__(100);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__about_about__ = __webpack_require__(200);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__home_home__ = __webpack_require__(201);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__formularios_formularios__ = __webpack_require__(100);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__perfil_perfil__ = __webpack_require__(101);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -128,7 +195,7 @@ var TabsPage = /** @class */ (function () {
         this.tab4Root = __WEBPACK_IMPORTED_MODULE_1__about_about__["a" /* AboutPage */];
     }
     TabsPage = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({template:/*ion-inline-start:"/home/paire/Documentos/github/appColibri/src/pages/tabs/tabs.html"*/'<ion-tabs>\n    <ion-tab [root]="tab1Root" tabTitle="Inicio" tabIcon="home"></ion-tab>\n    <ion-tab [root]="tab2Root" tabTitle="Formularios" tabIcon="md-filing"></ion-tab>\n    <ion-tab [root]="tab3Root" tabTitle="Yo" tabIcon="md-person"></ion-tab>\n    <ion-tab [root]="tab4Root" tabTitle="Acerca de" tabIcon="information-circle"></ion-tab>\n</ion-tabs>'/*ion-inline-end:"/home/paire/Documentos/github/appColibri/src/pages/tabs/tabs.html"*/
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({template:/*ion-inline-start:"/home/paire/Documentos/github/appColibri-Ionic/src/pages/tabs/tabs.html"*/'<ion-tabs>\n    <ion-tab [root]="tab1Root" tabTitle="Inicio" tabIcon="home"></ion-tab>\n    <ion-tab [root]="tab2Root" tabTitle="Formularios" tabIcon="md-filing"></ion-tab>\n    <ion-tab [root]="tab3Root" tabTitle="Yo" tabIcon="md-person"></ion-tab>\n    <ion-tab [root]="tab4Root" tabTitle="Acerca de" tabIcon="information-circle"></ion-tab>\n</ion-tabs>'/*ion-inline-end:"/home/paire/Documentos/github/appColibri-Ionic/src/pages/tabs/tabs.html"*/
         }),
         __metadata("design:paramtypes", [])
     ], TabsPage);
@@ -139,7 +206,7 @@ var TabsPage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 199:
+/***/ 200:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -163,7 +230,7 @@ var AboutPage = /** @class */ (function () {
     }
     AboutPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-about',template:/*ion-inline-start:"/home/paire/Documentos/github/appColibri/src/pages/about/about.html"*/'<ion-header>\n    <ion-navbar>\n      <ion-title>Acerca de</ion-title>\n    </ion-navbar>\n    <link href="https://fonts.googleapis.com/css?family=Permanent+Marker" rel="stylesheet">\n  </ion-header>\n  \n  <ion-content class="AcercaDe" padding>\n    <div style="text-align: center">\n      <p class="Paire">Paire</p>\n    </div>\n    <p class="AcercaDe">El <strong>proyecto Colibrí</strong> es un producto del grupo de desarrollo Paire (<i>«Par»</i>) para la <strong>unidad académica de Río Gallegos de la universidad nacional de la Patagonia Austral</strong>. Esta aplicación fue desarrollada durante el transcurso de la materia <strong>laboratorio de desarrollo de software</strong> de tercer año de la carrera analista de sistemas.</p>\n    <p class="AcercaDe"><strong>¿Quiénes hacen al grupo “Paire”?</strong></p>\n    <ul class="AcercaDe">\n      <li>Cinthia Lima</li>\n      <li>Ariel Machini</li>\n    </ul>\n    <p><strong>Mascota de la aplicación</strong><br>La mascota de la aplicación (el «Colibrí») fue diseñada por Ayelén Iturrioz.</p>\n    <button ion-button onclick="window.open(\'https://www.uarg.unpa.edu.ar\', \'_system\')" block color="uarg" icon-start style="margin-bottom: 20px">\n      <ion-icon name="md-school"></ion-icon>\n      Visitar el sitio web oficial de la UARG\n    </button>\n  </ion-content>'/*ion-inline-end:"/home/paire/Documentos/github/appColibri/src/pages/about/about.html"*/
+            selector: 'page-about',template:/*ion-inline-start:"/home/paire/Documentos/github/appColibri-Ionic/src/pages/about/about.html"*/'<ion-header>\n    <ion-navbar>\n      <ion-title>Acerca de</ion-title>\n    </ion-navbar>\n    <link href="https://fonts.googleapis.com/css?family=Permanent+Marker" rel="stylesheet">\n  </ion-header>\n  \n  <ion-content class="AcercaDe" padding>\n    <div style="text-align: center">\n      <p class="Paire">Paire</p>\n    </div>\n    <p class="AcercaDe">El <strong>proyecto Colibrí</strong> es un producto del grupo de desarrollo Paire (<i>«Par»</i>) para la <strong>unidad académica de Río Gallegos de la universidad nacional de la Patagonia Austral</strong>. Esta aplicación fue desarrollada durante el transcurso de la materia <strong>laboratorio de desarrollo de software</strong> de tercer año de la carrera analista de sistemas.</p>\n    <p class="AcercaDe"><strong>¿Quiénes hacen al grupo “Paire”?</strong></p>\n    <ul class="AcercaDe">\n      <li>Cinthia Lima</li>\n      <li>Ariel Machini</li>\n    </ul>\n    <p><strong>Mascota de la aplicación</strong><br>La mascota de la aplicación (el «Colibrí») fue diseñada por Ayelén Iturrioz.</p>\n    <button ion-button onclick="window.open(\'https://www.uarg.unpa.edu.ar\', \'_system\')" block color="uarg" icon-start style="margin-bottom: 20px">\n      <ion-icon name="md-school"></ion-icon>\n      Visitar el sitio web oficial de la UARG\n    </button>\n  </ion-content>'/*ion-inline-end:"/home/paire/Documentos/github/appColibri-Ionic/src/pages/about/about.html"*/
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* NavController */]])
     ], AboutPage);
@@ -174,7 +241,7 @@ var AboutPage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 200:
+/***/ 201:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -201,7 +268,7 @@ var HomePage = /** @class */ (function () {
     };
     HomePage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-home',template:/*ion-inline-start:"/home/paire/Documentos/github/appColibri/src/pages/home/home.html"*/'<ion-header>\n  <ion-navbar>\n    <ion-title>Sistema Colibrí</ion-title>\n  </ion-navbar>\n  <link href="https://fonts.googleapis.com/\n  css?family=Oswald" rel="stylesheet">\n\n</ion-header>\n\n<ion-content class="Bienvenida" padding>\n  <div class="Bienvenida">\n    <img class="centrado"alt="Proyecto Colibrí" src="\n    assets/imgs/icon.png"/><br>\n    <button ion-button (click)="verFormularios()" block color="secondary"\n      icon-end round style="margin-bottom: 60x">\n      Ver formularios\n    <ion-icon name="paper"></ion-icon>\n    </button>\n  </div>\n</ion-content>\n'/*ion-inline-end:"/home/paire/Documentos/github/appColibri/src/pages/home/home.html"*/
+            selector: 'page-home',template:/*ion-inline-start:"/home/paire/Documentos/github/appColibri-Ionic/src/pages/home/home.html"*/'<ion-header>\n  <ion-navbar>\n    <ion-title>Sistema Colibrí</ion-title>\n  </ion-navbar>\n  <link href="https://fonts.googleapis.com/\n  css?family=Oswald" rel="stylesheet">\n\n</ion-header>\n\n<ion-content class="Bienvenida" padding>\n  <div class="Bienvenida">\n    <img class="centrado"alt="Proyecto Colibrí" src="\n    assets/imgs/icon.png"/><br>\n    <button ion-button (click)="verFormularios()" block color="secondary"\n      icon-end round style="margin-bottom: 60x">\n      Ver formularios\n    <ion-icon name="paper"></ion-icon>\n    </button>\n  </div>\n</ion-content>\n'/*ion-inline-end:"/home/paire/Documentos/github/appColibri-Ionic/src/pages/home/home.html"*/
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* NavController */]])
     ], HomePage);
@@ -212,7 +279,7 @@ var HomePage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 201:
+/***/ 202:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -246,7 +313,7 @@ var VerFormularioPage = /** @class */ (function () {
     };
     VerFormularioPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-ver-formulario',template:/*ion-inline-start:"/home/paire/Documentos/github/appColibri/src/pages/ver-formulario/ver-formulario.html"*/'<!--\n  Generated template for the VerFormularioPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n  <ion-navbar>\n    <ion-title>ver-formulario</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n\n</ion-content>\n'/*ion-inline-end:"/home/paire/Documentos/github/appColibri/src/pages/ver-formulario/ver-formulario.html"*/,
+            selector: 'page-ver-formulario',template:/*ion-inline-start:"/home/paire/Documentos/github/appColibri-Ionic/src/pages/ver-formulario/ver-formulario.html"*/'<!--\n  Generated template for the VerFormularioPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n  <ion-navbar>\n    <ion-title>ver-formulario</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n\n</ion-content>\n'/*ion-inline-end:"/home/paire/Documentos/github/appColibri-Ionic/src/pages/ver-formulario/ver-formulario.html"*/,
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavParams */]])
     ], VerFormularioPage);
@@ -257,13 +324,13 @@ var VerFormularioPage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 202:
+/***/ 203:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__ = __webpack_require__(203);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_module__ = __webpack_require__(223);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__ = __webpack_require__(204);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_module__ = __webpack_require__(224);
 
 
 Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* platformBrowserDynamic */])().bootstrapModule(__WEBPACK_IMPORTED_MODULE_1__app_module__["a" /* AppModule */]);
@@ -271,7 +338,7 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 
 /***/ }),
 
-/***/ 223:
+/***/ 224:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -279,16 +346,17 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser__ = __webpack_require__(31);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(25);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app_component__ = __webpack_require__(265);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pages_about_about__ = __webpack_require__(199);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pages_home_home__ = __webpack_require__(200);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__pages_tabs_tabs__ = __webpack_require__(198);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__ionic_native_status_bar__ = __webpack_require__(194);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__ionic_native_splash_screen__ = __webpack_require__(197);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__pages_formularios_formularios__ = __webpack_require__(99);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__pages_perfil_perfil__ = __webpack_require__(100);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__pages_ver_formulario_ver_formulario__ = __webpack_require__(201);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__providers_conector_conector__ = __webpack_require__(273);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app_component__ = __webpack_require__(271);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pages_about_about__ = __webpack_require__(200);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pages_home_home__ = __webpack_require__(201);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__pages_tabs_tabs__ = __webpack_require__(199);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__ionic_native_status_bar__ = __webpack_require__(195);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__ionic_native_splash_screen__ = __webpack_require__(198);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__pages_formularios_formularios__ = __webpack_require__(100);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__pages_perfil_perfil__ = __webpack_require__(101);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__pages_ver_formulario_ver_formulario__ = __webpack_require__(202);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__providers_conector_conector__ = __webpack_require__(279);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__angular_common_http__ = __webpack_require__(77);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -306,8 +374,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 /**import propios */
 
-/*import { HttpClientModule } from '@angular/common/http';
-import { HttpModule } from '@angular/http';*/
+
 
 
 
@@ -333,7 +400,8 @@ var AppModule = /** @class */ (function () {
                         { loadChildren: '../pages/perfil/perfil.module#PerfilPageModule', name: 'PerfilPage', segment: 'perfil', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/ver-formulario/ver-formulario.module#VerFormularioPageModule', name: 'VerFormularioPage', segment: 'ver-formulario', priority: 'low', defaultHistory: [] }
                     ]
-                })
+                }),
+                __WEBPACK_IMPORTED_MODULE_13__angular_common_http__["b" /* HttpClientModule */]
             ],
             bootstrap: [__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["a" /* IonicApp */]],
             entryComponents: [
@@ -360,16 +428,16 @@ var AppModule = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 265:
+/***/ 271:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MyApp; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(25);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__ = __webpack_require__(194);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__ = __webpack_require__(197);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pages_tabs_tabs__ = __webpack_require__(198);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__ = __webpack_require__(195);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__ = __webpack_require__(198);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pages_tabs_tabs__ = __webpack_require__(199);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -395,7 +463,7 @@ var MyApp = /** @class */ (function () {
         });
     }
     MyApp = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({template:/*ion-inline-start:"/home/paire/Documentos/github/appColibri/src/app/app.html"*/'<ion-nav [root]="rootPage"></ion-nav>\n'/*ion-inline-end:"/home/paire/Documentos/github/appColibri/src/app/app.html"*/
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({template:/*ion-inline-start:"/home/paire/Documentos/github/appColibri-Ionic/src/app/app.html"*/'<ion-nav [root]="rootPage"></ion-nav>\n'/*ion-inline-end:"/home/paire/Documentos/github/appColibri-Ionic/src/app/app.html"*/
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* Platform */], __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__["a" /* StatusBar */], __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__["a" /* SplashScreen */]])
     ], MyApp);
@@ -406,12 +474,12 @@ var MyApp = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 273:
+/***/ 279:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ConectorProvider; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_common_http__ = __webpack_require__(274);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_common_http__ = __webpack_require__(77);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -448,52 +516,7 @@ var ConectorProvider = /** @class */ (function () {
 
 //# sourceMappingURL=conector.js.map
 
-/***/ }),
-
-/***/ 99:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return FormulariosPage; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(25);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-/**
- * Generated class for the FormulariosPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-var FormulariosPage = /** @class */ (function () {
-    function FormulariosPage(navCtrl, navParams) {
-        this.navCtrl = navCtrl;
-        this.navParams = navParams;
-    }
-    FormulariosPage.prototype.ionViewDidLoad = function () {
-        console.log('ionViewDidLoad FormulariosPage');
-    };
-    FormulariosPage = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-formularios',template:/*ion-inline-start:"/home/paire/Documentos/github/appColibri/src/pages/formularios/formularios.html"*/'<!--\n  Generated template for the FormulariosPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n  <ion-navbar>\n    <ion-title>Formularios disponibles</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n  <form>\n  <h6>Checkboxes</h6>\n  <p>descripción descripción descripción descripción descripción</p>\n  <ion-list>\n    <ion-item>\n      <ion-label>Pepperoni</ion-label>\n      <ion-checkbox slot="end" value="pepperoni" checked></ion-checkbox>\n    </ion-item>\n    <ion-item>\n      <ion-label>Sausage</ion-label>\n      <ion-checkbox slot="end" value="sausage" disable></ion-checkbox>\n    </ion-item>\n    <ion-item>\n      <ion-label>Mushrooms</ion-label>\n      <ion-checkbox slot="end" value="mushrooms"></ion-checkbox>\n    </ion-item>\n  </ion-list>\n  <h6>Texto</h6>\n  <ion-item>\n    <ion-label stacked color="primary" required>Nombre</ion-label>\n    <ion-input type="text" placeholder="fdsf"></ion-input>\n  </ion-item>\n  <span>Nombre</span>\n    <ion-input type="text" placeholder="fdsf"></ion-input>\n  <ion-item>\n    <ion-label stacked>Email</ion-label>\n    <ion-input type="email"></ion-input>\n  </ion-item>\n  <ion-item>\n    <ion-label stacked>Edad</ion-label>\n    <ion-input type="number"></ion-input>\n  </ion-item>\n  <h6>Area de texto</h6>\n  <p>descipción descipción descipción descipción descipción descipción descipción</p>\n  <ion-item>\n    <ion-label stacked>Escriba algo</ion-label>\n    <ion-textarea placeholder="Pista . . ." rows="2"></ion-textarea>\n  </ion-item> \n  <h6>Radio button</h6>\n  <ion-list radio-group>\n        <ion-list-header>\n          Auto Manufacturers\n        </ion-list-header>\n    \n        <ion-item>\n          <ion-label>Cord</ion-label>\n          <ion-radio value="cord"></ion-radio>\n        </ion-item>\n    \n        <ion-item>\n          <ion-label>Duesenberg</ion-label>\n          <ion-radio value="duesenberg"></ion-radio>\n        </ion-item>\n    \n        <ion-item>\n          <ion-label>Hudson</ion-label>\n          <ion-radio value="hudson"></ion-radio>\n        </ion-item>\n    \n        <ion-item>\n          <ion-label>Packard</ion-label>\n          <ion-radio value="packard"></ion-radio>\n        </ion-item>\n    \n        <ion-item>\n          <ion-label>Studebaker</ion-label>\n          <ion-radio value="studebaker"></ion-radio>\n        </ion-item>\n    </ion-list>\n    <h6>Fecha</h6>\n    <ion-item>\n      <ion-label stacked color="primary">Fecha de nacimiento</ion-label>\n      <ion-icon name="calendar"></ion-icon>\n      <ion-datetime display-format="MMM DD, YYYY HH:mm" cancelText="Cancelar" doneText="Aceptar"></ion-datetime>\n    </ion-item>\n    <h6>Lista desplegable</h6>\n    <ion-item>\n    <ion-label>Hair Color</ion-label>\n    <ion-select value="1" okText="Ok" cancelText="Cancelar">\n      <ion-option option value="1">Brown</ion-option>\n      <ion-option value="2">Blonde</ion-option>\n      <ion-option value="3">Black</ion-option>\n      <ion-option value="4">Red</ion-option>\n    </ion-select>\n  </ion-item>\n  </form>\n</ion-content>'/*ion-inline-end:"/home/paire/Documentos/github/appColibri/src/pages/formularios/formularios.html"*/,
-        }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavParams */]])
-    ], FormulariosPage);
-    return FormulariosPage;
-}());
-
-//# sourceMappingURL=formularios.js.map
-
 /***/ })
 
-},[202]);
+},[203]);
 //# sourceMappingURL=main.js.map

@@ -587,6 +587,10 @@ export class VirtualScroll {
      * @hidden
      */
     scrollUpdate(ev) {
+        // ensure no empty are processed
+        if (!ev) {
+            return;
+        }
         // set the scroll top from the scroll event
         this._data.scrollTop = ev.scrollTop;
         // there is a queue system so that we can

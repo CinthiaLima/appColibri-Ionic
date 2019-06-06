@@ -260,7 +260,10 @@ export class Config {
      * value turned out to be `NaN`. Fallback value defaults to `NaN`.
      */
     getNumber(key, fallbackValue = NaN) {
-        const val = parseFloat(this.get(key));
+        return this.parseNumber(this.get(key), fallbackValue);
+    }
+    parseNumber(value, fallbackValue = NaN) {
+        const val = parseFloat(value);
         return isNaN(val) ? fallbackValue : val;
     }
     /**

@@ -177,6 +177,7 @@ export declare class Config {
      * value turned out to be `NaN`. Fallback value defaults to `NaN`.
      */
     getNumber(key: string, fallbackValue?: number): number;
+    parseNumber(value: string, fallbackValue?: number): number;
     /**
      * @name set
      * @description

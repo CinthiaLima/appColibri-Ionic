@@ -274,7 +274,11 @@
          */
         Config.prototype.getNumber = function (key, fallbackValue) {
             if (fallbackValue === void 0) { fallbackValue = NaN; }
-            var val = parseFloat(this.get(key));
+            return this.parseNumber(this.get(key), fallbackValue);
+        };
+        Config.prototype.parseNumber = function (value, fallbackValue) {
+            if (fallbackValue === void 0) { fallbackValue = NaN; }
+            var val = parseFloat(value);
             return isNaN(val) ? fallbackValue : val;
         };
         /**

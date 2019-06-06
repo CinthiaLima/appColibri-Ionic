@@ -23,6 +23,7 @@
      */
     var PickerColumnCmp = (function () {
         function PickerColumnCmp(config, _plt, elementRef, _zone, _haptic, plt, domCtrl) {
+            this.config = config;
             this._plt = _plt;
             this.elementRef = elementRef;
             this._zone = _zone;
@@ -32,8 +33,6 @@
             this.startY = null;
             this.ionChange = new core_1.EventEmitter();
             this.events = new ui_event_manager_1.UIEventManager(plt);
-            this.rotateFactor = config.getNumber('pickerRotateFactor', 0);
-            this.scaleFactor = config.getNumber('pickerScaleFactor', 1);
             this.decelerateFunc = this.decelerate.bind(this);
             this.debouncer = domCtrl.debouncer();
         }
@@ -52,6 +51,19 @@
                 capture: true,
                 zone: false
             });
+            this.rotateFactor = this.config.getNumber('pickerRotateFactor', 0);
+            this.scaleFactor = this.config.getNumber('pickerScaleFactor', 1);
+            if (this.col.mode) {
+                var configMode = this.config.getModeConfig(this.col.mode);
+                var getRotateFactor = configMode.pickerRotateFactor;
+                var getScaleFactor = configMode.pickerScaleFactor;
+                if (getRotateFactor !== undefined) {
+                    this.rotateFactor = this.config.parseNumber(getRotateFactor, this.rotateFactor);
+                }
+                if (getScaleFactor !== undefined) {
+                    this.scaleFactor = this.config.parseNumber(getScaleFactor, this.scaleFactor);
+                }
+            }
         };
         PickerColumnCmp.prototype.ngOnDestroy = function () {
             this._plt.cancelRaf(this.rafId);

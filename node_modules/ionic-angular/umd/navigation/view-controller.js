@@ -77,7 +77,8 @@
             this.data = (data instanceof nav_params_1.NavParams ? data.data : (util_1.isPresent(data) ? data : {}));
             this._cssClass = rootCssClass;
             this._ts = Date.now();
-            window.addEventListener('orientationchange', this.handleOrientationChange.bind(this));
+            this._bindHandler = this.handleOrientationChange.bind(this);
+            window.addEventListener('orientationchange', this._bindHandler);
         }
         ViewController.prototype.handleOrientationChange = function () {
             if (this.getContent()) {
@@ -457,7 +458,7 @@
                     renderer.setElementAttribute(cmpEle, 'class', null);
                     renderer.setElementAttribute(cmpEle, 'style', null);
                 }
-                window.removeEventListener('orientationchange', this.handleOrientationChange.bind(this));
+                window.removeEventListener('orientationchange', this._bindHandler);
                 // completely destroy this component. boom.
                 this._cmp.destroy();
             }

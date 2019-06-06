@@ -42,6 +42,7 @@ export declare class ViewController {
     _state: number;
     _cssClass: string;
     _ts: number;
+    _bindHandler: any;
     /**
      * Observable to be subscribed to when the current component will become active
      * @returns {Observable} Returns an observable

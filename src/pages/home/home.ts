@@ -11,7 +11,4 @@ export class HomePage {
 
   }
 
-  verFormularios(){
-    this.navCtrl.parent.select(1);
-  }
 }

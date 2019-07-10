@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Formularios</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+    <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
+    <ion-list>
+      <ion-item text-wrap *ngFor="let formulario of formularios">
+        <h2>{{ formulario.titulo }}</h2>
+        <h4 class="descripcion">{{ formulario.descripcion }}</h4>
+        <div class="botonCompletar">
+        <button class="completar" ion-button round block item-botton icon-end color="green-dark">Completar
+          <ion-icon name="arrow-dropright-circle"></ion-icon>
+        </button>
+      </div>
+      </ion-item>
+
+       
+    </ion-list> 
+</ion-content>

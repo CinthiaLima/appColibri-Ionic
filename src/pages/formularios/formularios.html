@@ -10,16 +10,12 @@
 <ion-content padding>
     <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
     <ion-list>
-      <ion-item text-wrap *ngFor="let formulario of formularios">
-        <h2>{{ formulario.titulo }}</h2>
-        <h4 class="descripcion">{{ formulario.descripcion }}</h4>
-        <div class="botonCompletar">
-        <button class="completar" ion-button round block item-botton icon-end color="green-dark">Completar
+      <ion-item *ngFor="let formulario of formularios">
+        <h2 text-wrap>{{ formulario.titulo }}</h2>
+        <p class="descripcion" ion-text>{{ formulario.descripcion }}</p>
+        <button class="completar" ion-button round icon-end color="green-dark">Ver formulario
           <ion-icon name="arrow-dropright-circle"></ion-icon>
         </button>
-      </div>
       </ion-item>
-
-       
     </ion-list> 
 </ion-content>

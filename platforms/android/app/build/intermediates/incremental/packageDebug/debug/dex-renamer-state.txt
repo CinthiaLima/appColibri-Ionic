@@ -1,0 +1,4 @@
+#Wed Jul 10 17:33:43 ART 2019
+base.0=/home/paire/Documentos/github/appColibri-Ionic/platforms/android/app/build/intermediates/transforms/dexMerger/debug/0
+path.0=classes.dex
+renamed.0=classes.dex

@@ -5,10 +5,13 @@
     </button>
     <ion-title>Formularios</ion-title>
   </ion-navbar>
+  <ion-toolbar>
+    <ion-searchbar color="danger" animated = "true"  debounce="500" showCancelButton="always"></ion-searchbar>
+  </ion-toolbar>
 </ion-header>
 
+
 <ion-content padding>
-    <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
     <ion-list>
       <ion-item *ngFor="let formulario of formularios">
         <h2 text-wrap>{{ formulario.titulo }}</h2>

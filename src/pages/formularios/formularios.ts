@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import { HttpClient } from '@angular/common/http';
+import { ConectorProvider } from '../../providers/conector/conector'
 
 
 @Component({
@@ -9,16 +9,26 @@ import { HttpClient } from '@angular/common/http';
 })
 export class FormulariosPage {
   formularios : any;
-  recuperarFormuarios = "http://localhost/recuperar.formularios.php";
 
-  constructor(public navCtrl: NavController, private http:HttpClient) {
+  constructor(public navCtrl: NavController,private servicioConector:ConectorProvider) {
     this.getFormularios();
   }
 
+  
   getFormularios(){
-    this.http.get(this.recuperarFormuarios).subscribe((datosFormulario)=>{
-    this.formularios = datosFormulario;  
+    this.servicioConector.recuperarFormularios().subscribe((datosFormulario)=>{
+      this.formularios = datosFormulario;;  
     })
+  }
+
+  getFormulario(){
+
+  }
+
+  
+
+  getCampos(){
+    
   }
 
 

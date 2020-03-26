@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { ConectorProvider } from '../../providers/conector/conector'
+import { VerFormularioPage } from '../ver-formulario/ver-formulario';
 
 
 @Component({
@@ -17,19 +18,12 @@ export class FormulariosPage {
   
   getFormularios(){
     this.servicioConector.recuperarFormularios().subscribe((datosFormulario)=>{
-      this.formularios = datosFormulario;;  
+      this.formularios = datosFormulario;;
     })
   }
-
-  getFormulario(){
-
-  }
-
   
-
-  getCampos(){
-    
+  verFormulario(id: number, titulo: string, descripcion: string){
+    this.navCtrl.push(VerFormularioPage, {id: id, titulo: titulo, descripcion: descripcion});
   }
-
 
 }

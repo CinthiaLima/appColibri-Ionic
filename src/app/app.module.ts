@@ -5,6 +5,7 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { FormulariosPage } from '../pages/formularios/formularios';
 import { AboutPage } from '../pages/about/about';
+import { VerFormularioPage } from '../pages/ver-formulario/ver-formulario';
 import { HttpClientModule } from '@angular/common/http';
 
 import { StatusBar } from '@ionic-native/status-bar';
@@ -15,7 +16,8 @@ import { ConectorProvider } from '../providers/conector/conector';
   declarations: [
     MyApp,
     FormulariosPage,
-    AboutPage
+    AboutPage,
+    VerFormularioPage
   ],
   imports: [
     BrowserModule,
@@ -26,7 +28,8 @@ import { ConectorProvider } from '../providers/conector/conector';
   entryComponents: [
     MyApp,
     FormulariosPage,
-    AboutPage
+    AboutPage,
+    VerFormularioPage
     ],
   providers: [
     StatusBar,

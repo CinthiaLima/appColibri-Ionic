@@ -33416,3 +33416,7 @@ page-formularios .completar {
   width: 50%;
   float: right;
 }
+
+page-ver-formulario p.formulario-descripcion {
+  font-size: 15px;
+}

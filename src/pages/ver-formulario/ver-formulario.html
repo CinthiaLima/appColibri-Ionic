@@ -1,0 +1,22 @@
+
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>Viendo formulario</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <h4>{{ titulo }}</h4>
+  <ng-template [ngIf]="descripcion">
+    <p class="formulario-descripcion">{{ descripcion }}</p>
+  </ng-template>
+  <hr/>
+  <form>
+    <div ngFor="let campo of camposFormularioDecode">
+      <div [innerHtml]=campo></div>
+    </div>
+    <div id="camposForm"></div>
+    <button ion-button TYPE="submit">Enviar</button>
+  </form>
+  
+</ion-content>

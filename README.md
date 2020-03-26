@@ -1,6 +1,6 @@
 # Proyecto Colibrí
-Esta es la aplicación móvil del proyecto Colibrí, la cual permite completar y enviar formularios académicos de la Universidad Nacional de la Patagonia Austral (UNPA).
-El proyecto Colibrí busca digitalizar el proceso de rellenado de formularios que actualmente se lleva a cabo en la unidad académica de Río Gallegos de la Universidad Nacional de la Patagonia Austral así como también integrar la tarea de creación de nuevos formularios al futuro producto de software. **Repositorio de la aplicación Web:** https://github.com/arielmachini/Colibri
+Esta es la aplicación móvil del proyecto Colibrí, la cual permite completar y enviar formularios académicos de la Universidad Nacional de la Patagonia Austral (UNPA).<br/>
+El proyecto Colibrí busca digitalizar el proceso de rellenado de formularios que actualmente se lleva a cabo en la unidad académica de Río Gallegos de la Universidad Nacional de la Patagonia Austral así como también integrar la tarea de creación de nuevos formularios al futuro producto de software. **Repositorio de la aplicación web:** https://github.com/arielmachini/Colibri
 
 # Grupo de desarrollo
 El grupo de desarrollo (grupo **Paire**) está compuesto por dos integrantes.

@@ -32,7 +32,6 @@ export class ConectorProvider {
     }else{
       mes = ""+(fecha.getMonth()+1);
     }
-    console.log(Md5.hashStr(dia+mes+anio));
     return Md5.hashStr(dia+mes+anio);
   }
 
@@ -42,8 +41,8 @@ export class ConectorProvider {
   }
 
   recuperarCampos(id: number){
-    return this.http.get(this.host + "recuperar.campos.php?id="+ id + 
-    "&llave=" + this.llave + this.obtenerFechaCodificada());
+    return this.http.get(this.host + "recuperar.campos_alternativo.php?id="+ id + 
+    "&llave=" + this.llave + this.obtenerFechaCodificada());  
   }
 
 }

@@ -33420,3 +33420,11 @@ page-formularios .completar {
 page-ver-formulario p.formulario-descripcion {
   font-size: 15px;
 }
+
+page-ver-formulario p.campo-cabecera {
+  color: blue;
+}
+
+page-ver-formulario p.campo-descripcion {
+  color: gray;
+}

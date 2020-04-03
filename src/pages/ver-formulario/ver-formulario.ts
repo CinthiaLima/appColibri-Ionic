@@ -14,6 +14,7 @@ export class VerFormularioPage {
   descripcion: string;
   camposFormulario: any;
   camposFormularioDecode: any[100]=[];
+  tipo: string;
 
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private servicioConector: ConectorProvider) {
@@ -21,53 +22,11 @@ export class VerFormularioPage {
     this.titulo = navParams.get('titulo');
     this.descripcion = navParams.get('descripcion');
     this.getCampos(id);
-
   }
 
   getCampos(id: number){
-    this.servicioConector.recuperarCampos(id).subscribe((campos=>{
-     this.camposFormulario = campos;
-     this.camposFormulario.forEach(campo => {
-      this.camposFormularioDecode.push(this.decodeXtreme(campo));
-      document.getElementById("camposForm").innerHTML += this.decodeXtreme(campo);
-      console.log("> > > >   " + this.decodeXtreme(campo));
-    });
-     
-    }));
+    this.servicioConector.recuperarCampos(id).subscribe((campos)=> {
+      this.camposFormulario = campos;
+    })
   }
-  
-  arrayCampos(){
-    this.camposFormulario.forEach(campo => {
-      this.camposFormularioDecode.push(campo);
-    });
-  }
-
-  htmlDecode(input: string){
-    var e = document.createElement('div');
-    e.innerHTML = input;
-    return e.childNodes[0].nodeValue;
-  }
-
-  decodeXtreme(input: string) {
-    input = input.replace(/&gt;/g,">");
-    input = input.replace(/&lt;/g,"<");
-    input = input.replace(/&quot;/g,'"');
-    input = input.replace(/required="required"/g,'ng-required="true"');
-
-    return input;
-  }
-
-  decode(campos: string) {
-    console.log("HOLA ME LLAMARON - " + campos);
-    return campos.replace(/[<>'"]/g, function(m) {
-      return '&' + {
-        '\'': 'apos',
-        '"': 'quot',
-        '&': 'amp',
-        '<': 'lt',
-        '>': 'gt',
-      }[m] + ';';
-    });
-  }
-
 }

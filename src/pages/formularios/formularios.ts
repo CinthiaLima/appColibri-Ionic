@@ -18,7 +18,7 @@ export class FormulariosPage {
   
   getFormularios(){
     this.servicioConector.recuperarFormularios().subscribe((datosFormulario)=>{
-      this.formularios = datosFormulario;;
+      this.formularios = datosFormulario;
     })
   }
   

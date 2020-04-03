@@ -33,48 +33,13 @@ var VerFormularioPage = /** @class */ (function () {
     }
     VerFormularioPage.prototype.getCampos = function (id) {
         var _this = this;
-        this.servicioConector.recuperarCampos(id).subscribe((function (campos) {
+        this.servicioConector.recuperarCampos(id).subscribe(function (campos) {
             _this.camposFormulario = campos;
-            _this.camposFormulario.forEach(function (campo) {
-                _this.camposFormularioDecode.push(_this.decodeXtreme(campo));
-                document.getElementById("camposForm").innerHTML += _this.decodeXtreme(campo);
-                console.log("> > > >   " + _this.decodeXtreme(campo));
-            });
-        }));
-    };
-    VerFormularioPage.prototype.arrayCampos = function () {
-        var _this = this;
-        this.camposFormulario.forEach(function (campo) {
-            _this.camposFormularioDecode.push(campo);
-        });
-    };
-    VerFormularioPage.prototype.htmlDecode = function (input) {
-        var e = document.createElement('div');
-        e.innerHTML = input;
-        return e.childNodes[0].nodeValue;
-    };
-    VerFormularioPage.prototype.decodeXtreme = function (input) {
-        input = input.replace(/&gt;/g, ">");
-        input = input.replace(/&lt;/g, "<");
-        input = input.replace(/&quot;/g, '"');
-        input = input.replace(/required="required"/g, 'ng-required="true"');
-        return input;
-    };
-    VerFormularioPage.prototype.decode = function (campos) {
-        console.log("HOLA ME LLAMARON - " + campos);
-        return campos.replace(/[<>'"]/g, function (m) {
-            return '&' + {
-                '\'': 'apos',
-                '"': 'quot',
-                '&': 'amp',
-                '<': 'lt',
-                '>': 'gt',
-            }[m] + ';';
         });
     };
     VerFormularioPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-ver-formulario',template:/*ion-inline-start:"/home/paire/Documentos/github/appColibri-Ionic/src/pages/ver-formulario/ver-formulario.html"*/'\n<ion-header>\n  <ion-navbar color="primary">\n    <ion-title>Viendo formulario</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n  <h4>{{ titulo }}</h4>\n  <ng-template [ngIf]="descripcion">\n    <p class="formulario-descripcion">{{ descripcion }}</p>\n  </ng-template>\n  <hr/>\n  <form>\n    <div ngFor="let campo of camposFormularioDecode">\n      <div [innerHtml]=campo></div>\n    </div>\n    <div id="camposForm"></div>\n    <button ion-button TYPE="submit">Enviar</button>\n  </form>\n  \n</ion-content>'/*ion-inline-end:"/home/paire/Documentos/github/appColibri-Ionic/src/pages/ver-formulario/ver-formulario.html"*/,
+            selector: 'page-ver-formulario',template:/*ion-inline-start:"/home/paire/Documentos/github/appColibri-Ionic/src/pages/ver-formulario/ver-formulario.html"*/'\n<ion-header>\n  <ion-navbar color="primary">\n    <ion-title>Viendo formulario</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n  <h4>{{ titulo }}</h4>\n  <ng-template [ngIf]="descripcion">\n    <p class="formulario-descripcion">{{ descripcion }}</p>\n  </ng-template>\n  <hr/>\n\n  <form>\n    <div *ngFor ="let campo of camposFormulario">\n      <p class="campo-cabecera" *ngIf="campo.esObligatorio == \'true\'">{{ campo.titulo }}\n          <span style="color: red; font-weight: bold;">*</span>\n      </p>\n      <p class="campo-cabecera" *ngIf="campo.esObligatorio == \'false\'">{{ campo.titulo }}</p>\n      <p class="campo-descripcion">{{ campo.descripcion }}</p> \n\n      <ion-list [ngSwitch]="campo.tipo">\n        \n        <ion-item *ngSwitchCase="\'campo_texto\'">\n          <ion-input name="nombre_{{campo.titulo.split(\' \').join(\'_\')}}" ngModel required="{{campo.esObligatorio}}" placeholder="{{campo.pista}}" type="{{campo.subtipo}}" min=0></ion-input>\n        </ion-item>\n        \n        <ion-item *ngSwitchCase= "\'area_texto\'">\n          <ion-textarea name="nombre_{{campo.titulo.split(\' \').join(\'_\')}}" maxlength="{{campo.limiteCaracteres}" required="{{campo.esObligatorio}}" ngModel></ion-textarea>\n        </ion-item>\n        \n        <ion-item *ngSwitchCase="\'lista_desplegable\'">\n            <ion-label>Elija una opción</ion-label>\n            <ion-select cancelText="Cancelar" name="nombre_{{campo.titulo.split(\' \').join(\'_\')}}" ngModel okText="Aceptar" required="{{campo.esObligatorio}}">\n              <ion-option *ngFor="let opcion of campo.opciones" value="{{opcion}}">{{opcion}}</ion-option>\n            </ion-select>\n        </ion-item>\n        \n        <ion-list radio-group *ngSwitchCase="\'lista_boton_radio\'" required="{{ campo.esObligatorio }}" name="nombre_{{campo.titulo.split(\' \').join(\'_\')}}" ngModel>\n          <ion-item *ngFor="let opcion of campo.opciones">\n            <ion-label>{{ opcion }}</ion-label>\n            <ion-radio value="{{opcion}}"></ion-radio>\n          </ion-item>\n        </ion-list>\n\n        <ion-list *ngSwitchCase="\'lista_checkbox\'">\n          <ion-item *ngFor="let opcion of campo.opciones">\n            <ion-label>{{ opcion }}</ion-label>\n            <ion-checkbox value="opcion" required="{{ campo.esObligatorio }}" name="nombre_{{campo.titulo.split(\' \').join(\'_\')}}" ngModel></ion-checkbox>\n          </ion-item>\n        </ion-list>\n\n        <ion-item *ngSwitchCase="\'fecha\'">\n          <ion-datetime name="nombre_{{campo.titulo.split(\' \').join(\'_\')}}" cancelText="Cancelar" displayFormat="DD/MM/YYYY" doneText="Aceptar" placeholder="Toque aquí para elegir una fecha" required="{{campo.esObligatorio}}" ngModel></ion-datetime>\n        </ion-item>\n      </ion-list>\n  </div>\n    <button ion-button type="submit">Enviar</button>\n  </form>\n  \n</ion-content>'/*ion-inline-end:"/home/paire/Documentos/github/appColibri-Ionic/src/pages/ver-formulario/ver-formulario.html"*/,
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2__providers_conector_conector__["a" /* ConectorProvider */]])
     ], VerFormularioPage);
@@ -159,7 +124,6 @@ var FormulariosPage = /** @class */ (function () {
         var _this = this;
         this.servicioConector.recuperarFormularios().subscribe(function (datosFormulario) {
             _this.formularios = datosFormulario;
-            ;
         });
     };
     FormulariosPage.prototype.verFormulario = function (id, titulo, descripcion) {
@@ -442,7 +406,6 @@ var ConectorProvider = /** @class */ (function () {
         else {
             mes = "" + (fecha.getMonth() + 1);
         }
-        console.log(__WEBPACK_IMPORTED_MODULE_2_ts_md5_dist_md5__["Md5"].hashStr(dia + mes + anio));
         return __WEBPACK_IMPORTED_MODULE_2_ts_md5_dist_md5__["Md5"].hashStr(dia + mes + anio);
     };
     ConectorProvider.prototype.recuperarFormularios = function () {
@@ -450,7 +413,7 @@ var ConectorProvider = /** @class */ (function () {
             "?llave=" + this.llave + this.obtenerFechaCodificada());
     };
     ConectorProvider.prototype.recuperarCampos = function (id) {
-        return this.http.get(this.host + "recuperar.campos.php?id=" + id +
+        return this.http.get(this.host + "recuperar.campos_alternativo.php?id=" + id +
             "&llave=" + this.llave + this.obtenerFechaCodificada());
     };
     ConectorProvider = __decorate([

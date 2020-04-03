@@ -11,12 +11,52 @@
     <p class="formulario-descripcion">{{ descripcion }}</p>
   </ng-template>
   <hr/>
+
   <form>
-    <div ngFor="let campo of camposFormularioDecode">
-      <div [innerHtml]=campo></div>
-    </div>
-    <div id="camposForm"></div>
-    <button ion-button TYPE="submit">Enviar</button>
+    <div *ngFor ="let campo of camposFormulario">
+      <p class="campo-cabecera" *ngIf="campo.esObligatorio == 'true'">{{ campo.titulo }}
+          <span style="color: red; font-weight: bold;">*</span>
+      </p>
+      <p class="campo-cabecera" *ngIf="campo.esObligatorio == 'false'">{{ campo.titulo }}</p>
+      <p class="campo-descripcion">{{ campo.descripcion }}</p> 
+
+      <ion-list [ngSwitch]="campo.tipo">
+        
+        <ion-item *ngSwitchCase="'campo_texto'">
+          <ion-input name="nombre_{{campo.titulo.split(' ').join('_')}}" ngModel required="{{campo.esObligatorio}}" placeholder="{{campo.pista}}" type="{{campo.subtipo}}" min=0></ion-input>
+        </ion-item>
+        
+        <ion-item *ngSwitchCase= "'area_texto'">
+          <ion-textarea name="nombre_{{campo.titulo.split(' ').join('_')}}" maxlength="{{campo.limiteCaracteres}" required="{{campo.esObligatorio}}" ngModel></ion-textarea>
+        </ion-item>
+        
+        <ion-item *ngSwitchCase="'lista_desplegable'">
+            <ion-label>Elija una opción</ion-label>
+            <ion-select cancelText="Cancelar" name="nombre_{{campo.titulo.split(' ').join('_')}}" ngModel okText="Aceptar" required="{{campo.esObligatorio}}">
+              <ion-option *ngFor="let opcion of campo.opciones" value="{{opcion}}">{{opcion}}</ion-option>
+            </ion-select>
+        </ion-item>
+        
+        <ion-list radio-group *ngSwitchCase="'lista_boton_radio'" required="{{ campo.esObligatorio }}" name="nombre_{{campo.titulo.split(' ').join('_')}}" ngModel>
+          <ion-item *ngFor="let opcion of campo.opciones">
+            <ion-label>{{ opcion }}</ion-label>
+            <ion-radio value="{{opcion}}"></ion-radio>
+          </ion-item>
+        </ion-list>
+
+        <ion-list *ngSwitchCase="'lista_checkbox'">
+          <ion-item *ngFor="let opcion of campo.opciones">
+            <ion-label>{{ opcion }}</ion-label>
+            <ion-checkbox value="opcion" required="{{ campo.esObligatorio }}" name="nombre_{{campo.titulo.split(' ').join('_')}}" ngModel></ion-checkbox>
+          </ion-item>
+        </ion-list>
+
+        <ion-item *ngSwitchCase="'fecha'">
+          <ion-datetime name="nombre_{{campo.titulo.split(' ').join('_')}}" cancelText="Cancelar" displayFormat="DD/MM/YYYY" doneText="Aceptar" placeholder="Toque aquí para elegir una fecha" required="{{campo.esObligatorio}}" ngModel></ion-datetime>
+        </ion-item>
+      </ion-list>
+  </div>
+    <button ion-button type="submit">Enviar</button>
   </form>
   
 </ion-content>

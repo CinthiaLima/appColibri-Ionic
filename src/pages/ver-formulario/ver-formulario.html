@@ -12,8 +12,8 @@
   </ng-template>
   <hr/>
 
-  <form>
-    <div *ngFor ="let campo of camposFormulario">
+  <form #formularioForm="ngForm" (ngSubmit) = "logForm(formularioForm.value)">
+    <div *ngFor ="let campo of camposFormulario; let i=index">
       <p class="campo-cabecera" *ngIf="campo.esObligatorio == 'true'">{{ campo.titulo }}
           <span style="color: red; font-weight: bold;">*</span>
       </p>
@@ -23,7 +23,7 @@
       <ion-list [ngSwitch]="campo.tipo">
         
         <ion-item *ngSwitchCase="'campo_texto'">
-          <ion-input name="nombre_{{campo.titulo.split(' ').join('_')}}" ngModel required="{{campo.esObligatorio}}" placeholder="{{campo.pista}}" type="{{campo.subtipo}}" min=0></ion-input>
+          <ion-input ngModel="campo.tipo" name="nombre_{{campo.titulo.split(' ').join('_')}}" ngModel required="{{campo.esObligatorio}}" placeholder="{{campo.pista}}" type="{{campo.subtipo}}" min=0></ion-input>
         </ion-item>
         
         <ion-item *ngSwitchCase= "'area_texto'">
@@ -47,7 +47,7 @@
         <ion-list *ngSwitchCase="'lista_checkbox'">
           <ion-item *ngFor="let opcion of campo.opciones">
             <ion-label>{{ opcion }}</ion-label>
-            <ion-checkbox value="opcion" required="{{ campo.esObligatorio }}" name="nombre_{{campo.titulo.split(' ').join('_')}}" ngModel></ion-checkbox>
+            <ion-checkbox ngModel="{{opcion}}" name="nombre_{{campo.titulo.split(' ').join('_')}}" ngModel></ion-checkbox>
           </ion-item>
         </ion-list>
 

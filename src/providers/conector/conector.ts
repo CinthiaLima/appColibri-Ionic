@@ -45,4 +45,8 @@ export class ConectorProvider {
     "&llave=" + this.llave + this.obtenerFechaCodificada());  
   }
 
+  enviarRespuesta(respuesta:any){
+    return this.http.post(this.host + "ionicPost.php", JSON.stringify(respuesta));
+  }
+
 }

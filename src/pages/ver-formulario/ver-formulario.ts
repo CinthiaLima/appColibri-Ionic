@@ -13,8 +13,8 @@ export class VerFormularioPage {
   titulo: string;
   descripcion: string;
   camposFormulario: any;
-  camposFormularioDecode: any[100]=[];
-  tipo: string;
+  respuesta: any = {};
+  campo_texto: any;
 
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private servicioConector: ConectorProvider) {
@@ -27,6 +27,17 @@ export class VerFormularioPage {
   getCampos(id: number){
     this.servicioConector.recuperarCampos(id).subscribe((campos)=> {
       this.camposFormulario = campos;
+    })
+  }
+
+  logForm(formValue: any){
+    console.log("entrooo");
+   // console.log(formValue);
+    this.servicioConector.enviarRespuesta(formValue).subscribe(datos=>{
+      console.log(datos);
+    },
+    (err)=>{
+      console.log(err)
     })
   }
 }

@@ -33422,9 +33422,5 @@ page-ver-formulario p.formulario-descripcion {
 }
 
 page-ver-formulario p.campo-cabecera {
-  color: blue;
-}
-
-page-ver-formulario p.campo-descripcion {
-  color: gray;
+  font-weight: bold;
 }

@@ -7,8 +7,9 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class ConectorProvider {
 
-  host: string = "http://localhost/ionic/";
-  //host: string = "http://172.16.8.16/ionic/";
+  host: string = "http://172.16.8.102/ionic/";
+  //host: string = "http://172.16.8.16/ionic/"; Compu ariel
+  
   private llave: string = "8c8b6c186ad4940044533c4303a0ab5c";
 
   constructor(public http: HttpClient) {

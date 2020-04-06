@@ -11,9 +11,19 @@
     <p class="formulario-descripcion">{{ descripcion }}</p>
   </ng-template>
   <hr/>
-
   <form #formularioForm="ngForm" (ngSubmit) = "logForm(formularioForm.value)">
-    <div *ngFor ="let campo of camposFormulario; let i=index">
+
+    <ion-list>
+      <ion-item>
+        <ion-input type="number" [(ngModel)]="campo" name="fielderffd" #fieldf="ngModel" [min]="0" [max]="21"></ion-input>
+        </ion-item>
+        <ion-item>
+          <p item-content *ngIf="fieldf.errors?.min">El numero ingresado no es válido</p>
+          <p item-content *ngIf="fieldf.errors?.max">El numero ingresado no es válido</p>
+      </ion-item>
+    </ion-list>
+    
+    <div *ngFor ="let campo of camposFormulario">
       <p class="campo-cabecera" *ngIf="campo.esObligatorio == 'true'">{{ campo.titulo }}
           <span style="color: red; font-weight: bold;">*</span>
       </p>
@@ -21,42 +31,49 @@
       <p class="campo-descripcion">{{ campo.descripcion }}</p> 
 
       <ion-list [ngSwitch]="campo.tipo">
-        
-        <ion-item *ngSwitchCase="'campo_texto'">
-          <ion-input ngModel="campo.tipo" name="nombre_{{campo.titulo.split(' ').join('_')}}" ngModel required="{{campo.esObligatorio}}" placeholder="{{campo.pista}}" type="{{campo.subtipo}}" min=0></ion-input>
+      <!-- Campo de texto (texto, numerico, email)--> 
+      <ion-list *ngSwitchCase="'campo_texto'">
+        <ion-item>
+          <ion-input *ngIf= "campo.subtipo == 'number'" [(ngModel)]="campo.tipo" #campoNumerico="ngModel" name="{{campo.titulo.split(' ').join('_')}}" required="{{campo.esObligatorio}}" placeholder="{{campo.pista}}" type="{{campo.subtipo}}" [min]=0></ion-input>
+          <ion-input *ngIf= "campo.subtipo != 'number'" (ngModel)="campo.tipo" name="{{campo.titulo.split(' ').join('_')}}" required="{{campo.esObligatorio}}" placeholder="{{campo.pista}}" type="{{campo.subtipo}}"></ion-input>         
         </ion-item>
+        <ion-item>
+          <p item-content *ngIf="campoNumerico?.errors?.min">El numero ingresado no es válido</p>
+        </ion-item>
+      </ion-list>
         
+        
+        <!-- Area de texto -->
         <ion-item *ngSwitchCase= "'area_texto'">
-          <ion-textarea name="nombre_{{campo.titulo.split(' ').join('_')}}" maxlength="{{campo.limiteCaracteres}" required="{{campo.esObligatorio}}" ngModel></ion-textarea>
-        </ion-item>
-        
+          <ion-textarea ngModel="campo.tipo" name="{{campo.titulo.split(' ').join('_')}}" maxlength="{{campo.limiteCaracteres}" required="{{campo.esObligatorio}}" ngModel></ion-textarea>
+        </ion-item>     
+        <!-- Lista desplegable -->
         <ion-item *ngSwitchCase="'lista_desplegable'">
             <ion-label>Elija una opción</ion-label>
-            <ion-select cancelText="Cancelar" name="nombre_{{campo.titulo.split(' ').join('_')}}" ngModel okText="Aceptar" required="{{campo.esObligatorio}}">
+            <ion-select ngModel="campo.tipo" cancelText="Cancelar" name="{{campo.titulo.split(' ').join('_')}}" ngModel okText="Aceptar" required="{{campo.esObligatorio}}">
               <ion-option *ngFor="let opcion of campo.opciones" value="{{opcion}}">{{opcion}}</ion-option>
             </ion-select>
-        </ion-item>
-        
-        <ion-list radio-group *ngSwitchCase="'lista_boton_radio'" required="{{ campo.esObligatorio }}" name="nombre_{{campo.titulo.split(' ').join('_')}}" ngModel>
+        </ion-item>      
+        <!-- Lista radio-button -->
+        <ion-list radio-group *ngSwitchCase="'lista_boton_radio'" required="{{ campo.esObligatorio }}" name="{{campo.titulo.split(' ').join('_')}}" ngModel>
           <ion-item *ngFor="let opcion of campo.opciones">
             <ion-label>{{ opcion }}</ion-label>
             <ion-radio value="{{opcion}}"></ion-radio>
           </ion-item>
         </ion-list>
-
+        <!-- Lista checkbox -->
         <ion-list *ngSwitchCase="'lista_checkbox'">
           <ion-item *ngFor="let opcion of campo.opciones">
             <ion-label>{{ opcion }}</ion-label>
-            <ion-checkbox ngModel="{{opcion}}" name="nombre_{{campo.titulo.split(' ').join('_')}}" ngModel></ion-checkbox>
+            <ion-checkbox ngModel="{{opcion}}" name="{{campo.titulo.split(' ').join('_')}}" ngModel></ion-checkbox>
           </ion-item>
         </ion-list>
-
+        <!-- Fecha -->
         <ion-item *ngSwitchCase="'fecha'">
-          <ion-datetime name="nombre_{{campo.titulo.split(' ').join('_')}}" cancelText="Cancelar" displayFormat="DD/MM/YYYY" doneText="Aceptar" placeholder="Toque aquí para elegir una fecha" required="{{campo.esObligatorio}}" ngModel></ion-datetime>
+          <ion-datetime name="{{campo.titulo.split(' ').join('_')}}" cancelText="Cancelar" displayFormat="DD/MM/YYYY" doneText="Aceptar" placeholder="Toque aquí para elegir una fecha" required="{{campo.esObligatorio}}" ngModel></ion-datetime>
         </ion-item>
       </ion-list>
   </div>
-    <button ion-button type="submit">Enviar</button>
+    <button ion-button type="submit" click="enviarFormulario()">Enviar</button>
   </form>
-  
 </ion-content>

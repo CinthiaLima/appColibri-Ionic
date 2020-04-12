@@ -11,69 +11,71 @@
     <p class="formulario-descripcion">{{ descripcion }}</p>
   </ng-template>
   <hr/>
-  <form #formularioForm="ngForm" (ngSubmit) = "logForm(formularioForm.value)">
-
-    <ion-list>
-      <ion-item>
-        <ion-input type="number" [(ngModel)]="campo" name="fielderffd" #fieldf="ngModel" [min]="0" [max]="21"></ion-input>
-        </ion-item>
-        <ion-item>
-          <p item-content *ngIf="fieldf.errors?.min">El numero ingresado no es válido</p>
-          <p item-content *ngIf="fieldf.errors?.max">El numero ingresado no es válido</p>
+  <form [formGroup]="miform" (ngSubmit) = "logForm1()">
+    <p>Campo de prueba</p>
+    <ion-item>
+      <ion-input ngModel type="number" formControlName="campoPrueba"></ion-input>
+    </ion-item>
+    <ng-container *ngFor="let error of errorMessages.campoPrueba">
+    <ng-container>
+      <ion-item *ngIf="miform.get('campoPrueba').hasError(error.type)">
+        <p item-content> {{error.message}} </p>
       </ion-item>
-    </ion-list>
+    </ng-container>
     
-    <div *ngFor ="let campo of camposFormulario">
+    </ng-container>    
+      
+    <!--<div *ngFor ="let campo of camposFormulario">
       <p class="campo-cabecera" *ngIf="campo.esObligatorio == 'true'">{{ campo.titulo }}
           <span style="color: red; font-weight: bold;">*</span>
       </p>
       <p class="campo-cabecera" *ngIf="campo.esObligatorio == 'false'">{{ campo.titulo }}</p>
-      <p class="campo-descripcion">{{ campo.descripcion }}</p> 
+      <p class="campo-descripcion">{{ campo.descripcion }}</p>
 
-      <ion-list [ngSwitch]="campo.tipo">
+      <div [ngSwitch]="campo.tipo"> -->
       <!-- Campo de texto (texto, numerico, email)--> 
-      <ion-list *ngSwitchCase="'campo_texto'">
+    <!--  <ion-list *ngSwitchCase="'campo_texto'">
         <ion-item>
-          <ion-input *ngIf= "campo.subtipo == 'number'" [(ngModel)]="campo.tipo" #campoNumerico="ngModel" name="{{campo.titulo.split(' ').join('_')}}" required="{{campo.esObligatorio}}" placeholder="{{campo.pista}}" type="{{campo.subtipo}}" [min]=0></ion-input>
-          <ion-input *ngIf= "campo.subtipo != 'number'" (ngModel)="campo.tipo" name="{{campo.titulo.split(' ').join('_')}}" required="{{campo.esObligatorio}}" placeholder="{{campo.pista}}" type="{{campo.subtipo}}"></ion-input>         
+          <ion-input *ngIf= "campo.subtipo == 'number'" (ngModel)="campo.titulo" #camponumerico="ngModel" name="{{campo.titulo.split(' ').join('_')}}" required="{{campo.esObligatorio}}" placeholder="{{campo.pista}}" type="{{campo.subtipo}}" [min]="0"></ion-input>
+          <ion-input *ngIf= "campo.subtipo != 'number'" (ngModel)="campo.tipo" name="{{campo.titulo.split(' ').join('_')}}" required="{{campo.esObligatorio}}" placeholder="{{campo.pista}}" type="{{campo.subtipo}}"></ion-input>
         </ion-item>
         <ion-item>
-          <p item-content *ngIf="campoNumerico?.errors?.min">El numero ingresado no es válido</p>
+          <p *ngIf="camponumerico?.errors?.min" item-content>El numero ingresado no es válido</p>
         </ion-item>
-      </ion-list>
+      </ion-list> -->
         
         
         <!-- Area de texto -->
-        <ion-item *ngSwitchCase= "'area_texto'">
+      <!--  <ion-item *ngSwitchCase= "'area_texto'">
           <ion-textarea ngModel="campo.tipo" name="{{campo.titulo.split(' ').join('_')}}" maxlength="{{campo.limiteCaracteres}" required="{{campo.esObligatorio}}" ngModel></ion-textarea>
-        </ion-item>     
+        </ion-item> -->    
         <!-- Lista desplegable -->
-        <ion-item *ngSwitchCase="'lista_desplegable'">
+      <!--  <ion-item *ngSwitchCase="'lista_desplegable'">
             <ion-label>Elija una opción</ion-label>
             <ion-select ngModel="campo.tipo" cancelText="Cancelar" name="{{campo.titulo.split(' ').join('_')}}" ngModel okText="Aceptar" required="{{campo.esObligatorio}}">
               <ion-option *ngFor="let opcion of campo.opciones" value="{{opcion}}">{{opcion}}</ion-option>
             </ion-select>
-        </ion-item>      
+        </ion-item> -->     
         <!-- Lista radio-button -->
-        <ion-list radio-group *ngSwitchCase="'lista_boton_radio'" required="{{ campo.esObligatorio }}" name="{{campo.titulo.split(' ').join('_')}}" ngModel>
+        <!--<ion-list radio-group *ngSwitchCase="'lista_boton_radio'" required="{{ campo.esObligatorio }}" name="{{campo.titulo.split(' ').join('_')}}" ngModel>
           <ion-item *ngFor="let opcion of campo.opciones">
             <ion-label>{{ opcion }}</ion-label>
             <ion-radio value="{{opcion}}"></ion-radio>
           </ion-item>
-        </ion-list>
+        </ion-list> -->
         <!-- Lista checkbox -->
-        <ion-list *ngSwitchCase="'lista_checkbox'">
+        <!--<ion-list *ngSwitchCase="'lista_checkbox'">
           <ion-item *ngFor="let opcion of campo.opciones">
             <ion-label>{{ opcion }}</ion-label>
             <ion-checkbox ngModel="{{opcion}}" name="{{campo.titulo.split(' ').join('_')}}" ngModel></ion-checkbox>
           </ion-item>
-        </ion-list>
+        </ion-list> -->
         <!-- Fecha -->
-        <ion-item *ngSwitchCase="'fecha'">
+        <!--<ion-item *ngSwitchCase="'fecha'">
           <ion-datetime name="{{campo.titulo.split(' ').join('_')}}" cancelText="Cancelar" displayFormat="DD/MM/YYYY" doneText="Aceptar" placeholder="Toque aquí para elegir una fecha" required="{{campo.esObligatorio}}" ngModel></ion-datetime>
         </ion-item>
-      </ion-list>
-  </div>
-    <button ion-button type="submit" click="enviarFormulario()">Enviar</button>
+      </div>
+    </div> -->
+    <button disable="!miform.valid" ion-button type="submit" click="enviarFormulario()">Enviar</button>
   </form>
 </ion-content>

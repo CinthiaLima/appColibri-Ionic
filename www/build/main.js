@@ -8,6 +8,8 @@ webpackJsonp([1],{
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(39);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_conector_conector__ = __webpack_require__(94);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_forms__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_forms___ = __webpack_require__(3);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -20,17 +22,30 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
+
 var VerFormularioPage = /** @class */ (function () {
-    function VerFormularioPage(navCtrl, navParams, servicioConector) {
+    function VerFormularioPage(navCtrl, navParams, servicioConector, formBuilder) {
         this.navCtrl = navCtrl;
         this.navParams = navParams;
         this.servicioConector = servicioConector;
+        this.formBuilder = formBuilder;
         this.camposFormulario = [];
         this.respuesta = {};
+        this.errorMessages = {
+            campoPrueba: [
+                { type: 'min', message: 'Número invalido' },
+                { type: 'required', message: 'Este campo es obligatorio' },
+                { type: 'pattern', message: 'Este campo solo admite números' },
+                { type: 'nullValidator', message: 'Este campo solo admite números' }
+            ]
+        };
         var id = navParams.get('id');
         this.titulo = navParams.get('titulo');
         this.descripcion = navParams.get('descripcion');
         this.getCampos(id);
+        this.miform = this.formBuilder.group({});
+        this.miform.addControl('campoPrueba', new __WEBPACK_IMPORTED_MODULE_3__angular_forms__["FormControl"]('', [__WEBPACK_IMPORTED_MODULE_3__angular_forms__["Validators"].required, __WEBPACK_IMPORTED_MODULE_3__angular_forms__["Validators"].min(0), __WEBPACK_IMPORTED_MODULE_3__angular_forms__["Validators"].nullValidator]));
     }
     VerFormularioPage.prototype.getCampos = function (id) {
         var _this = this;
@@ -58,13 +73,22 @@ var VerFormularioPage = /** @class */ (function () {
           })
         }*/
     };
+    VerFormularioPage.prototype.logForm1 = function () {
+        if (this.miform.valid) {
+            console.log("OK");
+        }
+        else {
+            console.log("Los datos no son válidos");
+        }
+    };
     VerFormularioPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-            selector: 'page-ver-formulario',template:/*ion-inline-start:"/home/paire/Documentos/github/appColibri-Ionic/src/pages/ver-formulario/ver-formulario.html"*/'\n<ion-header>\n  <ion-navbar color="primary">\n    <ion-title>Viendo formulario</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n  <h4>{{ titulo }}</h4>\n  <ng-template [ngIf]="descripcion">\n    <p class="formulario-descripcion">{{ descripcion }}</p>\n  </ng-template>\n  <hr/>\n  <form #formularioForm="ngForm" (ngSubmit) = "logForm(formularioForm.value)">\n\n    <ion-list>\n      <ion-item>\n        <ion-input type="number" [(ngModel)]="campo" name="fielderffd" #fieldf="ngModel" [min]="0" [max]="21"></ion-input>\n        </ion-item>\n        <ion-item>\n          <p item-content *ngIf="fieldf.errors?.min">El numero ingresado no es válido</p>\n          <p item-content *ngIf="fieldf.errors?.max">El numero ingresado no es válido</p>\n      </ion-item>\n    </ion-list>\n    \n    <div *ngFor ="let campo of camposFormulario">\n      <p class="campo-cabecera" *ngIf="campo.esObligatorio == \'true\'">{{ campo.titulo }}\n          <span style="color: red; font-weight: bold;">*</span>\n      </p>\n      <p class="campo-cabecera" *ngIf="campo.esObligatorio == \'false\'">{{ campo.titulo }}</p>\n      <p class="campo-descripcion">{{ campo.descripcion }}</p> \n\n      <ion-list [ngSwitch]="campo.tipo">\n      <!-- Campo de texto (texto, numerico, email)--> \n      <ion-list *ngSwitchCase="\'campo_texto\'">\n        <ion-item>\n          <ion-input *ngIf= "campo.subtipo == \'number\'" [(ngModel)]="campo.tipo" #campoNumerico="ngModel" name="{{campo.titulo.split(\' \').join(\'_\')}}" required="{{campo.esObligatorio}}" placeholder="{{campo.pista}}" type="{{campo.subtipo}}" [min]=0></ion-input>\n          <ion-input *ngIf= "campo.subtipo != \'number\'" (ngModel)="campo.tipo" name="{{campo.titulo.split(\' \').join(\'_\')}}" required="{{campo.esObligatorio}}" placeholder="{{campo.pista}}" type="{{campo.subtipo}}"></ion-input>         \n        </ion-item>\n        <ion-item>\n          <p item-content *ngIf="campoNumerico?.errors?.min">El numero ingresado no es válido</p>\n        </ion-item>\n      </ion-list>\n        \n        \n        <!-- Area de texto -->\n        <ion-item *ngSwitchCase= "\'area_texto\'">\n          <ion-textarea ngModel="campo.tipo" name="{{campo.titulo.split(\' \').join(\'_\')}}" maxlength="{{campo.limiteCaracteres}" required="{{campo.esObligatorio}}" ngModel></ion-textarea>\n        </ion-item>     \n        <!-- Lista desplegable -->\n        <ion-item *ngSwitchCase="\'lista_desplegable\'">\n            <ion-label>Elija una opción</ion-label>\n            <ion-select ngModel="campo.tipo" cancelText="Cancelar" name="{{campo.titulo.split(\' \').join(\'_\')}}" ngModel okText="Aceptar" required="{{campo.esObligatorio}}">\n              <ion-option *ngFor="let opcion of campo.opciones" value="{{opcion}}">{{opcion}}</ion-option>\n            </ion-select>\n        </ion-item>      \n        <!-- Lista radio-button -->\n        <ion-list radio-group *ngSwitchCase="\'lista_boton_radio\'" required="{{ campo.esObligatorio }}" name="{{campo.titulo.split(\' \').join(\'_\')}}" ngModel>\n          <ion-item *ngFor="let opcion of campo.opciones">\n            <ion-label>{{ opcion }}</ion-label>\n            <ion-radio value="{{opcion}}"></ion-radio>\n          </ion-item>\n        </ion-list>\n        <!-- Lista checkbox -->\n        <ion-list *ngSwitchCase="\'lista_checkbox\'">\n          <ion-item *ngFor="let opcion of campo.opciones">\n            <ion-label>{{ opcion }}</ion-label>\n            <ion-checkbox ngModel="{{opcion}}" name="{{campo.titulo.split(\' \').join(\'_\')}}" ngModel></ion-checkbox>\n          </ion-item>\n        </ion-list>\n        <!-- Fecha -->\n        <ion-item *ngSwitchCase="\'fecha\'">\n          <ion-datetime name="{{campo.titulo.split(\' \').join(\'_\')}}" cancelText="Cancelar" displayFormat="DD/MM/YYYY" doneText="Aceptar" placeholder="Toque aquí para elegir una fecha" required="{{campo.esObligatorio}}" ngModel></ion-datetime>\n        </ion-item>\n      </ion-list>\n  </div>\n    <button ion-button type="submit" click="enviarFormulario()">Enviar</button>\n  </form>\n</ion-content>'/*ion-inline-end:"/home/paire/Documentos/github/appColibri-Ionic/src/pages/ver-formulario/ver-formulario.html"*/,
+            selector: 'page-ver-formulario',template:/*ion-inline-start:"/home/paire/Documentos/github/appColibri-Ionic/src/pages/ver-formulario/ver-formulario.html"*/'\n<ion-header>\n  <ion-navbar color="primary">\n    <ion-title>Viendo formulario</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n  <h4>{{ titulo }}</h4>\n  <ng-template [ngIf]="descripcion">\n    <p class="formulario-descripcion">{{ descripcion }}</p>\n  </ng-template>\n  <hr/>\n  <form [formGroup]="miform" (ngSubmit) = "logForm1()">\n    <p>Campo de prueba</p>\n    <ion-item>\n      <ion-input ngModel type="number" formControlName="campoPrueba"></ion-input>\n    </ion-item>\n    <ng-container *ngFor="let error of errorMessages.campoPrueba">\n    <ng-container>\n      <ion-item *ngIf="miform.get(\'campoPrueba\').hasError(error.type)">\n        <p item-content> {{error.message}} </p>\n      </ion-item>\n    </ng-container>\n    \n    </ng-container>    \n      \n    <!--<div *ngFor ="let campo of camposFormulario">\n      <p class="campo-cabecera" *ngIf="campo.esObligatorio == \'true\'">{{ campo.titulo }}\n          <span style="color: red; font-weight: bold;">*</span>\n      </p>\n      <p class="campo-cabecera" *ngIf="campo.esObligatorio == \'false\'">{{ campo.titulo }}</p>\n      <p class="campo-descripcion">{{ campo.descripcion }}</p>\n\n      <div [ngSwitch]="campo.tipo"> -->\n      <!-- Campo de texto (texto, numerico, email)--> \n    <!--  <ion-list *ngSwitchCase="\'campo_texto\'">\n        <ion-item>\n          <ion-input *ngIf= "campo.subtipo == \'number\'" (ngModel)="campo.titulo" #camponumerico="ngModel" name="{{campo.titulo.split(\' \').join(\'_\')}}" required="{{campo.esObligatorio}}" placeholder="{{campo.pista}}" type="{{campo.subtipo}}" [min]="0"></ion-input>\n          <ion-input *ngIf= "campo.subtipo != \'number\'" (ngModel)="campo.tipo" name="{{campo.titulo.split(\' \').join(\'_\')}}" required="{{campo.esObligatorio}}" placeholder="{{campo.pista}}" type="{{campo.subtipo}}"></ion-input>\n        </ion-item>\n        <ion-item>\n          <p *ngIf="camponumerico?.errors?.min" item-content>El numero ingresado no es válido</p>\n        </ion-item>\n      </ion-list> -->\n        \n        \n        <!-- Area de texto -->\n      <!--  <ion-item *ngSwitchCase= "\'area_texto\'">\n          <ion-textarea ngModel="campo.tipo" name="{{campo.titulo.split(\' \').join(\'_\')}}" maxlength="{{campo.limiteCaracteres}" required="{{campo.esObligatorio}}" ngModel></ion-textarea>\n        </ion-item> -->    \n        <!-- Lista desplegable -->\n      <!--  <ion-item *ngSwitchCase="\'lista_desplegable\'">\n            <ion-label>Elija una opción</ion-label>\n            <ion-select ngModel="campo.tipo" cancelText="Cancelar" name="{{campo.titulo.split(\' \').join(\'_\')}}" ngModel okText="Aceptar" required="{{campo.esObligatorio}}">\n              <ion-option *ngFor="let opcion of campo.opciones" value="{{opcion}}">{{opcion}}</ion-option>\n            </ion-select>\n        </ion-item> -->     \n        <!-- Lista radio-button -->\n        <!--<ion-list radio-group *ngSwitchCase="\'lista_boton_radio\'" required="{{ campo.esObligatorio }}" name="{{campo.titulo.split(\' \').join(\'_\')}}" ngModel>\n          <ion-item *ngFor="let opcion of campo.opciones">\n            <ion-label>{{ opcion }}</ion-label>\n            <ion-radio value="{{opcion}}"></ion-radio>\n          </ion-item>\n        </ion-list> -->\n        <!-- Lista checkbox -->\n        <!--<ion-list *ngSwitchCase="\'lista_checkbox\'">\n          <ion-item *ngFor="let opcion of campo.opciones">\n            <ion-label>{{ opcion }}</ion-label>\n            <ion-checkbox ngModel="{{opcion}}" name="{{campo.titulo.split(\' \').join(\'_\')}}" ngModel></ion-checkbox>\n          </ion-item>\n        </ion-list> -->\n        <!-- Fecha -->\n        <!--<ion-item *ngSwitchCase="\'fecha\'">\n          <ion-datetime name="{{campo.titulo.split(\' \').join(\'_\')}}" cancelText="Cancelar" displayFormat="DD/MM/YYYY" doneText="Aceptar" placeholder="Toque aquí para elegir una fecha" required="{{campo.esObligatorio}}" ngModel></ion-datetime>\n        </ion-item>\n      </div>\n    </div> -->\n    <button disable="!miform.valid" ion-button type="submit" click="enviarFormulario()">Enviar</button>\n  </form>\n</ion-content>'/*ion-inline-end:"/home/paire/Documentos/github/appColibri-Ionic/src/pages/ver-formulario/ver-formulario.html"*/,
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2__providers_conector_conector__["a" /* ConectorProvider */]])
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavParams */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__providers_conector_conector__["a" /* ConectorProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__providers_conector_conector__["a" /* ConectorProvider */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_4__angular_forms___["FormBuilder"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__angular_forms___["FormBuilder"]) === "function" && _d || Object])
     ], VerFormularioPage);
     return VerFormularioPage;
+    var _a, _b, _c, _d;
 }());
 
 //# sourceMappingURL=ver-formulario.js.map

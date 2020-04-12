@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ConectorProvider } from '../../providers/conector/conector';
+import { FormGroup, Validators, FormControl } from '@angular/forms';
+import { FormBuilder } from '@angular/forms/'
 
 
 @IonicPage()
@@ -9,7 +11,7 @@ import { ConectorProvider } from '../../providers/conector/conector';
   templateUrl: 'ver-formulario.html',
 })
 export class VerFormularioPage {
-
+  miform: FormGroup;
   formulario: any;
   titulo: string;
   descripcion: string;
@@ -17,12 +19,24 @@ export class VerFormularioPage {
   respuesta: any = {};
   campo_texto: any;
 
+  public errorMessages = {
+    campoPrueba: [
+      {type: 'min', message: 'Número invalido'},
+      {type: 'required', message: 'Este campo es obligatorio'},
+      {type: 'pattern', message: 'Este campo solo admite números'},
+      {type: 'nullValidator', message: 'Este campo solo admite números'}
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private servicioConector: ConectorProvider) {
+    ]
+  }
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, private servicioConector: ConectorProvider, public formBuilder: FormBuilder) {
+    
     let id = navParams.get('id');
     this.titulo = navParams.get('titulo');
     this.descripcion = navParams.get('descripcion');
     this.getCampos(id);
+    this.miform = this.formBuilder.group({ });
+    this.miform.addControl('campoPrueba', new FormControl('',[Validators.required, Validators.min(0), Validators.nullValidator]));
   }
 
   getCampos(id: number){
@@ -50,5 +64,12 @@ export class VerFormularioPage {
         console.log(err)
       })  
     }*/
+  }
+  logForm1(){
+    if(this.miform.valid){
+      console.log("OK");
+    }else{
+      console.log("Los datos no son válidos");
+    }
   }
 }

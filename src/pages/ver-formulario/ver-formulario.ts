@@ -11,21 +11,26 @@ import { FormBuilder } from '@angular/forms/'
   templateUrl: 'ver-formulario.html',
 })
 export class VerFormularioPage {
-  miform: FormGroup;
-  formulario: any;
+  formulario: FormGroup;
+//  formulario: any;
   titulo: string;
   descripcion: string;
   camposFormulario: any = [];
   respuesta: any = {};
+  errorMessages2: any = [];
   campo_texto: any;
 
   public errorMessages = {
     campoPrueba: [
       {type: 'min', message: 'Número invalido'},
-      {type: 'required', message: 'Este campo es obligatorio'},
-      {type: 'pattern', message: 'Este campo solo admite números'},
-      {type: 'nullValidator', message: 'Este campo solo admite números'}
-
+      {type: 'required', message: 'Este campo es obligatorio'}
+    ],
+    DNI: [
+      {type: 'min', message: 'Número invalido'},
+      {type: 'required', message: 'Este campo es obligatorio'}
+    ],
+    Nombre: [
+      {type: 'required', message: 'Es campo es obligatorio'}
     ]
   }
 
@@ -35,19 +40,76 @@ export class VerFormularioPage {
     this.titulo = navParams.get('titulo');
     this.descripcion = navParams.get('descripcion');
     this.getCampos(id);
-    this.miform = this.formBuilder.group({ });
-    this.miform.addControl('campoPrueba', new FormControl('',[Validators.required, Validators.min(0), Validators.nullValidator]));
+    this.formulario = this.formBuilder.group({ });   
+    this.formulario.addControl('campoPrueba', new FormControl('',[Validators.required, Validators.min(0)]));
+    this.errorMessages2.push({campoPrueba: [{"type": 'min', "message": "Número invalido"}, {"type": 'required', "message": "d"}]});
+    
+    //this.errorMessages2.campoPrueba = [];
+    //this.errorMessages2.campoPrueba.push({"type": 'required', "message": "d"});
+    //this.errorMessages2.campoPrueba.push({"type": 'min', "message": "Número invalido"});
+    console.log(this.errorMessages2);
+    console.log(this.errorMessages);
+
+    //this.formulario.addControl('dni', new FormControl('',[Validators.required, Validators.min(0)]));
   }
 
   getCampos(id: number){
-    this.servicioConector.recuperarCampos(id).subscribe((campos)=> {
+    this.servicioConector.recuperarCampos(id).subscribe((campos: any) => {
       this.camposFormulario = campos;
+
+
+      campos.forEach(campo => {
+        console.log("entro al for");
+        this.setValidacionesCampo(campo);
+      });
+  
     })
   }
 
-  logForm(formValue:any){
-    console.log("entrooo");
-    console.log(formValue);
+  setValidacionesCampo(campo: any){
+    switch(campo.tipo){
+      case 'campo_texto':
+        {
+          switch(campo.subtipo){
+            case 'number':{
+              let validaciones: any;
+              validaciones = [Validators.min(0)];
+              if(campo.esObligatorio == 'true'){
+                validaciones = [Validators.min(0), Validators.required];
+              }
+              this.formulario.addControl(campo.titulo, new FormControl('',validaciones));
+              this.errorMessages
+              break;
+            }
+            case 'text':{
+              let validaciones: any;
+              if(campo.esObligatorio == 'true'){
+                validaciones = [Validators.required]
+              }
+              this.formulario.addControl(campo.titulo, new FormControl('',validaciones));
+              break;
+            }
+            case 'email':{
+              
+              break;
+            }
+          }
+          break;
+        }
+      
+      default:
+        {
+          break;
+        } 
+    }
+
+
+  }
+
+
+  //logForm1(formValue:any){
+    //console.log("entrooo");
+    //console.log(formValue);
     /*let camposObligatorios = 0;
     this.camposFormulario.array.forEach(campo => {
       if(campo.esObligatorio == "true" && formValue[campo.titulo] == ("" ||[])){
@@ -64,10 +126,14 @@ export class VerFormularioPage {
         console.log(err)
       })  
     }*/
-  }
-  logForm1(){
-    if(this.miform.valid){
+  //}
+  logForm(){
+
+ //   console.log("campo prueba"+this.formulario.controls['campoPrueba'].value)
+    if(this.formulario.valid){
       console.log("OK");
+      console.log(this.formulario.value);
+
     }else{
       console.log("Los datos no son válidos");
     }

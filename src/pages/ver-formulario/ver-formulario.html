@@ -7,42 +7,38 @@
 
 <ion-content padding>
   <h4>{{ titulo }}</h4>
-  <ng-template [ngIf]="descripcion">
-    <p class="formulario-descripcion">{{ descripcion }}</p>
-  </ng-template>
+  <p *ngIf="descripcion != ''" class="formulario-descripcion">{{ descripcion }}</p>
   <hr/>
-  <form [formGroup]="miform" (ngSubmit) = "logForm1()">
+  <form [formGroup]="formulario" (ngSubmit) = "logForm()">
     <p>Campo de prueba</p>
     <ion-item>
       <ion-input ngModel type="number" formControlName="campoPrueba"></ion-input>
     </ion-item>
-    <ng-container *ngFor="let error of errorMessages.campoPrueba">
-    <ng-container>
-      <ion-item *ngIf="miform.get('campoPrueba').hasError(error.type)">
-        <p item-content> {{error.message}} </p>
-      </ion-item>
-    </ng-container>
-    
-    </ng-container>    
+    <ng-container *ngFor="let error of errorMessages2.campoPrueba">
+        <ion-item *ngIf="formulario.get('campoPrueba').hasError(error.type)">
+          <p item-content> {{error.message}} </p>
+        </ion-item>
+    </ng-container>  
       
-    <!--<div *ngFor ="let campo of camposFormulario">
+    <ng-container *ngFor ="let campo of camposFormulario">
       <p class="campo-cabecera" *ngIf="campo.esObligatorio == 'true'">{{ campo.titulo }}
           <span style="color: red; font-weight: bold;">*</span>
       </p>
       <p class="campo-cabecera" *ngIf="campo.esObligatorio == 'false'">{{ campo.titulo }}</p>
       <p class="campo-descripcion">{{ campo.descripcion }}</p>
 
-      <div [ngSwitch]="campo.tipo"> -->
+      <ng-container [ngSwitch]="campo.tipo">
       <!-- Campo de texto (texto, numerico, email)--> 
-    <!--  <ion-list *ngSwitchCase="'campo_texto'">
-        <ion-item>
-          <ion-input *ngIf= "campo.subtipo == 'number'" (ngModel)="campo.titulo" #camponumerico="ngModel" name="{{campo.titulo.split(' ').join('_')}}" required="{{campo.esObligatorio}}" placeholder="{{campo.pista}}" type="{{campo.subtipo}}" [min]="0"></ion-input>
-          <ion-input *ngIf= "campo.subtipo != 'number'" (ngModel)="campo.tipo" name="{{campo.titulo.split(' ').join('_')}}" required="{{campo.esObligatorio}}" placeholder="{{campo.pista}}" type="{{campo.subtipo}}"></ion-input>
-        </ion-item>
-        <ion-item>
-          <p *ngIf="camponumerico?.errors?.min" item-content>El numero ingresado no es válido</p>
-        </ion-item>
-      </ion-list> -->
+        <ng-container *ngSwitchCase="'campo_texto'">
+          <ion-item>
+            <ion-input formControlName="{{campo.titulo.split(' ').join('_')}}" placeholder="{{campo.pista}}" type="{{campo.subtipo}}"></ion-input>
+          </ion-item>
+          <ng-container *ngFor="let error of errorMessages[campo.titulo.split(' ').join('_')]" >
+            <ion-item *ngIf="formulario.get(campo.titulo.split(' ').join('_')).hasError(error.type)">
+              <p item-content > {{error.message}} </p>
+            </ion-item>
+          </ng-container>
+      </ng-container> 
         
         
         <!-- Area de texto -->
@@ -73,9 +69,9 @@
         <!-- Fecha -->
         <!--<ion-item *ngSwitchCase="'fecha'">
           <ion-datetime name="{{campo.titulo.split(' ').join('_')}}" cancelText="Cancelar" displayFormat="DD/MM/YYYY" doneText="Aceptar" placeholder="Toque aquí para elegir una fecha" required="{{campo.esObligatorio}}" ngModel></ion-datetime>
-        </ion-item>
-      </div>
-    </div> -->
-    <button disable="!miform.valid" ion-button type="submit" click="enviarFormulario()">Enviar</button>
+        </ion-item> -->
+      </ng-container>
+    </ng-container>
+    <button disable="!formulario.valid" ion-button type="submit" click="enviarFormulario()">Enviar</button>
   </form>
 </ion-content>

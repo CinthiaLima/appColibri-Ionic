@@ -4,7 +4,6 @@ import { ConectorProvider } from '../../providers/conector/conector';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { FormBuilder } from '@angular/forms/'
 
-
 @IonicPage()
 @Component({
   selector: 'page-ver-formulario',
@@ -12,27 +11,12 @@ import { FormBuilder } from '@angular/forms/'
 })
 export class VerFormularioPage {
   formulario: FormGroup;
-//  formulario: any;
   titulo: string;
   descripcion: string;
   camposFormulario: any = [];
   respuesta: any = {};
-  errorMessages2: any = [];
+  public mensajesdeError = {};
   campo_texto: any;
-
-  public errorMessages = {
-    campoPrueba: [
-      {type: 'min', message: 'Número invalido'},
-      {type: 'required', message: 'Este campo es obligatorio'}
-    ],
-    DNI: [
-      {type: 'min', message: 'Número invalido'},
-      {type: 'required', message: 'Este campo es obligatorio'}
-    ],
-    Nombre: [
-      {type: 'required', message: 'Es campo es obligatorio'}
-    ]
-  }
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private servicioConector: ConectorProvider, public formBuilder: FormBuilder) {
     
@@ -42,70 +26,100 @@ export class VerFormularioPage {
     this.getCampos(id);
     this.formulario = this.formBuilder.group({ });   
     this.formulario.addControl('campoPrueba', new FormControl('',[Validators.required, Validators.min(0)]));
-    this.errorMessages2.push({campoPrueba: [{"type": 'min', "message": "Número invalido"}, {"type": 'required', "message": "d"}]});
-    
-    //this.errorMessages2.campoPrueba = [];
-    //this.errorMessages2.campoPrueba.push({"type": 'required', "message": "d"});
-    //this.errorMessages2.campoPrueba.push({"type": 'min', "message": "Número invalido"});
-    console.log(this.errorMessages2);
-    console.log(this.errorMessages);
+    let validation1 = {"tipo": "required", "mensaje": "d"};
+    let validation2 = {"tipo": "min", "mensaje": "Número invalido"};
+    let obj =[validation1, validation2];
+    this.mensajesdeError['campoPrueba'] = obj;     
+    //console.log(this.mensajesdeError);
 
-    //this.formulario.addControl('dni', new FormControl('',[Validators.required, Validators.min(0)]));
+
   }
 
-  getCampos(id: number){
+  private getCampos(id: number){
     this.servicioConector.recuperarCampos(id).subscribe((campos: any) => {
       this.camposFormulario = campos;
-
-
       campos.forEach(campo => {
-        console.log("entro al for");
         this.setValidacionesCampo(campo);
-      });
-  
+      });  
     })
   }
 
-  setValidacionesCampo(campo: any){
+  private setValidacionesCampo(campo: any){
     switch(campo.tipo){
       case 'campo_texto':
-        {
-          switch(campo.subtipo){
-            case 'number':{
-              let validaciones: any;
-              validaciones = [Validators.min(0)];
-              if(campo.esObligatorio == 'true'){
-                validaciones = [Validators.min(0), Validators.required];
-              }
-              this.formulario.addControl(campo.titulo, new FormControl('',validaciones));
-              this.errorMessages
-              break;
-            }
-            case 'text':{
-              let validaciones: any;
-              if(campo.esObligatorio == 'true'){
-                validaciones = [Validators.required]
-              }
-              this.formulario.addControl(campo.titulo, new FormControl('',validaciones));
-              break;
-            }
-            case 'email':{
-              
-              break;
-            }
-          }
-          break;
+      {   
+        this.setValidacionesCampoTexto(campo);
+        break;
+      }
+      case 'area_texto':
+      {
+        let mensajesError: any;
+        let mensajeErrorLimite = {"tipo": "requiredLength", "mensaje": "limite"};
+        let mensajeErrorRequired = {"tipo": "required", "mensaje": "Este campo es obligatorio"};
+
+        let validaciones = [Validators.maxLength(campo.limiteCaracteres)];
+        mensajesError = mensajeErrorLimite;
+        if(campo.esObligatorio == 'true'){
+          validaciones = [Validators.maxLength(8), Validators.required];
+          mensajesError = mensajeErrorLimite, mensajeErrorRequired;
         }
-      
+        this.formulario.addControl(campo.titulo.split(" ").join("_"), new FormControl('', validaciones));
+        this.mensajesdeError[campo.titulo.split(" ").join("_")] = [mensajesError];
+        break;
+      }
       default:
         {
           break;
         } 
     }
-
-
+    console.log(this.mensajesdeError);
   }
 
+  private setValidacionesCampoTexto(campoTexto: any){
+    let mensajeErrorRequired = {"tipo": "required", "mensaje": "Este campo es obligatorio"};
+    let mensajesError: any;
+    let validaciones: any = null;
+    switch(campoTexto.subtipo){
+      case 'number':
+      {
+        let mensajeErrorMin = {"tipo": 'min', "mensaje": "Número invalido"};        
+        validaciones = Validators.min(0);
+        mensajesError = mensajeErrorMin;
+        if(campoTexto.esObligatorio == 'true'){
+          validaciones = [Validators.min(0), Validators.required];
+          mensajesError = [mensajeErrorMin, mensajeErrorRequired];
+        }
+        this.formulario.addControl(campoTexto.titulo.split(" ").join("_"), new FormControl('', validaciones));
+        this.mensajesdeError[campoTexto.titulo.split(" ").join("_")] = mensajesError;
+        break;
+      }
+      case 'text':
+      {
+        if(campoTexto.esObligatorio == 'true'){
+          validaciones = [Validators.required];
+          this.formulario.addControl(campoTexto.titulo.split(" ").join("_"), new FormControl('', validaciones));
+          this.mensajesdeError[campoTexto.titulo.split(" ").join("_")] = [mensajeErrorRequired];
+        }else{
+          this.formulario.addControl(campoTexto.titulo.split(" ").join("_"), new FormControl(''));
+        }
+        break;
+      }
+      case 'email':
+      {
+        validaciones = [Validators.email];
+        let mensajeErrorMail: any;
+        mensajeErrorMail = {"tipo": "email", "mensaje": "Escriba un correo electronico en el formato aaaa@aaaaa.aaa"};
+        mensajesError = mensajeErrorMail;
+        if(campoTexto.esObligatorio == 'true'){
+          validaciones = [Validators.email, Validators.required];
+          mensajesError = mensajeErrorMail, mensajeErrorRequired;
+        }
+        this.formulario.addControl(campoTexto.titulo.split(" ").join("_"), new FormControl('', validaciones));
+        this.mensajesdeError[campoTexto.titulo.split(" ").join("_")] = [mensajesError];
+        break;
+      }
+    }
+  }
 
   //logForm1(formValue:any){
     //console.log("entrooo");

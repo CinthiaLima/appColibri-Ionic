@@ -14,7 +14,7 @@
     <ion-item>
       <ion-input ngModel type="number" formControlName="campoPrueba"></ion-input>
     </ion-item>
-    <ng-container *ngIf="!!mensajesdeError.campoPrueba != 'false'">
+    <ng-container *ngIf="mensajesdeError.hasOwnProperty('campoPrueba') == 'true'">
     <ng-container *ngFor="let error of mensajesdeError.campoPrueba">
         <ion-item *ngIf="formulario.get('campoPrueba').hasError(error.tipo) && formulario.get('campoPrueba').touched">
           <p item-content> {{ error.mensaje }} </p>
@@ -31,28 +31,28 @@
 
       <ng-container [ngSwitch]="campo.tipo">
       <!-- Campo de texto (texto, numerico, email)--> 
-        <ng-container *ngSwitchCase="'campo_texto'">
+      <ng-container *ngSwitchCase="'campo_texto'">
           <ion-item>
             <ion-input formControlName="{{campo.titulo.split(' ').join('_')}}" placeholder="{{campo.pista}}" type="{{campo.subtipo}}"></ion-input>
           </ion-item>
-          <ng-container *ngIf="mensajesdeError.hasOwnProperty(campo.titulo.split(' ').join('_')) == 'true'">
           <ng-container *ngFor="let error of mensajesdeError[campo.titulo.split(' ').join('_')]">
             <ion-item *ngIf="formulario.get(campo.titulo.split(' ').join('_')).hasError(error.tipo) && formulario.get(campo.titulo.split(' ').join('_')).touched">
               <p item-content> {{error.mensaje}} </p>
             </ion-item>
           </ng-container>
         </ng-container>
-      </ng-container>
-        <!-- Area de texto -->
-        <ion-item *ngSwitchCase= "'area_texto'">
-          <ion-textarea formControlName="{{campo.titulo.split(' ').join('_')}}" rows="3"></ion-textarea>
-        </ion-item>
+      <!-- Area de texto -->
+      <ng-container *ngSwitchCase= "'area_texto'">
+        <ion-item>
+          <ion-textarea formControlName="{{campo.titulo.split(' ').join('_')}}" rows="3" maxlength="{{campo.limiteCaracteres}}"></ion-textarea>
+        </ion-item>       
         <ng-container *ngFor="let error of mensajesdeError[campo.titulo.split(' ').join('_')]">
           <ion-item *ngIf="formulario.get(campo.titulo.split(' ').join('_')).hasError(error.tipo) && formulario.get(campo.titulo.split(' ').join('_')).touched">
-            <p item-content> {{error.mensaje}} </p>
+            <p item-content> {{ error.mensaje }} </p>
           </ion-item>
         </ng-container>
-        <!-- Lista desplegable -->
+      </ng-container>
+                <!-- Lista desplegable -->
       <!--  <ion-item *ngSwitchCase="'lista_desplegable'">
             <ion-label>Elija una opción</ion-label>
             <ion-select ngModel="campo.tipo" cancelText="Cancelar" name="{{campo.titulo.split(' ').join('_')}}" ngModel okText="Aceptar" required="{{campo.esObligatorio}}">

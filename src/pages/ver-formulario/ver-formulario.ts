@@ -15,7 +15,7 @@ export class VerFormularioPage {
   descripcion: string;
   camposFormulario: any = [];
   respuesta: any = {};
-  public mensajesdeError = {};
+  mensajesdeError = {};
   campo_texto: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private servicioConector: ConectorProvider, public formBuilder: FormBuilder) {
@@ -30,7 +30,7 @@ export class VerFormularioPage {
     let validation2 = {"tipo": "min", "mensaje": "Número invalido"};
     let obj =[validation1, validation2];
     this.mensajesdeError['campoPrueba'] = obj;     
-    //console.log(this.mensajesdeError);
+    console.log(this.mensajesdeError);
 
 
   }
@@ -53,18 +53,17 @@ export class VerFormularioPage {
       }
       case 'area_texto':
       {
-        let mensajesError: any;
-        let mensajeErrorLimite = {"tipo": "requiredLength", "mensaje": "limite"};
+        console.log("aaaarea texto");
+        console.log(campo.limiteCaracteres);
         let mensajeErrorRequired = {"tipo": "required", "mensaje": "Este campo es obligatorio"};
-
-        let validaciones = [Validators.maxLength(campo.limiteCaracteres)];
-        mensajesError = mensajeErrorLimite;
+        let validaciones = null;
         if(campo.esObligatorio == 'true'){
-          validaciones = [Validators.maxLength(8), Validators.required];
-          mensajesError = mensajeErrorLimite, mensajeErrorRequired;
+          validaciones = [Validators.required];
+          this.formulario.addControl(campo.titulo.split(" ").join("_"), new FormControl('', validaciones));
+          this.mensajesdeError[campo.titulo.split(" ").join("_")] = [mensajeErrorRequired];  
+        }else{
+          this.formulario.addControl(campo.titulo.split(" ").join("_"), new FormControl(''));
         }
-        this.formulario.addControl(campo.titulo.split(" ").join("_"), new FormControl('', validaciones));
-        this.mensajesdeError[campo.titulo.split(" ").join("_")] = [mensajesError];
         break;
       }
       default:
@@ -77,14 +76,14 @@ export class VerFormularioPage {
 
   private setValidacionesCampoTexto(campoTexto: any){
     let mensajeErrorRequired = {"tipo": "required", "mensaje": "Este campo es obligatorio"};
-    let mensajesError: any;
-    let validaciones: any = null;
+    let mensajesError = null;
+    let validaciones = null;
     switch(campoTexto.subtipo){
       case 'number':
       {
-        let mensajeErrorMin = {"tipo": 'min', "mensaje": "Número invalido"};        
-        validaciones = Validators.min(0);
-        mensajesError = mensajeErrorMin;
+        let mensajeErrorMin = {"tipo": 'min', "mensaje": "El número ingresado debe ser mayor 0."};    
+        mensajesError = [mensajeErrorMin];
+        validaciones = [Validators.min(0)];
         if(campoTexto.esObligatorio == 'true'){
           validaciones = [Validators.min(0), Validators.required];
           mensajesError = [mensajeErrorMin, mensajeErrorRequired];
@@ -106,16 +105,15 @@ export class VerFormularioPage {
       }
       case 'email':
       {
+        let mensajeErrorMail = {"tipo": "email", "mensaje": "Escriba un correo electronico en el formato aaaa@aaaaa.aaa"};
         validaciones = [Validators.email];
-        let mensajeErrorMail: any;
-        mensajeErrorMail = {"tipo": "email", "mensaje": "Escriba un correo electronico en el formato aaaa@aaaaa.aaa"};
-        mensajesError = mensajeErrorMail;
+        mensajesError = [mensajeErrorMail];
         if(campoTexto.esObligatorio == 'true'){
           validaciones = [Validators.email, Validators.required];
-          mensajesError = mensajeErrorMail, mensajeErrorRequired;
+          mensajesError = [mensajeErrorMail, mensajeErrorRequired];
         }
         this.formulario.addControl(campoTexto.titulo.split(" ").join("_"), new FormControl('', validaciones));
-        this.mensajesdeError[campoTexto.titulo.split(" ").join("_")] = [mensajesError];
+        this.mensajesdeError[campoTexto.titulo.split(" ").join("_")] = mensajesError;
         break;
       }
     }

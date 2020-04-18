@@ -24,13 +24,13 @@ export class VerFormularioPage {
     this.titulo = navParams.get('titulo');
     this.descripcion = navParams.get('descripcion');
     this.getCampos(id);
-    this.formulario = this.formBuilder.group({ });   
-    this.formulario.addControl('campoPrueba', new FormControl('',[Validators.required, Validators.min(0)]));
-    let validation1 = {"tipo": "required", "mensaje": "d"};
-    let validation2 = {"tipo": "min", "mensaje": "Número invalido"};
-    let obj =[validation1, validation2];
-    this.mensajesdeError['campoPrueba'] = obj;     
-    console.log(this.mensajesdeError);
+    this.formulario = this.formBuilder.group({ });
+    //this.formulario.addControl('campoPrueba', new FormControl('',[Validators.required, Validators.min(0)]));
+    //let validation1 = {"tipo": "required", "mensaje": "d"};
+    //let validation2 = {"tipo": "min", "mensaje": "Número invalido"};
+    //let obj =[validation1, validation2];
+    //this.mensajesdeError['campoPrueba'] = obj;     
+    //console.log(this.mensajesdeError);
 
 
   }
@@ -54,9 +54,6 @@ export class VerFormularioPage {
       }
       case 'area_texto':
       {
-        console.log("aaaarea texto");
-        console.log(campo.limiteCaracteres);
-        
         let validaciones = null;
         if(campo.esObligatorio == "true"){
           validaciones = [Validators.required];
@@ -73,13 +70,19 @@ export class VerFormularioPage {
           this.formulario.addControl(campo.titulo.split(" ").join("_"), new FormControl('', Validators.required));
           this.mensajesdeError[campo.titulo.split(" ").join("_")] = [mensajeErrorRequired];  
         }else{
-          this.formulario.addControl(campo.titulo.split(" ").join("_"), new FormControl(''))
+          this.formulario.addControl(campo.titulo.split(" ").join("_"), new FormControl(''));
         }
       }
-      default:
-        {
-          break;
-        } 
+      case 'lista_boton_radio':
+      {
+        if(campo.esObligatorio == "true"){
+          this.formulario.addControl(campo.titulo.split(" ").join("_"), new FormControl('', Validators.required));
+          this.mensajesdeError[campo.titulo.split(" ").join("_")] = [mensajeErrorRequired];
+        }else{
+          this.formulario.addControl(campo.titulo.split(" ").join("_"), new FormControl(''));
+        }
+        break;
+      }
     }
     console.log(this.mensajesdeError);
   }

@@ -45,6 +45,7 @@ export class VerFormularioPage {
   }
 
   private setValidacionesCampo(campo: any){
+  let mensajeErrorRequired = {"tipo": "required", "mensaje": "Este campo es obligatorio"};
     switch(campo.tipo){
       case 'campo_texto':
       {   
@@ -55,9 +56,9 @@ export class VerFormularioPage {
       {
         console.log("aaaarea texto");
         console.log(campo.limiteCaracteres);
-        let mensajeErrorRequired = {"tipo": "required", "mensaje": "Este campo es obligatorio"};
+        
         let validaciones = null;
-        if(campo.esObligatorio == 'true'){
+        if(campo.esObligatorio == "true"){
           validaciones = [Validators.required];
           this.formulario.addControl(campo.titulo.split(" ").join("_"), new FormControl('', validaciones));
           this.mensajesdeError[campo.titulo.split(" ").join("_")] = [mensajeErrorRequired];  
@@ -65,6 +66,15 @@ export class VerFormularioPage {
           this.formulario.addControl(campo.titulo.split(" ").join("_"), new FormControl(''));
         }
         break;
+      }
+      case 'lista_desplegable':
+      {
+        if(campo.esObligatorio == "true"){
+          this.formulario.addControl(campo.titulo.split(" ").join("_"), new FormControl('', Validators.required));
+          this.mensajesdeError[campo.titulo.split(" ").join("_")] = [mensajeErrorRequired];  
+        }else{
+          this.formulario.addControl(campo.titulo.split(" ").join("_"), new FormControl(''))
+        }
       }
       default:
         {

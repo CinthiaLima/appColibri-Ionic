@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ConectorProvider } from '../../providers/conector/conector';
-import { FormGroup, Validators, FormControl } from '@angular/forms';
+import { FormGroup, Validators, FormControl} from '@angular/forms';
 import { FormBuilder } from '@angular/forms/'
 
 @IonicPage()
@@ -11,12 +11,14 @@ import { FormBuilder } from '@angular/forms/'
 })
 export class VerFormularioPage {
   formulario: FormGroup;
+  opcionesCheck: FormGroup;
+  opcionesArray = [];
   titulo: string;
   descripcion: string;
   camposFormulario: any = [];
   respuesta: any = {};
   mensajesdeError = {};
-  campo_texto: any;
+
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private servicioConector: ConectorProvider, public formBuilder: FormBuilder) {
     
@@ -83,8 +85,57 @@ export class VerFormularioPage {
         }
         break;
       }
+      case 'lista_checkbox':
+      {
+        //Inicialización de las opciones de la lista_checkbox
+        this.opcionesCheck = this.formBuilder.group({});
+        campo.opciones.forEach((opcion: any) =>{
+          this.opcionesCheck.addControl(opcion, new FormControl('false'));
+        })
+        console.log(this.opcionesCheck.value);
+
+        this.formulario.addControl(campo.titulo.split(" ").join("_"), this.formBuilder.array([]));
+        break;
+      }
+      case 'fecha':
+      {
+        if(campo.esObligatorio == "true"){
+          this.formulario.addControl(campo.titulo.split(" ").join("_"), new FormControl('', Validators.required));
+          this.mensajesdeError[campo.titulo.split(" ").join("_")] = [mensajeErrorRequired];
+        }else{
+          this.formulario.addControl(campo.titulo.split(" ").join("_"), new FormControl(''));
+        }
+        break;
+      }
     }
     console.log(this.mensajesdeError);
+  }
+
+  opcionSeleccionada(campo: any,opcion: any, evento: any){
+    if(evento.value){
+      this.opcionesCheck.setControl(opcion, new FormControl("true"));
+      this.guardarOpcion(campo, opcion);
+    }else{
+      this.opcionesCheck.setControl(opcion, new FormControl("false"));
+      this.eliminarOpcion(campo, opcion);      
+    }
+    console.log(this.opcionesArray);
+  }
+
+  private guardarOpcion(campo: any, opcion: any){    
+    this.opcionesArray.push(opcion);
+    console.log(this.opcionesArray);
+    this.formulario.setControl(campo.titulo.split(" ").join("_"), this.formBuilder.array(this.opcionesArray));
+    console.log(this.formulario.value);
+  }
+
+  private eliminarOpcion(campo: any, opcion: any){
+    if(this.opcionesArray.indexOf(opcion) > -1){
+      this.opcionesArray.splice(this.opcionesArray.indexOf(opcion),1); 
+    }
+    console.log(this.opcionesArray);
+    this.formulario.setControl(campo.titulo.split(" ").join("_"), this.formBuilder.array(this.opcionesArray));
+    console.log(this.formulario.value);
   }
 
   private setValidacionesCampoTexto(campoTexto: any){

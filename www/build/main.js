@@ -30,6 +30,7 @@ var VerFormularioPage = /** @class */ (function () {
         this.navParams = navParams;
         this.servicioConector = servicioConector;
         this.formBuilder = formBuilder;
+        this.opcionesArray = [];
         this.camposFormulario = [];
         this.respuesta = {};
         this.mensajesdeError = {};
@@ -55,6 +56,7 @@ var VerFormularioPage = /** @class */ (function () {
         });
     };
     VerFormularioPage.prototype.setValidacionesCampo = function (campo) {
+        var _this = this;
         var mensajeErrorRequired = { "tipo": "required", "mensaje": "Este campo es obligatorio" };
         switch (campo.tipo) {
             case 'campo_texto':
@@ -96,8 +98,55 @@ var VerFormularioPage = /** @class */ (function () {
                     }
                     break;
                 }
+            case 'lista_checkbox':
+                {
+                    //Inicialización de las opciones de la lista_checkbox
+                    this.opcionesCheck = this.formBuilder.group({});
+                    campo.opciones.forEach(function (opcion) {
+                        _this.opcionesCheck.addControl(opcion, new __WEBPACK_IMPORTED_MODULE_3__angular_forms__["FormControl"]('false'));
+                    });
+                    console.log(this.opcionesCheck.value);
+                    this.formulario.addControl(campo.titulo.split(" ").join("_"), this.formBuilder.array([]));
+                    break;
+                }
+            case 'fecha':
+                {
+                    if (campo.esObligatorio == "true") {
+                        this.formulario.addControl(campo.titulo.split(" ").join("_"), new __WEBPACK_IMPORTED_MODULE_3__angular_forms__["FormControl"]('', __WEBPACK_IMPORTED_MODULE_3__angular_forms__["Validators"].required));
+                        this.mensajesdeError[campo.titulo.split(" ").join("_")] = [mensajeErrorRequired];
+                    }
+                    else {
+                        this.formulario.addControl(campo.titulo.split(" ").join("_"), new __WEBPACK_IMPORTED_MODULE_3__angular_forms__["FormControl"](''));
+                    }
+                    break;
+                }
         }
         console.log(this.mensajesdeError);
+    };
+    VerFormularioPage.prototype.opcionSeleccionada = function (campo, opcion, evento) {
+        if (evento.value) {
+            this.opcionesCheck.setControl(opcion, new __WEBPACK_IMPORTED_MODULE_3__angular_forms__["FormControl"]("true"));
+            this.guardarOpcion(campo, opcion);
+        }
+        else {
+            this.opcionesCheck.setControl(opcion, new __WEBPACK_IMPORTED_MODULE_3__angular_forms__["FormControl"]("false"));
+            this.eliminarOpcion(campo, opcion);
+        }
+        console.log(this.opcionesArray);
+    };
+    VerFormularioPage.prototype.guardarOpcion = function (campo, opcion) {
+        this.opcionesArray.push(opcion);
+        console.log(this.opcionesArray);
+        this.formulario.setControl(campo.titulo.split(" ").join("_"), this.formBuilder.array(this.opcionesArray));
+        console.log(this.formulario.value);
+    };
+    VerFormularioPage.prototype.eliminarOpcion = function (campo, opcion) {
+        if (this.opcionesArray.indexOf(opcion) > -1) {
+            this.opcionesArray.splice(this.opcionesArray.indexOf(opcion), 1);
+        }
+        console.log(this.opcionesArray);
+        this.formulario.setControl(campo.titulo.split(" ").join("_"), this.formBuilder.array(this.opcionesArray));
+        console.log(this.formulario.value);
     };
     VerFormularioPage.prototype.setValidacionesCampoTexto = function (campoTexto) {
         var mensajeErrorRequired = { "tipo": "required", "mensaje": "Este campo es obligatorio" };
@@ -176,7 +225,7 @@ var VerFormularioPage = /** @class */ (function () {
     };
     VerFormularioPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-            selector: 'page-ver-formulario',template:/*ion-inline-start:"/home/paire/Documentos/github/appColibri-Ionic/src/pages/ver-formulario/ver-formulario.html"*/'\n<ion-header>\n  <ion-navbar color="primary">\n    <ion-title>Viendo formulario</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n  <h4>{{ titulo }}</h4>\n  <p *ngIf="descripcion != \'\'" class="formulario-descripcion">{{ descripcion }}</p>\n  <hr/>\n  <form [formGroup]="formulario" (ngSubmit) = "logForm()">\n    <!--<p>Campo de prueba</p>\n    <ion-item>\n      <ion-input ngModel type="number" formControlName="campoPrueba"></ion-input>\n    </ion-item>\n    <ng-container *ngFor="let error of mensajesdeError.campoPrueba">\n        <ion-item *ngIf="formulario.get(\'campoPrueba\').hasError(error.tipo) && formulario.get(\'campoPrueba\').touched">\n          <p item-content> {{ error.mensaje }} </p>\n        </ion-item>\n    </ng-container> -->\n      \n    <ng-container *ngFor ="let campo of camposFormulario">\n      <p class="campo-cabecera" *ngIf="campo.esObligatorio == \'true\'">{{ campo.titulo }}\n          <span style="color: red; font-weight: bold;">*</span>\n      </p>\n      <p class="campo-cabecera" *ngIf="campo.esObligatorio == \'false\'">{{ campo.titulo }}</p>\n      <p class="campo-descripcion">{{ campo.descripcion }}</p>\n\n      <ng-container [ngSwitch]="campo.tipo">\n      \n        <!-- Campo de texto (texto, numerico, email)--> \n        <ng-container *ngSwitchCase="\'campo_texto\'">\n          <ion-item>\n            <ion-input formControlName="{{campo.titulo.split(\' \').join(\'_\')}}" placeholder="{{campo.pista}}" type="{{campo.subtipo}}"></ion-input>\n          </ion-item>\n          <ng-container *ngFor="let error of mensajesdeError[campo.titulo.split(\' \').join(\'_\')]">\n            <ion-item *ngIf="formulario.get(campo.titulo.split(\' \').join(\'_\')).hasError(error.tipo) && formulario.get(campo.titulo.split(\' \').join(\'_\')).touched">\n              <p item-content> {{error.mensaje}} </p>\n            </ion-item>\n          </ng-container>\n        </ng-container>\n   \n        <!-- Area de texto -->\n        <ng-container *ngSwitchCase= "\'area_texto\'">\n          <ion-item>\n            <ion-textarea formControlName="{{campo.titulo.split(\' \').join(\'_\')}}" rows="3" maxlength="{{campo.limiteCaracteres}}"></ion-textarea>\n          </ion-item>       \n          <ng-container *ngFor="let error of mensajesdeError[campo.titulo.split(\' \').join(\'_\')]">\n            <ion-item *ngIf="formulario.get(campo.titulo.split(\' \').join(\'_\')).hasError(error.tipo) && formulario.get(campo.titulo.split(\' \').join(\'_\')).touched">\n              <p item-content> {{ error.mensaje }} </p>\n            </ion-item>\n          </ng-container>\n        </ng-container>\n   \n        <!-- Lista desplegable -->\n        <ng-container *ngSwitchCase="\'lista_desplegable\'">\n          <ion-item>\n            <ion-label>Elija una opción</ion-label>\n              <ion-select formControlName="{{campo.titulo.split(\' \').join(\'_\')}}" okText="Aceptar" cancelText="Cancelar">\n                <ion-option value="ninguna">Ninguna</ion-option>\n                <ion-option *ngFor="let opcion of campo.opciones" value="{{opcion}}"> {{ opcion }} </ion-option>\n              </ion-select>\n          </ion-item>\n          <ng-container *ngFor="let error of mensajesdeError[campo.titulo.split(\' \').join(\'_\')]">\n            <ion-item *ngIf="formulario.get(campo.titulo.split(\' \').join(\'_\')).hasError(error.tipo) && formulario.get(campo.titulo.split(\' \').join(\'_\')).touched">\n              <p item-content> {{ error.mensaje }} </p>\n            </ion-item>\n          </ng-container>\n        </ng-container>\n        \n        <!-- Lista radio-button -->\n        <ng-container *ngSwitchCase="\'lista_boton_radio\'">\n        <ion-list radio-group formControlName="{{campo.titulo.split(\' \').join(\'_\')}}">\n          <ion-item *ngFor="let opcion of campo.opciones">\n            <ion-label>{{ opcion }}</ion-label>\n            <ion-radio value="{{opcion}}"></ion-radio>\n          </ion-item>\n        </ion-list>\n        <ng-container *ngFor="let error of mensajesdeError[campo.titulo.split(\' \').join(\'_\')]">\n          <ion-item *ngIf="formulario.get(campo.titulo.split(\' \').join(\'_\')).hasError(error.tipo)">\n            <p item-content> {{ error.mensaje }} </p>\n          </ion-item>\n        </ng-container>\n\n      </ng-container>\n        <!-- Lista checkbox -->\n        <!--<ion-list *ngSwitchCase="\'lista_checkbox\'">\n          <ion-item *ngFor="let opcion of campo.opciones">\n            <ion-label>{{ opcion }}</ion-label>\n            <ion-checkbox ngModel="{{opcion}}" name="{{campo.titulo.split(\' \').join(\'_\')}}" ngModel></ion-checkbox>\n          </ion-item>\n        </ion-list> -->\n        <!-- Fecha -->\n        <!--<ion-item *ngSwitchCase="\'fecha\'">\n          <ion-datetime name="{{campo.titulo.split(\' \').join(\'_\')}}" cancelText="Cancelar" displayFormat="DD/MM/YYYY" doneText="Aceptar" placeholder="Toque aquí para elegir una fecha" required="{{campo.esObligatorio}}" ngModel></ion-datetime>\n        </ion-item> -->\n      </ng-container>\n    </ng-container>\n    <button disable="!formulario.valid" ion-button type="submit" click="enviarFormulario()">Enviar</button>\n  </form>\n</ion-content>'/*ion-inline-end:"/home/paire/Documentos/github/appColibri-Ionic/src/pages/ver-formulario/ver-formulario.html"*/,
+            selector: 'page-ver-formulario',template:/*ion-inline-start:"/home/paire/Documentos/github/appColibri-Ionic/src/pages/ver-formulario/ver-formulario.html"*/'\n<ion-header>\n  <ion-navbar color="primary">\n    <ion-title>Viendo formulario</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n  <h4>{{ titulo }}</h4>\n  <p *ngIf="descripcion != \'\'" class="formulario-descripcion">{{ descripcion }}</p>\n  <hr/>\n  <form [formGroup]="formulario" (ngSubmit) = "logForm()">\n    <!--<p>Campo de prueba</p>\n    <ion-item>\n      <ion-input ngModel type="number" formControlName="campoPrueba"></ion-input>\n    </ion-item>\n    <ng-container *ngFor="let error of mensajesdeError.campoPrueba">\n        <ion-item *ngIf="formulario.get(\'campoPrueba\').hasError(error.tipo) && formulario.get(\'campoPrueba\').touched">\n          <p item-content> {{ error.mensaje }} </p>\n        </ion-item>\n    </ng-container> -->\n      \n    <ng-container *ngFor ="let campo of camposFormulario">\n      <p class="campo-cabecera" *ngIf="campo.esObligatorio == \'true\'">{{ campo.titulo }}\n          <span style="color: red; font-weight: bold;">*</span>\n      </p>\n      <p class="campo-cabecera" *ngIf="campo.esObligatorio == \'false\'">{{ campo.titulo }}</p>\n      <p class="campo-descripcion">{{ campo.descripcion }}</p>\n\n      <ng-container [ngSwitch]="campo.tipo">\n      \n        <!-- Campo de texto (texto, numerico, email)--> \n        <ng-container *ngSwitchCase="\'campo_texto\'">\n          <ion-item>\n            <ion-input formControlName="{{campo.titulo.split(\' \').join(\'_\')}}" placeholder="{{campo.pista}}" type="{{campo.subtipo}}"></ion-input>\n          </ion-item>\n          <ng-container *ngFor="let error of mensajesdeError[campo.titulo.split(\' \').join(\'_\')]">\n            <ion-item *ngIf="formulario.get(campo.titulo.split(\' \').join(\'_\')).hasError(error.tipo) && formulario.get(campo.titulo.split(\' \').join(\'_\')).touched">\n              <p item-content> {{error.mensaje}} </p>\n            </ion-item>\n          </ng-container>\n        </ng-container>\n   \n        <!-- Area de texto -->\n        <ng-container *ngSwitchCase= "\'area_texto\'">\n          <ion-item>\n            <ion-textarea formControlName="{{campo.titulo.split(\' \').join(\'_\')}}" rows="3" maxlength="{{campo.limiteCaracteres}}"></ion-textarea>\n          </ion-item>       \n          <ng-container *ngFor="let error of mensajesdeError[campo.titulo.split(\' \').join(\'_\')]">\n            <ion-item *ngIf="formulario.get(campo.titulo.split(\' \').join(\'_\')).hasError(error.tipo) && formulario.get(campo.titulo.split(\' \').join(\'_\')).touched">\n              <p item-content> {{ error.mensaje }} </p>\n            </ion-item>\n          </ng-container>\n        </ng-container>\n   \n        <!-- Lista desplegable -->\n        <ng-container *ngSwitchCase="\'lista_desplegable\'">\n          <ion-item>\n            <ion-label>Elija una opción</ion-label>\n              <ion-select formControlName="{{campo.titulo.split(\' \').join(\'_\')}}" okText="Aceptar" cancelText="Cancelar">\n                <ion-option value="ninguna">Ninguna</ion-option>\n                <ion-option *ngFor="let opcion of campo.opciones" value="{{opcion}}"> {{ opcion }} </ion-option>\n              </ion-select>\n          </ion-item>\n          <ng-container *ngFor="let error of mensajesdeError[campo.titulo.split(\' \').join(\'_\')]">\n            <ion-item *ngIf="formulario.get(campo.titulo.split(\' \').join(\'_\')).hasError(error.tipo) && formulario.get(campo.titulo.split(\' \').join(\'_\')).touched">\n              <p item-content> {{ error.mensaje }} </p>\n            </ion-item>\n          </ng-container>\n        </ng-container>\n        \n        <!-- Lista radio-button -->\n        <ng-container *ngSwitchCase="\'lista_boton_radio\'">\n          <ion-list radio-group formControlName="{{campo.titulo.split(\' \').join(\'_\')}}">\n            <ion-item *ngFor="let opcion of campo.opciones">\n              <ion-label>{{ opcion }}</ion-label>\n              <ion-radio value="{{opcion}}"></ion-radio>\n            </ion-item>\n          </ion-list>\n          <ng-container *ngFor="let error of mensajesdeError[campo.titulo.split(\' \').join(\'_\')]">\n            <ion-item *ngIf="formulario.get(campo.titulo.split(\' \').join(\'_\')).hasError(error.tipo)">\n              <p item-content> {{ error.mensaje }} </p>\n            </ion-item>\n          </ng-container>\n        </ng-container>\n        \n        <!-- Lista checkbox -->\n        <ng-container *ngSwitchCase="\'lista_checkbox\'">\n          <ion-list [formGroup]="opcionesCheck">\n            <ion-item *ngFor="let opcion of campo.opciones" >\n              <ion-label>{{ opcion }}</ion-label>\n                <ion-checkbox formControlName="{{opcion}}" (ionChange)="opcionSeleccionada(campo, opcion, $event)"></ion-checkbox>\n            </ion-item>\n          </ion-list>\n        </ng-container>\n        \n        <!-- Fecha -->\n        <ng-container *ngSwitchCase="\'fecha\'">\n          <ion-item>\n            <ion-datetime formControlName="{{campo.titulo.split(\' \').join(\'_\')}}" cancelText="Cancelar" displayFormat="DD/MM/YYYY" doneText="Aceptar" placeholder="Toque aquí para elegir una fecha"></ion-datetime>\n          </ion-item>\n          <ng-container *ngFor="let error of mensajesdeError[campo.titulo.split(\' \').join(\'_\')]">\n            <ion-item *ngIf="formulario.get(campo.titulo.split(\' \').join(\'_\')).hasError(error.tipo) && formulario.get(campo.titulo.split(\' \').join(\'_\')).touched">\n              <p item-content> {{ error.mensaje }} </p>\n            </ion-item>\n          </ng-container>\n        </ng-container>\n      </ng-container>\n    </ng-container>\n    <button disable="!formulario.valid" ion-button type="submit" click="enviarFormulario()">Enviar</button>\n  </form>\n</ion-content>'/*ion-inline-end:"/home/paire/Documentos/github/appColibri-Ionic/src/pages/ver-formulario/ver-formulario.html"*/,
         }),
         __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavParams */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__providers_conector_conector__["a" /* ConectorProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__providers_conector_conector__["a" /* ConectorProvider */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_4__angular_forms___["FormBuilder"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__angular_forms___["FormBuilder"]) === "function" && _d || Object])
     ], VerFormularioPage);
@@ -559,6 +608,7 @@ var ConectorProvider = /** @class */ (function () {
             "?llave=" + this.llave + this.obtenerFechaCodificada());
     };
     ConectorProvider.prototype.recuperarCampos = function (id) {
+        console.log(this.obtenerFechaCodificada());
         return this.http.get(this.host + "recuperar.campos_alternativo.php?id=" + id +
             "&llave=" + this.llave + this.obtenerFechaCodificada());
     };
@@ -567,9 +617,10 @@ var ConectorProvider = /** @class */ (function () {
     };
     ConectorProvider = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["Injectable"])(),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_0__angular_common_http__["a" /* HttpClient */]])
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_0__angular_common_http__["a" /* HttpClient */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_common_http__["a" /* HttpClient */]) === "function" && _a || Object])
     ], ConectorProvider);
     return ConectorProvider;
+    var _a;
 }());
 
 //# sourceMappingURL=conector.js.map

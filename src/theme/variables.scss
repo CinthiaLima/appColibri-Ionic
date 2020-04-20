@@ -37,6 +37,7 @@ $colors: (
   primary:    #2c3756,
   secondary:  #8eb015,
   danger:     #f53d3d,
+  danger2:    #dc3545,
   light:      #f4f4f4,
   dark:       #222,
   green-dark: #405e01,
@@ -55,7 +56,8 @@ $colors: (
 // App Material Design Variables
 // --------------------------------------------------
 // Material Design only Sass variables can go here
-
+$toast-md-background: rgba(43, 54, 84, 0.8); // Apply for Android
+$toast-md-title-font-size: 1.6rem;
 
 
 

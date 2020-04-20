@@ -1,4 +1,3 @@
-
 <ion-header>
   <ion-navbar color="primary">
     <ion-title>Viendo formulario</ion-title>
@@ -76,7 +75,7 @@
         
         <!-- Lista checkbox -->
         <ng-container *ngSwitchCase="'lista_checkbox'">
-          <ion-list [formGroup]="opcionesCheck">
+          <ion-list [formGroup]="opcionesCheckboxes">
             <ion-item *ngFor="let opcion of campo.opciones" >
               <ion-label>{{ opcion }}</ion-label>
                 <ion-checkbox formControlName="{{opcion}}" (ionChange)="opcionSeleccionada(campo, opcion, $event)"></ion-checkbox>
@@ -87,7 +86,13 @@
         <!-- Fecha -->
         <ng-container *ngSwitchCase="'fecha'">
           <ion-item>
+            <ion-icon item-content  name="calendar"></ion-icon>
             <ion-datetime formControlName="{{campo.titulo.split(' ').join('_')}}" cancelText="Cancelar" displayFormat="DD/MM/YYYY" doneText="Aceptar" placeholder="Toque aquí para elegir una fecha"></ion-datetime>
+          </ion-item>
+          <ion-item >
+            <button  class="botonBorrar" type="button" color="danger2" icon-end item-content round ion-button outline (click)="borrarFecha(campo.titulo.split(' ').join('_'))">
+              Limpiar campo<ion-icon name="backspace"></ion-icon>
+            </button>
           </ion-item>
           <ng-container *ngFor="let error of mensajesdeError[campo.titulo.split(' ').join('_')]">
             <ion-item *ngIf="formulario.get(campo.titulo.split(' ').join('_')).hasError(error.tipo) && formulario.get(campo.titulo.split(' ').join('_')).touched">
@@ -97,6 +102,8 @@
         </ng-container>
       </ng-container>
     </ng-container>
-    <button disable="!formulario.valid" ion-button type="submit" click="enviarFormulario()">Enviar</button>
+    <button class="botonEnviar"disable="!formulario.valid" ion-button round icon-end type="submit" click="enviarFormulario()">Enviar
+      <ion-icon name="paper-plane"></ion-icon>
+    </button>
   </form>
 </ion-content>

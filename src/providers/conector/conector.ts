@@ -42,8 +42,6 @@ export class ConectorProvider {
   }
 
   recuperarCampos(id: number){
-    console.log(this.obtenerFechaCodificada());
-
     return this.http.get(this.host + "recuperar.campos_alternativo.php?id="+ id + 
     "&llave=" + this.llave + this.obtenerFechaCodificada());  
   }

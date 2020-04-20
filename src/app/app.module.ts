@@ -3,7 +3,6 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 //Para validar formularios
 import { FormsModule } from '@angular/forms';
-import { CustomFormsModule } from 'ng2-validation'
 
 import { MyApp } from './app.component';
 import { FormulariosPage } from '../pages/formularios/formularios';
@@ -26,8 +25,7 @@ import { ConectorProvider } from '../providers/conector/conector';
     BrowserModule,
     IonicModule.forRoot(MyApp),
     HttpClientModule, 
-    FormsModule, 
-    CustomFormsModule
+    FormsModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [

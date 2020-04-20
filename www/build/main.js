@@ -1,15 +1,15 @@
 webpackJsonp([1],{
 
-/***/ 124:
+/***/ 101:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return VerFormularioPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(39);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_conector_conector__ = __webpack_require__(94);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_forms__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_forms___ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_conector_conector__ = __webpack_require__(78);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_forms__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_forms___ = __webpack_require__(12);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -24,27 +24,22 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var VerFormularioPage = /** @class */ (function () {
-    function VerFormularioPage(navCtrl, navParams, servicioConector, formBuilder) {
+    function VerFormularioPage(navCtrl, navParams, servicioConector, formBuilder, toastCtrl) {
         this.navCtrl = navCtrl;
         this.navParams = navParams;
         this.servicioConector = servicioConector;
         this.formBuilder = formBuilder;
-        this.opcionesArray = [];
+        this.toastCtrl = toastCtrl;
+        this.opcionesElegidas = [];
         this.camposFormulario = [];
-        this.respuesta = {};
         this.mensajesdeError = {};
         var id = navParams.get('id');
         this.titulo = navParams.get('titulo');
         this.descripcion = navParams.get('descripcion');
         this.getCampos(id);
         this.formulario = this.formBuilder.group({});
-        //this.formulario.addControl('campoPrueba', new FormControl('',[Validators.required, Validators.min(0)]));
-        //let validation1 = {"tipo": "required", "mensaje": "d"};
-        //let validation2 = {"tipo": "min", "mensaje": "Número invalido"};
-        //let obj =[validation1, validation2];
-        //this.mensajesdeError['campoPrueba'] = obj;     
-        //console.log(this.mensajesdeError);
     }
     VerFormularioPage.prototype.getCampos = function (id) {
         var _this = this;
@@ -53,6 +48,7 @@ var VerFormularioPage = /** @class */ (function () {
             campos.forEach(function (campo) {
                 _this.setValidacionesCampo(campo);
             });
+            console.log(_this.mensajesdeError);
         });
     };
     VerFormularioPage.prototype.setValidacionesCampo = function (campo) {
@@ -68,84 +64,83 @@ var VerFormularioPage = /** @class */ (function () {
                 {
                     var validaciones = null;
                     if (campo.esObligatorio == "true") {
-                        validaciones = [__WEBPACK_IMPORTED_MODULE_3__angular_forms__["Validators"].required];
-                        this.formulario.addControl(campo.titulo.split(" ").join("_"), new __WEBPACK_IMPORTED_MODULE_3__angular_forms__["FormControl"]('', validaciones));
+                        validaciones = [__WEBPACK_IMPORTED_MODULE_3__angular_forms__["g" /* Validators */].required];
+                        this.formulario.addControl(campo.titulo.split(" ").join("_"), new __WEBPACK_IMPORTED_MODULE_3__angular_forms__["b" /* FormControl */]('', validaciones));
                         this.mensajesdeError[campo.titulo.split(" ").join("_")] = [mensajeErrorRequired];
                     }
                     else {
-                        this.formulario.addControl(campo.titulo.split(" ").join("_"), new __WEBPACK_IMPORTED_MODULE_3__angular_forms__["FormControl"](''));
+                        this.formulario.addControl(campo.titulo.split(" ").join("_"), new __WEBPACK_IMPORTED_MODULE_3__angular_forms__["b" /* FormControl */](''));
                     }
                     break;
                 }
             case 'lista_desplegable':
                 {
                     if (campo.esObligatorio == "true") {
-                        this.formulario.addControl(campo.titulo.split(" ").join("_"), new __WEBPACK_IMPORTED_MODULE_3__angular_forms__["FormControl"]('', __WEBPACK_IMPORTED_MODULE_3__angular_forms__["Validators"].required));
+                        this.formulario.addControl(campo.titulo.split(" ").join("_"), new __WEBPACK_IMPORTED_MODULE_3__angular_forms__["b" /* FormControl */]('', __WEBPACK_IMPORTED_MODULE_3__angular_forms__["g" /* Validators */].required));
                         this.mensajesdeError[campo.titulo.split(" ").join("_")] = [mensajeErrorRequired];
                     }
                     else {
-                        this.formulario.addControl(campo.titulo.split(" ").join("_"), new __WEBPACK_IMPORTED_MODULE_3__angular_forms__["FormControl"](''));
+                        this.formulario.addControl(campo.titulo.split(" ").join("_"), new __WEBPACK_IMPORTED_MODULE_3__angular_forms__["b" /* FormControl */](''));
                     }
                 }
             case 'lista_boton_radio':
                 {
                     if (campo.esObligatorio == "true") {
-                        this.formulario.addControl(campo.titulo.split(" ").join("_"), new __WEBPACK_IMPORTED_MODULE_3__angular_forms__["FormControl"]('', __WEBPACK_IMPORTED_MODULE_3__angular_forms__["Validators"].required));
+                        this.formulario.addControl(campo.titulo.split(" ").join("_"), new __WEBPACK_IMPORTED_MODULE_3__angular_forms__["b" /* FormControl */]('', __WEBPACK_IMPORTED_MODULE_3__angular_forms__["g" /* Validators */].required));
                         this.mensajesdeError[campo.titulo.split(" ").join("_")] = [mensajeErrorRequired];
                     }
                     else {
-                        this.formulario.addControl(campo.titulo.split(" ").join("_"), new __WEBPACK_IMPORTED_MODULE_3__angular_forms__["FormControl"](''));
+                        this.formulario.addControl(campo.titulo.split(" ").join("_"), new __WEBPACK_IMPORTED_MODULE_3__angular_forms__["b" /* FormControl */](''));
                     }
                     break;
                 }
             case 'lista_checkbox':
                 {
                     //Inicialización de las opciones de la lista_checkbox
-                    this.opcionesCheck = this.formBuilder.group({});
+                    this.opcionesCheckboxes = this.formBuilder.group({});
                     campo.opciones.forEach(function (opcion) {
-                        _this.opcionesCheck.addControl(opcion, new __WEBPACK_IMPORTED_MODULE_3__angular_forms__["FormControl"]('false'));
+                        _this.opcionesCheckboxes.addControl(opcion, new __WEBPACK_IMPORTED_MODULE_3__angular_forms__["b" /* FormControl */]('false'));
                     });
-                    console.log(this.opcionesCheck.value);
+                    console.log(this.opcionesCheckboxes.value);
                     this.formulario.addControl(campo.titulo.split(" ").join("_"), this.formBuilder.array([]));
                     break;
                 }
             case 'fecha':
                 {
                     if (campo.esObligatorio == "true") {
-                        this.formulario.addControl(campo.titulo.split(" ").join("_"), new __WEBPACK_IMPORTED_MODULE_3__angular_forms__["FormControl"]('', __WEBPACK_IMPORTED_MODULE_3__angular_forms__["Validators"].required));
+                        this.formulario.addControl(campo.titulo.split(" ").join("_"), new __WEBPACK_IMPORTED_MODULE_3__angular_forms__["b" /* FormControl */]('', __WEBPACK_IMPORTED_MODULE_3__angular_forms__["g" /* Validators */].required));
                         this.mensajesdeError[campo.titulo.split(" ").join("_")] = [mensajeErrorRequired];
                     }
                     else {
-                        this.formulario.addControl(campo.titulo.split(" ").join("_"), new __WEBPACK_IMPORTED_MODULE_3__angular_forms__["FormControl"](''));
+                        this.formulario.addControl(campo.titulo.split(" ").join("_"), new __WEBPACK_IMPORTED_MODULE_3__angular_forms__["b" /* FormControl */](''));
                     }
                     break;
                 }
         }
-        console.log(this.mensajesdeError);
     };
     VerFormularioPage.prototype.opcionSeleccionada = function (campo, opcion, evento) {
         if (evento.value) {
-            this.opcionesCheck.setControl(opcion, new __WEBPACK_IMPORTED_MODULE_3__angular_forms__["FormControl"]("true"));
+            this.opcionesCheckboxes.setControl(opcion, new __WEBPACK_IMPORTED_MODULE_3__angular_forms__["b" /* FormControl */]("true"));
             this.guardarOpcion(campo, opcion);
         }
         else {
-            this.opcionesCheck.setControl(opcion, new __WEBPACK_IMPORTED_MODULE_3__angular_forms__["FormControl"]("false"));
+            this.opcionesCheckboxes.setControl(opcion, new __WEBPACK_IMPORTED_MODULE_3__angular_forms__["b" /* FormControl */]("false"));
             this.eliminarOpcion(campo, opcion);
         }
-        console.log(this.opcionesArray);
+        console.log(this.opcionesElegidas);
     };
     VerFormularioPage.prototype.guardarOpcion = function (campo, opcion) {
-        this.opcionesArray.push(opcion);
-        console.log(this.opcionesArray);
-        this.formulario.setControl(campo.titulo.split(" ").join("_"), this.formBuilder.array(this.opcionesArray));
+        this.opcionesElegidas.push(opcion);
+        console.log(this.opcionesElegidas);
+        this.formulario.setControl(campo.titulo.split(" ").join("_"), this.formBuilder.array(this.opcionesElegidas));
         console.log(this.formulario.value);
     };
     VerFormularioPage.prototype.eliminarOpcion = function (campo, opcion) {
-        if (this.opcionesArray.indexOf(opcion) > -1) {
-            this.opcionesArray.splice(this.opcionesArray.indexOf(opcion), 1);
+        if (this.opcionesElegidas.indexOf(opcion) > -1) {
+            this.opcionesElegidas.splice(this.opcionesElegidas.indexOf(opcion), 1);
         }
-        console.log(this.opcionesArray);
-        this.formulario.setControl(campo.titulo.split(" ").join("_"), this.formBuilder.array(this.opcionesArray));
+        console.log(this.opcionesElegidas);
+        this.formulario.setControl(campo.titulo.split(" ").join("_"), this.formBuilder.array(this.opcionesElegidas));
         console.log(this.formulario.value);
     };
     VerFormularioPage.prototype.setValidacionesCampoTexto = function (campoTexto) {
@@ -157,87 +152,85 @@ var VerFormularioPage = /** @class */ (function () {
                 {
                     var mensajeErrorMin = { "tipo": 'min', "mensaje": "El número ingresado debe ser mayor 0." };
                     mensajesError = [mensajeErrorMin];
-                    validaciones = [__WEBPACK_IMPORTED_MODULE_3__angular_forms__["Validators"].min(0)];
+                    validaciones = [__WEBPACK_IMPORTED_MODULE_3__angular_forms__["g" /* Validators */].min(0)];
                     if (campoTexto.esObligatorio == 'true') {
-                        validaciones = [__WEBPACK_IMPORTED_MODULE_3__angular_forms__["Validators"].min(0), __WEBPACK_IMPORTED_MODULE_3__angular_forms__["Validators"].required];
+                        validaciones = [__WEBPACK_IMPORTED_MODULE_3__angular_forms__["g" /* Validators */].min(0), __WEBPACK_IMPORTED_MODULE_3__angular_forms__["g" /* Validators */].required];
                         mensajesError = [mensajeErrorMin, mensajeErrorRequired];
                     }
-                    this.formulario.addControl(campoTexto.titulo.split(" ").join("_"), new __WEBPACK_IMPORTED_MODULE_3__angular_forms__["FormControl"]('', validaciones));
+                    this.formulario.addControl(campoTexto.titulo.split(" ").join("_"), new __WEBPACK_IMPORTED_MODULE_3__angular_forms__["b" /* FormControl */]('', validaciones));
                     this.mensajesdeError[campoTexto.titulo.split(" ").join("_")] = mensajesError;
                     break;
                 }
             case 'text':
                 {
                     if (campoTexto.esObligatorio == 'true') {
-                        validaciones = [__WEBPACK_IMPORTED_MODULE_3__angular_forms__["Validators"].required];
-                        this.formulario.addControl(campoTexto.titulo.split(" ").join("_"), new __WEBPACK_IMPORTED_MODULE_3__angular_forms__["FormControl"]('', validaciones));
+                        validaciones = [__WEBPACK_IMPORTED_MODULE_3__angular_forms__["g" /* Validators */].required];
+                        this.formulario.addControl(campoTexto.titulo.split(" ").join("_"), new __WEBPACK_IMPORTED_MODULE_3__angular_forms__["b" /* FormControl */]('', validaciones));
                         this.mensajesdeError[campoTexto.titulo.split(" ").join("_")] = [mensajeErrorRequired];
                     }
                     else {
-                        this.formulario.addControl(campoTexto.titulo.split(" ").join("_"), new __WEBPACK_IMPORTED_MODULE_3__angular_forms__["FormControl"](''));
+                        this.formulario.addControl(campoTexto.titulo.split(" ").join("_"), new __WEBPACK_IMPORTED_MODULE_3__angular_forms__["b" /* FormControl */](''));
                     }
                     break;
                 }
             case 'email':
                 {
                     var mensajeErrorMail = { "tipo": "email", "mensaje": "Escriba un correo electronico en el formato aaaa@aaaaa.aaa" };
-                    validaciones = [__WEBPACK_IMPORTED_MODULE_3__angular_forms__["Validators"].email];
+                    validaciones = [__WEBPACK_IMPORTED_MODULE_3__angular_forms__["g" /* Validators */].email];
                     mensajesError = [mensajeErrorMail];
                     if (campoTexto.esObligatorio == 'true') {
-                        validaciones = [__WEBPACK_IMPORTED_MODULE_3__angular_forms__["Validators"].email, __WEBPACK_IMPORTED_MODULE_3__angular_forms__["Validators"].required];
+                        validaciones = [__WEBPACK_IMPORTED_MODULE_3__angular_forms__["g" /* Validators */].email, __WEBPACK_IMPORTED_MODULE_3__angular_forms__["g" /* Validators */].required];
                         mensajesError = [mensajeErrorMail, mensajeErrorRequired];
                     }
-                    this.formulario.addControl(campoTexto.titulo.split(" ").join("_"), new __WEBPACK_IMPORTED_MODULE_3__angular_forms__["FormControl"]('', validaciones));
+                    this.formulario.addControl(campoTexto.titulo.split(" ").join("_"), new __WEBPACK_IMPORTED_MODULE_3__angular_forms__["b" /* FormControl */]('', validaciones));
                     this.mensajesdeError[campoTexto.titulo.split(" ").join("_")] = mensajesError;
                     break;
                 }
         }
     };
-    //logForm1(formValue:any){
-    //console.log("entrooo");
-    //console.log(formValue);
-    /*let camposObligatorios = 0;
-    this.camposFormulario.array.forEach(campo => {
-      if(campo.esObligatorio == "true" && formValue[campo.titulo] == ("" ||[])){
-        camposObligatorios = camposObligatorios +1;
-       }
-      });
-    if(camposObligatorios > 0){
-      console.log("Complete los campos que son obligatorios")
-    }else{
-      this.servicioConector.enviarRespuesta(this.respuestas).subscribe(datos=>{
-        console.log(datos);
-      },
-      (err)=>{
-        console.log(err)
-      })
-    }*/
-    //}
+    VerFormularioPage.prototype.borrarFecha = function (nombreCampo) {
+        this.formulario.controls[nombreCampo].setValue('');
+    };
     VerFormularioPage.prototype.logForm = function () {
-        //   console.log("campo prueba"+this.formulario.controls['campoPrueba'].value)
         if (this.formulario.valid) {
             console.log("OK");
             console.log(this.formulario.value);
+            this.servicioConector.enviarRespuesta(this.formulario.value).subscribe(function (datos) {
+                console.log(datos);
+            }, function (err) {
+                console.log(err);
+            });
         }
         else {
+            this.showToastError();
             console.log("Los datos no son válidos");
         }
     };
+    VerFormularioPage.prototype.showToastError = function () {
+        var toast = this.toastCtrl.create({
+            message: 'Complete los campos del formulario correctamente',
+            duration: 3500,
+            position: 'bottom',
+            showCloseButton: true,
+            closeButtonText: 'Ok',
+        });
+        toast.present();
+    };
     VerFormularioPage = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-            selector: 'page-ver-formulario',template:/*ion-inline-start:"/home/paire/Documentos/github/appColibri-Ionic/src/pages/ver-formulario/ver-formulario.html"*/'\n<ion-header>\n  <ion-navbar color="primary">\n    <ion-title>Viendo formulario</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n  <h4>{{ titulo }}</h4>\n  <p *ngIf="descripcion != \'\'" class="formulario-descripcion">{{ descripcion }}</p>\n  <hr/>\n  <form [formGroup]="formulario" (ngSubmit) = "logForm()">\n    <!--<p>Campo de prueba</p>\n    <ion-item>\n      <ion-input ngModel type="number" formControlName="campoPrueba"></ion-input>\n    </ion-item>\n    <ng-container *ngFor="let error of mensajesdeError.campoPrueba">\n        <ion-item *ngIf="formulario.get(\'campoPrueba\').hasError(error.tipo) && formulario.get(\'campoPrueba\').touched">\n          <p item-content> {{ error.mensaje }} </p>\n        </ion-item>\n    </ng-container> -->\n      \n    <ng-container *ngFor ="let campo of camposFormulario">\n      <p class="campo-cabecera" *ngIf="campo.esObligatorio == \'true\'">{{ campo.titulo }}\n          <span style="color: red; font-weight: bold;">*</span>\n      </p>\n      <p class="campo-cabecera" *ngIf="campo.esObligatorio == \'false\'">{{ campo.titulo }}</p>\n      <p class="campo-descripcion">{{ campo.descripcion }}</p>\n\n      <ng-container [ngSwitch]="campo.tipo">\n      \n        <!-- Campo de texto (texto, numerico, email)--> \n        <ng-container *ngSwitchCase="\'campo_texto\'">\n          <ion-item>\n            <ion-input formControlName="{{campo.titulo.split(\' \').join(\'_\')}}" placeholder="{{campo.pista}}" type="{{campo.subtipo}}"></ion-input>\n          </ion-item>\n          <ng-container *ngFor="let error of mensajesdeError[campo.titulo.split(\' \').join(\'_\')]">\n            <ion-item *ngIf="formulario.get(campo.titulo.split(\' \').join(\'_\')).hasError(error.tipo) && formulario.get(campo.titulo.split(\' \').join(\'_\')).touched">\n              <p item-content> {{error.mensaje}} </p>\n            </ion-item>\n          </ng-container>\n        </ng-container>\n   \n        <!-- Area de texto -->\n        <ng-container *ngSwitchCase= "\'area_texto\'">\n          <ion-item>\n            <ion-textarea formControlName="{{campo.titulo.split(\' \').join(\'_\')}}" rows="3" maxlength="{{campo.limiteCaracteres}}"></ion-textarea>\n          </ion-item>       \n          <ng-container *ngFor="let error of mensajesdeError[campo.titulo.split(\' \').join(\'_\')]">\n            <ion-item *ngIf="formulario.get(campo.titulo.split(\' \').join(\'_\')).hasError(error.tipo) && formulario.get(campo.titulo.split(\' \').join(\'_\')).touched">\n              <p item-content> {{ error.mensaje }} </p>\n            </ion-item>\n          </ng-container>\n        </ng-container>\n   \n        <!-- Lista desplegable -->\n        <ng-container *ngSwitchCase="\'lista_desplegable\'">\n          <ion-item>\n            <ion-label>Elija una opción</ion-label>\n              <ion-select formControlName="{{campo.titulo.split(\' \').join(\'_\')}}" okText="Aceptar" cancelText="Cancelar">\n                <ion-option value="ninguna">Ninguna</ion-option>\n                <ion-option *ngFor="let opcion of campo.opciones" value="{{opcion}}"> {{ opcion }} </ion-option>\n              </ion-select>\n          </ion-item>\n          <ng-container *ngFor="let error of mensajesdeError[campo.titulo.split(\' \').join(\'_\')]">\n            <ion-item *ngIf="formulario.get(campo.titulo.split(\' \').join(\'_\')).hasError(error.tipo) && formulario.get(campo.titulo.split(\' \').join(\'_\')).touched">\n              <p item-content> {{ error.mensaje }} </p>\n            </ion-item>\n          </ng-container>\n        </ng-container>\n        \n        <!-- Lista radio-button -->\n        <ng-container *ngSwitchCase="\'lista_boton_radio\'">\n          <ion-list radio-group formControlName="{{campo.titulo.split(\' \').join(\'_\')}}">\n            <ion-item *ngFor="let opcion of campo.opciones">\n              <ion-label>{{ opcion }}</ion-label>\n              <ion-radio value="{{opcion}}"></ion-radio>\n            </ion-item>\n          </ion-list>\n          <ng-container *ngFor="let error of mensajesdeError[campo.titulo.split(\' \').join(\'_\')]">\n            <ion-item *ngIf="formulario.get(campo.titulo.split(\' \').join(\'_\')).hasError(error.tipo)">\n              <p item-content> {{ error.mensaje }} </p>\n            </ion-item>\n          </ng-container>\n        </ng-container>\n        \n        <!-- Lista checkbox -->\n        <ng-container *ngSwitchCase="\'lista_checkbox\'">\n          <ion-list [formGroup]="opcionesCheck">\n            <ion-item *ngFor="let opcion of campo.opciones" >\n              <ion-label>{{ opcion }}</ion-label>\n                <ion-checkbox formControlName="{{opcion}}" (ionChange)="opcionSeleccionada(campo, opcion, $event)"></ion-checkbox>\n            </ion-item>\n          </ion-list>\n        </ng-container>\n        \n        <!-- Fecha -->\n        <ng-container *ngSwitchCase="\'fecha\'">\n          <ion-item>\n            <ion-datetime formControlName="{{campo.titulo.split(\' \').join(\'_\')}}" cancelText="Cancelar" displayFormat="DD/MM/YYYY" doneText="Aceptar" placeholder="Toque aquí para elegir una fecha"></ion-datetime>\n          </ion-item>\n          <ng-container *ngFor="let error of mensajesdeError[campo.titulo.split(\' \').join(\'_\')]">\n            <ion-item *ngIf="formulario.get(campo.titulo.split(\' \').join(\'_\')).hasError(error.tipo) && formulario.get(campo.titulo.split(\' \').join(\'_\')).touched">\n              <p item-content> {{ error.mensaje }} </p>\n            </ion-item>\n          </ng-container>\n        </ng-container>\n      </ng-container>\n    </ng-container>\n    <button disable="!formulario.valid" ion-button type="submit" click="enviarFormulario()">Enviar</button>\n  </form>\n</ion-content>'/*ion-inline-end:"/home/paire/Documentos/github/appColibri-Ionic/src/pages/ver-formulario/ver-formulario.html"*/,
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
+            selector: 'page-ver-formulario',template:/*ion-inline-start:"/home/paire/Documentos/github/appColibri-Ionic/src/pages/ver-formulario/ver-formulario.html"*/'<ion-header>\n  <ion-navbar color="primary">\n    <ion-title>Viendo formulario</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n  <h4>{{ titulo }}</h4>\n  <p *ngIf="descripcion != \'\'" class="formulario-descripcion">{{ descripcion }}</p>\n  <hr/>\n  <form [formGroup]="formulario" (ngSubmit) = "logForm()">   \n    <ng-container *ngFor ="let campo of camposFormulario">\n      <p class="campo-cabecera" *ngIf="campo.esObligatorio == \'true\'">{{ campo.titulo }}\n          <span style="color: red; font-weight: bold;">*</span>\n      </p>\n      <p class="campo-cabecera" *ngIf="campo.esObligatorio == \'false\'">{{ campo.titulo }}</p>\n      <p class="campo-descripcion">{{ campo.descripcion }}</p>\n\n      <ng-container [ngSwitch]="campo.tipo">\n      \n        <!-- Campo de texto (texto, numerico, email)--> \n        <ng-container *ngSwitchCase="\'campo_texto\'">\n          <ion-item>\n            <ion-input formControlName="{{campo.titulo.split(\' \').join(\'_\')}}" placeholder="{{campo.pista}}" type="{{campo.subtipo}}"></ion-input>\n          </ion-item>\n          <ng-container *ngFor="let error of mensajesdeError[campo.titulo.split(\' \').join(\'_\')]">\n            <ion-item *ngIf="formulario.get(campo.titulo.split(\' \').join(\'_\')).hasError(error.tipo) && formulario.get(campo.titulo.split(\' \').join(\'_\')).touched">\n              <p item-content> {{error.mensaje}} </p>\n            </ion-item>\n          </ng-container>\n        </ng-container>\n   \n        <!-- Area de texto -->\n        <ng-container *ngSwitchCase= "\'area_texto\'">\n          <ion-item>\n            <ion-textarea formControlName="{{campo.titulo.split(\' \').join(\'_\')}}" rows="3" maxlength="{{campo.limiteCaracteres}}"></ion-textarea>\n          </ion-item>       \n          <ng-container *ngFor="let error of mensajesdeError[campo.titulo.split(\' \').join(\'_\')]">\n            <ion-item *ngIf="formulario.get(campo.titulo.split(\' \').join(\'_\')).hasError(error.tipo) && formulario.get(campo.titulo.split(\' \').join(\'_\')).touched">\n              <p item-content> {{ error.mensaje }} </p>\n            </ion-item>\n          </ng-container>\n        </ng-container>\n   \n        <!-- Lista desplegable -->\n        <ng-container *ngSwitchCase="\'lista_desplegable\'">\n          <ion-item>\n            <ion-label>Elija una opción</ion-label>\n              <ion-select formControlName="{{campo.titulo.split(\' \').join(\'_\')}}" okText="Aceptar" cancelText="Cancelar">\n                <ion-option value="ninguna">Ninguna</ion-option>\n                <ion-option *ngFor="let opcion of campo.opciones" value="{{opcion}}"> {{ opcion }} </ion-option>\n              </ion-select>\n          </ion-item>\n          <ng-container *ngFor="let error of mensajesdeError[campo.titulo.split(\' \').join(\'_\')]">\n            <ion-item *ngIf="formulario.get(campo.titulo.split(\' \').join(\'_\')).hasError(error.tipo) && formulario.get(campo.titulo.split(\' \').join(\'_\')).touched">\n              <p item-content> {{ error.mensaje }} </p>\n            </ion-item>\n          </ng-container>\n        </ng-container>\n        \n        <!-- Lista radio-button -->\n        <ng-container *ngSwitchCase="\'lista_boton_radio\'">\n          <ion-list radio-group formControlName="{{campo.titulo.split(\' \').join(\'_\')}}">\n            <ion-item *ngFor="let opcion of campo.opciones">\n              <ion-label>{{ opcion }}</ion-label>\n              <ion-radio value="{{opcion}}"></ion-radio>\n            </ion-item>\n          </ion-list>\n          <ng-container *ngFor="let error of mensajesdeError[campo.titulo.split(\' \').join(\'_\')]">\n            <ion-item *ngIf="formulario.get(campo.titulo.split(\' \').join(\'_\')).hasError(error.tipo)">\n              <p item-content> {{ error.mensaje }} </p>\n            </ion-item>\n          </ng-container>\n        </ng-container>\n        \n        <!-- Lista checkbox -->\n        <ng-container *ngSwitchCase="\'lista_checkbox\'">\n          <ion-list [formGroup]="opcionesCheckboxes">\n            <ion-item *ngFor="let opcion of campo.opciones" >\n              <ion-label>{{ opcion }}</ion-label>\n                <ion-checkbox formControlName="{{opcion}}" (ionChange)="opcionSeleccionada(campo, opcion, $event)"></ion-checkbox>\n            </ion-item>\n          </ion-list>\n        </ng-container>\n        \n        <!-- Fecha -->\n        <ng-container *ngSwitchCase="\'fecha\'">\n          <ion-item>\n            <ion-icon item-content  name="calendar"></ion-icon>\n            <ion-datetime formControlName="{{campo.titulo.split(\' \').join(\'_\')}}" cancelText="Cancelar" displayFormat="DD/MM/YYYY" doneText="Aceptar" placeholder="Toque aquí para elegir una fecha"></ion-datetime>\n          </ion-item>\n          <ion-item >\n            <button  class="botonBorrar" type="button" color="danger2" icon-end item-content round ion-button outline (click)="borrarFecha(campo.titulo.split(\' \').join(\'_\'))">\n              Limpiar campo<ion-icon name="backspace"></ion-icon>\n            </button>\n          </ion-item>\n          <ng-container *ngFor="let error of mensajesdeError[campo.titulo.split(\' \').join(\'_\')]">\n            <ion-item *ngIf="formulario.get(campo.titulo.split(\' \').join(\'_\')).hasError(error.tipo) && formulario.get(campo.titulo.split(\' \').join(\'_\')).touched">\n              <p item-content> {{ error.mensaje }} </p>\n            </ion-item>\n          </ng-container>\n        </ng-container>\n      </ng-container>\n    </ng-container>\n    <button class="botonEnviar"disable="!formulario.valid" ion-button round icon-end type="submit" click="enviarFormulario()">Enviar\n      <ion-icon name="paper-plane"></ion-icon>\n    </button>\n  </form>\n</ion-content>'/*ion-inline-end:"/home/paire/Documentos/github/appColibri-Ionic/src/pages/ver-formulario/ver-formulario.html"*/,
         }),
-        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavParams */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__providers_conector_conector__["a" /* ConectorProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__providers_conector_conector__["a" /* ConectorProvider */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_4__angular_forms___["FormBuilder"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__angular_forms___["FormBuilder"]) === "function" && _d || Object])
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavParams */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__providers_conector_conector__["a" /* ConectorProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__providers_conector_conector__["a" /* ConectorProvider */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_4__angular_forms___["a" /* FormBuilder */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__angular_forms___["a" /* FormBuilder */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* ToastController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* ToastController */]) === "function" && _e || Object])
     ], VerFormularioPage);
     return VerFormularioPage;
-    var _a, _b, _c, _d;
+    var _a, _b, _c, _d, _e;
 }());
 
 //# sourceMappingURL=ver-formulario.js.map
 
 /***/ }),
 
-/***/ 136:
+/***/ 113:
 /***/ (function(module, exports) {
 
 function webpackEmptyAsyncContext(req) {
@@ -250,16 +243,16 @@ function webpackEmptyAsyncContext(req) {
 webpackEmptyAsyncContext.keys = function() { return []; };
 webpackEmptyAsyncContext.resolve = webpackEmptyAsyncContext;
 module.exports = webpackEmptyAsyncContext;
-webpackEmptyAsyncContext.id = 136;
+webpackEmptyAsyncContext.id = 113;
 
 /***/ }),
 
-/***/ 177:
+/***/ 154:
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
 	"../pages/ver-formulario/ver-formulario.module": [
-		434,
+		279,
 		0
 	]
 };
@@ -274,20 +267,20 @@ function webpackAsyncContext(req) {
 webpackAsyncContext.keys = function webpackAsyncContextKeys() {
 	return Object.keys(map);
 };
-webpackAsyncContext.id = 177;
+webpackAsyncContext.id = 154;
 module.exports = webpackAsyncContext;
 
 /***/ }),
 
-/***/ 265:
+/***/ 199:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return FormulariosPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(39);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_conector_conector__ = __webpack_require__(94);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ver_formulario_ver_formulario__ = __webpack_require__(124);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_conector_conector__ = __webpack_require__(78);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ver_formulario_ver_formulario__ = __webpack_require__(101);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -317,7 +310,7 @@ var FormulariosPage = /** @class */ (function () {
         this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_3__ver_formulario_ver_formulario__["a" /* VerFormularioPage */], { id: id, titulo: titulo, descripcion: descripcion });
     };
     FormulariosPage = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
             selector: 'page-formularios',template:/*ion-inline-start:"/home/paire/Documentos/github/appColibri-Ionic/src/pages/formularios/formularios.html"*/'<ion-header>\n  <ion-navbar color="primary">\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>Formularios</ion-title>\n  </ion-navbar>\n  <ion-toolbar>\n    <ion-searchbar></ion-searchbar>\n  </ion-toolbar>\n</ion-header>\n\n\n<ion-content padding>\n    <ion-list>\n      <ion-item *ngFor="let formulario of formularios">\n        <h2 text-wrap>{{ formulario.titulo }}</h2>\n        <p class="descripcion">{{ formulario.descripcion }}</p>\n        <button class="completar" (click)="verFormulario(formulario.idFormulario, formulario.titulo, formulario.descripcion)" ion-button round icon-end color="green-dark">Ver formulario\n          <ion-icon name="arrow-dropright-circle"></ion-icon>\n        </button>\n      </ion-item>\n    </ion-list>\n</ion-content>'/*ion-inline-end:"/home/paire/Documentos/github/appColibri-Ionic/src/pages/formularios/formularios.html"*/
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */], __WEBPACK_IMPORTED_MODULE_2__providers_conector_conector__["a" /* ConectorProvider */]])
@@ -329,13 +322,13 @@ var FormulariosPage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 266:
+/***/ 200:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AboutPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(39);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(28);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -373,7 +366,7 @@ var AboutPage = /** @class */ (function () {
         });
     };
     AboutPage = AboutPage_1 = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
             selector: 'page-about',template:/*ion-inline-start:"/home/paire/Documentos/github/appColibri-Ionic/src/pages/about/about.html"*/'<ion-header>\n  <ion-navbar color="primary">\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>Acerca de</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content>\n  <h1 color="primary">Aquí se va a mostrar información acerca de la aplicación</h1>\n</ion-content>\n'/*ion-inline-end:"/home/paire/Documentos/github/appColibri-Ionic/src/pages/about/about.html"*/
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavParams */]])
@@ -386,13 +379,13 @@ var AboutPage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 267:
+/***/ 201:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__ = __webpack_require__(268);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_module__ = __webpack_require__(288);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__ = __webpack_require__(202);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_module__ = __webpack_require__(222);
 
 
 Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* platformBrowserDynamic */])().bootstrapModule(__WEBPACK_IMPORTED_MODULE_1__app_module__["a" /* AppModule */]);
@@ -400,25 +393,23 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 
 /***/ }),
 
-/***/ 288:
+/***/ 222:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppModule; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__ = __webpack_require__(33);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__ = __webpack_require__(31);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(39);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_forms__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_ng2_validation__ = __webpack_require__(337);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_ng2_validation___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_ng2_validation__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__app_component__ = __webpack_require__(426);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__pages_formularios_formularios__ = __webpack_require__(265);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pages_about_about__ = __webpack_require__(266);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pages_ver_formulario_ver_formulario__ = __webpack_require__(124);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__angular_common_http__ = __webpack_require__(178);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__ionic_native_status_bar__ = __webpack_require__(261);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__ionic_native_splash_screen__ = __webpack_require__(264);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__providers_conector_conector__ = __webpack_require__(94);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_forms__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__app_component__ = __webpack_require__(271);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pages_formularios_formularios__ = __webpack_require__(199);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__pages_about_about__ = __webpack_require__(200);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pages_ver_formulario_ver_formulario__ = __webpack_require__(101);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__angular_common_http__ = __webpack_require__(155);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__ionic_native_status_bar__ = __webpack_require__(195);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__ionic_native_splash_screen__ = __webpack_require__(198);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__providers_conector_conector__ = __webpack_require__(78);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -438,41 +429,39 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
-
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
     AppModule = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["NgModule"])({
+        Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["I" /* NgModule */])({
             declarations: [
-                __WEBPACK_IMPORTED_MODULE_5__app_component__["a" /* MyApp */],
-                __WEBPACK_IMPORTED_MODULE_6__pages_formularios_formularios__["a" /* FormulariosPage */],
-                __WEBPACK_IMPORTED_MODULE_7__pages_about_about__["a" /* AboutPage */],
-                __WEBPACK_IMPORTED_MODULE_8__pages_ver_formulario_ver_formulario__["a" /* VerFormularioPage */]
+                __WEBPACK_IMPORTED_MODULE_4__app_component__["a" /* MyApp */],
+                __WEBPACK_IMPORTED_MODULE_5__pages_formularios_formularios__["a" /* FormulariosPage */],
+                __WEBPACK_IMPORTED_MODULE_6__pages_about_about__["a" /* AboutPage */],
+                __WEBPACK_IMPORTED_MODULE_7__pages_ver_formulario_ver_formulario__["a" /* VerFormularioPage */]
             ],
             imports: [
                 __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */],
-                __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["c" /* IonicModule */].forRoot(__WEBPACK_IMPORTED_MODULE_5__app_component__["a" /* MyApp */], {}, {
+                __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["c" /* IonicModule */].forRoot(__WEBPACK_IMPORTED_MODULE_4__app_component__["a" /* MyApp */], {}, {
                     links: [
                         { loadChildren: '../pages/ver-formulario/ver-formulario.module#VerFormularioPageModule', name: 'VerFormularioPage', segment: 'ver-formulario', priority: 'low', defaultHistory: [] }
                     ]
                 }),
-                __WEBPACK_IMPORTED_MODULE_9__angular_common_http__["b" /* HttpClientModule */],
-                __WEBPACK_IMPORTED_MODULE_3__angular_forms__["FormsModule"],
-                __WEBPACK_IMPORTED_MODULE_4_ng2_validation__["CustomFormsModule"]
+                __WEBPACK_IMPORTED_MODULE_8__angular_common_http__["b" /* HttpClientModule */],
+                __WEBPACK_IMPORTED_MODULE_3__angular_forms__["c" /* FormsModule */]
             ],
             bootstrap: [__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["a" /* IonicApp */]],
             entryComponents: [
-                __WEBPACK_IMPORTED_MODULE_5__app_component__["a" /* MyApp */],
-                __WEBPACK_IMPORTED_MODULE_6__pages_formularios_formularios__["a" /* FormulariosPage */],
-                __WEBPACK_IMPORTED_MODULE_7__pages_about_about__["a" /* AboutPage */],
-                __WEBPACK_IMPORTED_MODULE_8__pages_ver_formulario_ver_formulario__["a" /* VerFormularioPage */]
+                __WEBPACK_IMPORTED_MODULE_4__app_component__["a" /* MyApp */],
+                __WEBPACK_IMPORTED_MODULE_5__pages_formularios_formularios__["a" /* FormulariosPage */],
+                __WEBPACK_IMPORTED_MODULE_6__pages_about_about__["a" /* AboutPage */],
+                __WEBPACK_IMPORTED_MODULE_7__pages_ver_formulario_ver_formulario__["a" /* VerFormularioPage */]
             ],
             providers: [
-                __WEBPACK_IMPORTED_MODULE_10__ionic_native_status_bar__["a" /* StatusBar */],
-                __WEBPACK_IMPORTED_MODULE_11__ionic_native_splash_screen__["a" /* SplashScreen */],
-                { provide: __WEBPACK_IMPORTED_MODULE_1__angular_core__["ErrorHandler"], useClass: __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["b" /* IonicErrorHandler */] },
-                __WEBPACK_IMPORTED_MODULE_12__providers_conector_conector__["a" /* ConectorProvider */]
+                __WEBPACK_IMPORTED_MODULE_9__ionic_native_status_bar__["a" /* StatusBar */],
+                __WEBPACK_IMPORTED_MODULE_10__ionic_native_splash_screen__["a" /* SplashScreen */],
+                { provide: __WEBPACK_IMPORTED_MODULE_1__angular_core__["u" /* ErrorHandler */], useClass: __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["b" /* IonicErrorHandler */] },
+                __WEBPACK_IMPORTED_MODULE_11__providers_conector_conector__["a" /* ConectorProvider */]
             ]
         })
     ], AppModule);
@@ -483,17 +472,17 @@ var AppModule = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 426:
+/***/ 271:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MyApp; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(39);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__ = __webpack_require__(261);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__ = __webpack_require__(264);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pages_formularios_formularios__ = __webpack_require__(265);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pages_about_about__ = __webpack_require__(266);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__ = __webpack_require__(195);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__ = __webpack_require__(198);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pages_formularios_formularios__ = __webpack_require__(199);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pages_about_about__ = __webpack_require__(200);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -537,11 +526,11 @@ var MyApp = /** @class */ (function () {
         this.nav.setRoot(page.component);
     };
     __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewChild"])(__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* Nav */]),
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_8" /* ViewChild */])(__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* Nav */]),
         __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* Nav */])
     ], MyApp.prototype, "nav", void 0);
     MyApp = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({template:/*ion-inline-start:"/home/paire/Documentos/github/appColibri-Ionic/src/app/app.html"*/'<link href="https://fonts.googleapis.com/css?family=Merienda&display=swap" rel="stylesheet"> \n\n<ion-menu [content]="content">\n  <ion-header>\n    <div class="toolbar toolbar-md banner">\n      <img alt="" src="assets/imgs/Colibri.svg"/>\n      <div class="toolbar-title">Colibri</div>    \n    </div>\n  </ion-header>\n\n  \n  <ion-content padding>\n    <ion-list>\n      <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">\n        <div *ngIf="p.title == \'Formularios\'; then iconoFormulario else iconoAcercaDe"></div>\n        <ng-template #iconoFormulario><ion-icon name="copy" style="margin-right: 5px;"></ion-icon></ng-template>\n        <ng-template #iconoAcercaDe><ion-icon name="contacts" style="margin-right: 5px;"></ion-icon></ng-template>\n        {{p.title}}\n      </button>\n    </ion-list>\n  </ion-content>\n\n</ion-menu>\n\n<!-- Disable swipe-to-go-back because it\'s poor UX to combine STGB with side menus -->\n<ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>'/*ion-inline-end:"/home/paire/Documentos/github/appColibri-Ionic/src/app/app.html"*/
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({template:/*ion-inline-start:"/home/paire/Documentos/github/appColibri-Ionic/src/app/app.html"*/'<link href="https://fonts.googleapis.com/css?family=Merienda&display=swap" rel="stylesheet"> \n\n<ion-menu [content]="content">\n  <ion-header>\n    <div class="toolbar toolbar-md banner">\n      <img alt="" src="assets/imgs/Colibri.svg"/>\n      <div class="toolbar-title">Colibri</div>    \n    </div>\n  </ion-header>\n\n  \n  <ion-content padding>\n    <ion-list>\n      <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">\n        <div *ngIf="p.title == \'Formularios\'; then iconoFormulario else iconoAcercaDe"></div>\n        <ng-template #iconoFormulario><ion-icon name="copy" style="margin-right: 5px;"></ion-icon></ng-template>\n        <ng-template #iconoAcercaDe><ion-icon name="contacts" style="margin-right: 5px;"></ion-icon></ng-template>\n        {{p.title}}\n      </button>\n    </ion-list>\n  </ion-content>\n\n</ion-menu>\n\n<!-- Disable swipe-to-go-back because it\'s poor UX to combine STGB with side menus -->\n<ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>'/*ion-inline-end:"/home/paire/Documentos/github/appColibri-Ionic/src/app/app.html"*/
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* Platform */], __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__["a" /* StatusBar */], __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__["a" /* SplashScreen */]])
     ], MyApp);
@@ -552,16 +541,16 @@ var MyApp = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 94:
+/***/ 78:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ConectorProvider; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_common_http__ = __webpack_require__(178);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_common_http__ = __webpack_require__(155);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ts_md5_dist_md5__ = __webpack_require__(318);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ts_md5_dist_md5__ = __webpack_require__(252);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ts_md5_dist_md5___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_ts_md5_dist_md5__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_map__ = __webpack_require__(319);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_map__ = __webpack_require__(253);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_map__);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -608,7 +597,6 @@ var ConectorProvider = /** @class */ (function () {
             "?llave=" + this.llave + this.obtenerFechaCodificada());
     };
     ConectorProvider.prototype.recuperarCampos = function (id) {
-        console.log(this.obtenerFechaCodificada());
         return this.http.get(this.host + "recuperar.campos_alternativo.php?id=" + id +
             "&llave=" + this.llave + this.obtenerFechaCodificada());
     };
@@ -616,16 +604,15 @@ var ConectorProvider = /** @class */ (function () {
         return this.http.post(this.host + "ionicPost.php", JSON.stringify(respuesta));
     };
     ConectorProvider = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["Injectable"])(),
-        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_0__angular_common_http__["a" /* HttpClient */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_common_http__["a" /* HttpClient */]) === "function" && _a || Object])
+        Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["A" /* Injectable */])(),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_0__angular_common_http__["a" /* HttpClient */]])
     ], ConectorProvider);
     return ConectorProvider;
-    var _a;
 }());
 
 //# sourceMappingURL=conector.js.map
 
 /***/ })
 
-},[267]);
+},[201]);
 //# sourceMappingURL=main.js.map

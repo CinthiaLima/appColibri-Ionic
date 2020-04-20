@@ -8,5 +8,12 @@ page-ver-formulario {
     }
 
     p.campo-descripcion{
-    } 
+        font-size: 14px;
+    }
+    button.botonEnviar{
+        width: 100%;
+    }
+    button.botonBorrar{
+        float: right;
+    }
 }

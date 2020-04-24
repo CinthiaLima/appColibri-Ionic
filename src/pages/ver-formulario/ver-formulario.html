@@ -10,6 +10,8 @@
   <hr/>
   <form [formGroup]="formulario" (ngSubmit) = "logForm()">   
     <ng-container *ngFor ="let campo of camposFormulario">
+      <br/>
+      <br/>
       <p class="campo-cabecera" *ngIf="campo.esObligatorio == 'true'">{{ campo.titulo }}
           <span style="color: red; font-weight: bold;">*</span>
       </p>
@@ -17,16 +19,16 @@
       <p class="campo-descripcion">{{ campo.descripcion }}</p>
 
       <ng-container [ngSwitch]="campo.tipo">
-      
+        
         <!-- Campo de texto (texto, numerico, email)--> 
         <ng-container *ngSwitchCase="'campo_texto'">
           <ion-item>
             <ion-input formControlName="{{campo.titulo.split(' ').join('_')}}" placeholder="{{campo.pista}}" type="{{campo.subtipo}}"></ion-input>
           </ion-item>
           <ng-container *ngFor="let error of mensajesdeError[campo.titulo.split(' ').join('_')]">
-            <ion-item *ngIf="formulario.get(campo.titulo.split(' ').join('_')).hasError(error.tipo) && formulario.get(campo.titulo.split(' ').join('_')).touched">
-              <p item-content> {{error.mensaje}} </p>
-            </ion-item>
+            <ng-container *ngIf="formulario.get(campo.titulo.split(' ').join('_')).hasError(error.tipo) && formulario.get(campo.titulo.split(' ').join('_')).touched">
+              <p item-content class="mensajeError"> {{error.mensaje}} </p>
+            </ng-container>
           </ng-container>
         </ng-container>
    
@@ -36,9 +38,9 @@
             <ion-textarea formControlName="{{campo.titulo.split(' ').join('_')}}" rows="3" maxlength="{{campo.limiteCaracteres}}"></ion-textarea>
           </ion-item>       
           <ng-container *ngFor="let error of mensajesdeError[campo.titulo.split(' ').join('_')]">
-            <ion-item *ngIf="formulario.get(campo.titulo.split(' ').join('_')).hasError(error.tipo) && formulario.get(campo.titulo.split(' ').join('_')).touched">
-              <p item-content> {{ error.mensaje }} </p>
-            </ion-item>
+            <ng-container *ngIf="formulario.get(campo.titulo.split(' ').join('_')).hasError(error.tipo) && formulario.get(campo.titulo.split(' ').join('_')).touched">
+              <p item-content class="mensajeError"> {{ error.mensaje }} </p>
+            </ng-container>
           </ng-container>
         </ng-container>
    
@@ -52,9 +54,9 @@
               </ion-select>
           </ion-item>
           <ng-container *ngFor="let error of mensajesdeError[campo.titulo.split(' ').join('_')]">
-            <ion-item *ngIf="formulario.get(campo.titulo.split(' ').join('_')).hasError(error.tipo) && formulario.get(campo.titulo.split(' ').join('_')).touched">
-              <p item-content> {{ error.mensaje }} </p>
-            </ion-item>
+            <ng-container *ngIf="formulario.get(campo.titulo.split(' ').join('_')).hasError(error.tipo) && formulario.get(campo.titulo.split(' ').join('_')).touched">
+              <p item-content class="mensajeError"> {{ error.mensaje }} </p>
+            </ng-container>
           </ng-container>
         </ng-container>
         
@@ -67,9 +69,9 @@
             </ion-item>
           </ion-list>
           <ng-container *ngFor="let error of mensajesdeError[campo.titulo.split(' ').join('_')]">
-            <ion-item *ngIf="formulario.get(campo.titulo.split(' ').join('_')).hasError(error.tipo)">
-              <p item-content> {{ error.mensaje }} </p>
-            </ion-item>
+            <ng-container *ngIf="formulario.get(campo.titulo.split(' ').join('_')).hasError(error.tipo)">
+              <p item-content class="mensajeError"> {{ error.mensaje }} </p>
+            </ng-container>
           </ng-container>
         </ng-container>
         
@@ -95,9 +97,9 @@
             </button>
           </ion-item>
           <ng-container *ngFor="let error of mensajesdeError[campo.titulo.split(' ').join('_')]">
-            <ion-item *ngIf="formulario.get(campo.titulo.split(' ').join('_')).hasError(error.tipo) && formulario.get(campo.titulo.split(' ').join('_')).touched">
-              <p item-content> {{ error.mensaje }} </p>
-            </ion-item>
+            <ng-container *ngIf="formulario.get(campo.titulo.split(' ').join('_')).hasError(error.tipo) && formulario.get(campo.titulo.split(' ').join('_')).touched">
+              <p item-content class="mensajeError"> {{ error.mensaje }} </p>
+            </ng-container>
           </ng-container>
         </ng-container>
       </ng-container>

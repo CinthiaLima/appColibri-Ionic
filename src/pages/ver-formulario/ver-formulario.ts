@@ -4,6 +4,11 @@ import { ConectorProvider } from '../../providers/conector/conector';
 import { FormGroup, Validators, FormControl} from '@angular/forms';
 import { FormBuilder } from '@angular/forms/'
 import { ToastController } from 'ionic-angular';
+<<<<<<< HEAD
+import { ViewController } from 'ionic-angular';
+
+=======
+>>>>>>> 40c9ec7583b58bb0e047adb89de4c03d9f3b6127
 
 
 @IonicPage()
@@ -21,7 +26,11 @@ export class VerFormularioPage {
   public mensajesdeError = {};
 
 
+<<<<<<< HEAD
+  constructor(public navCtrl: NavController, public navParams: NavParams, private servicioConector: ConectorProvider, private formBuilder: FormBuilder, private toastCtrl: ToastController, public viewCtrl: ViewController){
+=======
   constructor(public navCtrl: NavController, public navParams: NavParams, private servicioConector: ConectorProvider, private formBuilder: FormBuilder, private toastCtrl: ToastController){
+>>>>>>> 40c9ec7583b58bb0e047adb89de4c03d9f3b6127
     
     let id = navParams.get('id');
     this.titulo = navParams.get('titulo');
@@ -36,7 +45,10 @@ export class VerFormularioPage {
       campos.forEach(campo => {
         this.setValidacionesCampo(campo);
       });
+<<<<<<< HEAD
+=======
       console.log(this.mensajesdeError);
+>>>>>>> 40c9ec7583b58bb0e047adb89de4c03d9f3b6127
     })
   }
 
@@ -86,7 +98,10 @@ export class VerFormularioPage {
         campo.opciones.forEach((opcion: any) =>{
           this.opcionesCheckboxes.addControl(opcion, new FormControl('false'));
         })
+<<<<<<< HEAD
+=======
         console.log(this.opcionesCheckboxes.value);
+>>>>>>> 40c9ec7583b58bb0e047adb89de4c03d9f3b6127
 
         this.formulario.addControl(campo.titulo.split(" ").join("_"), this.formBuilder.array([]));
         break;
@@ -112,23 +127,34 @@ export class VerFormularioPage {
       this.opcionesCheckboxes.setControl(opcion, new FormControl("false"));
       this.eliminarOpcion(campo, opcion);      
     }
+<<<<<<< HEAD
+=======
     console.log(this.opcionesElegidas);
+>>>>>>> 40c9ec7583b58bb0e047adb89de4c03d9f3b6127
   }
 
   private guardarOpcion(campo: any, opcion: any){    
     this.opcionesElegidas.push(opcion);
+<<<<<<< HEAD
+    this.formulario.setControl(campo.titulo.split(" ").join("_"), this.formBuilder.array(this.opcionesElegidas));
+=======
     console.log(this.opcionesElegidas);
     this.formulario.setControl(campo.titulo.split(" ").join("_"), this.formBuilder.array(this.opcionesElegidas));
     console.log(this.formulario.value);
+>>>>>>> 40c9ec7583b58bb0e047adb89de4c03d9f3b6127
   }
 
   private eliminarOpcion(campo: any, opcion: any){
     if(this.opcionesElegidas.indexOf(opcion) > -1){
       this.opcionesElegidas.splice(this.opcionesElegidas.indexOf(opcion),1); 
     }
+<<<<<<< HEAD
+    this.formulario.setControl(campo.titulo.split(" ").join("_"), this.formBuilder.array(this.opcionesElegidas));
+=======
     console.log(this.opcionesElegidas);
     this.formulario.setControl(campo.titulo.split(" ").join("_"), this.formBuilder.array(this.opcionesElegidas));
     console.log(this.formulario.value);
+>>>>>>> 40c9ec7583b58bb0e047adb89de4c03d9f3b6127
   }
 
   private setValidacionesCampoTexto(campoTexto: any){
@@ -190,14 +216,31 @@ export class VerFormularioPage {
       (err)=>{
         console.log(err)
       })
+<<<<<<< HEAD
+      this.toastExitoFormulario();
+//      this.navCtrl.remove(this.viewCtrl.index - 2, 3); 
+      this.navCtrl.popToRoot();
+     // this.navCtrl.push(VerFormularioPage).then(() => {
+       // const index = this.viewCtrl.index-1;
+        //this.navCtrl.remove(index);
+ // });
+     
+    }else{
+      this.toastErrorFormulario();
+=======
 
     }else{
       this.showToastError();
+>>>>>>> 40c9ec7583b58bb0e047adb89de4c03d9f3b6127
       console.log("Los datos no son válidos");
     }
   }
 
+<<<<<<< HEAD
+  toastErrorFormulario() {
+=======
   showToastError() {
+>>>>>>> 40c9ec7583b58bb0e047adb89de4c03d9f3b6127
     let toast = this.toastCtrl.create({
       message: 'Complete los campos del formulario correctamente',
       duration: 3500,
@@ -208,4 +251,18 @@ export class VerFormularioPage {
     }); 
     toast.present();
   }
+<<<<<<< HEAD
+
+  toastExitoFormulario() {
+    let toast = this.toastCtrl.create({
+      message: 'Gracias. Su respuesta fue enviada con éxito',
+      duration: 5000,
+      position: 'bottom',
+      showCloseButton: true,
+      closeButtonText: 'Ok',
+    });
+    toast.present();
+  }
+=======
+>>>>>>> 40c9ec7583b58bb0e047adb89de4c03d9f3b6127
 }

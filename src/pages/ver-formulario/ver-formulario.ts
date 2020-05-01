@@ -1,15 +1,10 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ConectorProvider } from '../../providers/conector/conector';
-import { FormGroup, Validators, FormControl} from '@angular/forms';
+import { FormGroup, Validators, FormControl, ValidationErrors} from '@angular/forms';
 import { FormBuilder } from '@angular/forms/'
 import { ToastController } from 'ionic-angular';
-<<<<<<< HEAD
 import { ViewController } from 'ionic-angular';
-
-=======
->>>>>>> 40c9ec7583b58bb0e047adb89de4c03d9f3b6127
-
 
 @IonicPage()
 @Component({
@@ -26,17 +21,16 @@ export class VerFormularioPage {
   public mensajesdeError = {};
 
 
-<<<<<<< HEAD
   constructor(public navCtrl: NavController, public navParams: NavParams, private servicioConector: ConectorProvider, private formBuilder: FormBuilder, private toastCtrl: ToastController, public viewCtrl: ViewController){
-=======
-  constructor(public navCtrl: NavController, public navParams: NavParams, private servicioConector: ConectorProvider, private formBuilder: FormBuilder, private toastCtrl: ToastController){
->>>>>>> 40c9ec7583b58bb0e047adb89de4c03d9f3b6127
     
     let id = navParams.get('id');
     this.titulo = navParams.get('titulo');
     this.descripcion = navParams.get('descripcion');
     this.getCampos(id);
     this.formulario = this.formBuilder.group({ });
+    this.formulario.addControl('idFormulario', new FormControl(''));
+//    this.formulario.controls.get['idFormulario'].setValue("");
+    this.formulario.patchValue({idFormulario: id});
   }
 
   private getCampos(id: number){
@@ -45,10 +39,6 @@ export class VerFormularioPage {
       campos.forEach(campo => {
         this.setValidacionesCampo(campo);
       });
-<<<<<<< HEAD
-=======
-      console.log(this.mensajesdeError);
->>>>>>> 40c9ec7583b58bb0e047adb89de4c03d9f3b6127
     })
   }
 
@@ -98,10 +88,6 @@ export class VerFormularioPage {
         campo.opciones.forEach((opcion: any) =>{
           this.opcionesCheckboxes.addControl(opcion, new FormControl('false'));
         })
-<<<<<<< HEAD
-=======
-        console.log(this.opcionesCheckboxes.value);
->>>>>>> 40c9ec7583b58bb0e047adb89de4c03d9f3b6127
 
         this.formulario.addControl(campo.titulo.split(" ").join("_"), this.formBuilder.array([]));
         break;
@@ -127,34 +113,18 @@ export class VerFormularioPage {
       this.opcionesCheckboxes.setControl(opcion, new FormControl("false"));
       this.eliminarOpcion(campo, opcion);      
     }
-<<<<<<< HEAD
-=======
-    console.log(this.opcionesElegidas);
->>>>>>> 40c9ec7583b58bb0e047adb89de4c03d9f3b6127
   }
 
   private guardarOpcion(campo: any, opcion: any){    
     this.opcionesElegidas.push(opcion);
-<<<<<<< HEAD
     this.formulario.setControl(campo.titulo.split(" ").join("_"), this.formBuilder.array(this.opcionesElegidas));
-=======
-    console.log(this.opcionesElegidas);
-    this.formulario.setControl(campo.titulo.split(" ").join("_"), this.formBuilder.array(this.opcionesElegidas));
-    console.log(this.formulario.value);
->>>>>>> 40c9ec7583b58bb0e047adb89de4c03d9f3b6127
   }
 
   private eliminarOpcion(campo: any, opcion: any){
     if(this.opcionesElegidas.indexOf(opcion) > -1){
       this.opcionesElegidas.splice(this.opcionesElegidas.indexOf(opcion),1); 
     }
-<<<<<<< HEAD
     this.formulario.setControl(campo.titulo.split(" ").join("_"), this.formBuilder.array(this.opcionesElegidas));
-=======
-    console.log(this.opcionesElegidas);
-    this.formulario.setControl(campo.titulo.split(" ").join("_"), this.formBuilder.array(this.opcionesElegidas));
-    console.log(this.formulario.value);
->>>>>>> 40c9ec7583b58bb0e047adb89de4c03d9f3b6127
   }
 
   private setValidacionesCampoTexto(campoTexto: any){
@@ -188,11 +158,11 @@ export class VerFormularioPage {
       }
       case 'email':
       {
-        let mensajeErrorMail = {"tipo": "email", "mensaje": "Escriba un correo electronico en el formato aaaa@aaaaa.aaa"};
-        validaciones = [Validators.email];
+        let mensajeErrorMail = {"tipo": "pattern", "mensaje": "Escriba el mail en el formato ejemplo@aaaaa.com"};
         mensajesError = [mensajeErrorMail];
+        validaciones = [Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$")];     
         if(campoTexto.esObligatorio == 'true'){
-          validaciones = [Validators.email, Validators.required];
+          validaciones = [Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"), Validators.required];
           mensajesError = [mensajeErrorMail, mensajeErrorRequired];
         }
         this.formulario.addControl(campoTexto.titulo.split(" ").join("_"), new FormControl('', validaciones));
@@ -207,6 +177,19 @@ export class VerFormularioPage {
   }
   
   logForm(){
+    Object.keys(this.formulario.controls).forEach(key => {
+
+      const controlErrors: ValidationErrors = this.formulario.get(key).errors;
+      if (controlErrors != null) {
+            Object.keys(controlErrors).forEach(keyError => {
+              console.log('Key control: ' + key + ', keyError: ' + keyError + ', err value: ', controlErrors[keyError]);
+            });
+          }
+        });
+      
+   // if(this.formulario.hasError){
+     // console.log("errores");
+    //}
     if(this.formulario.valid){
       console.log("OK");
       console.log(this.formulario.value);
@@ -216,7 +199,6 @@ export class VerFormularioPage {
       (err)=>{
         console.log(err)
       })
-<<<<<<< HEAD
       this.toastExitoFormulario();
 //      this.navCtrl.remove(this.viewCtrl.index - 2, 3); 
       this.navCtrl.popToRoot();
@@ -227,20 +209,13 @@ export class VerFormularioPage {
      
     }else{
       this.toastErrorFormulario();
-=======
-
-    }else{
-      this.showToastError();
->>>>>>> 40c9ec7583b58bb0e047adb89de4c03d9f3b6127
+      console.log(this.formulario.errors);
+      
       console.log("Los datos no son válidos");
     }
   }
 
-<<<<<<< HEAD
   toastErrorFormulario() {
-=======
-  showToastError() {
->>>>>>> 40c9ec7583b58bb0e047adb89de4c03d9f3b6127
     let toast = this.toastCtrl.create({
       message: 'Complete los campos del formulario correctamente',
       duration: 3500,
@@ -251,7 +226,6 @@ export class VerFormularioPage {
     }); 
     toast.present();
   }
-<<<<<<< HEAD
 
   toastExitoFormulario() {
     let toast = this.toastCtrl.create({
@@ -263,6 +237,4 @@ export class VerFormularioPage {
     });
     toast.present();
   }
-=======
->>>>>>> 40c9ec7583b58bb0e047adb89de4c03d9f3b6127
 }

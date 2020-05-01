@@ -6,11 +6,13 @@ import 'rxjs/add/operator/map';
 
 @Injectable()
 export class ConectorProvider {
-
-  //host: string = "http://172.16.8.102/ionic/";
-  host: string = "http://172.16.8.27/ionic/"; 
-  //Compu ariel
-  
+  //Localhost
+  host: string = "http://172.16.8.102/ionic/";
+  //192.25.8.113
+  //host: string = "http://172.16.8.27/ionic/"; 
+  //Compu ariel Residencia2
+  //host: string = "http://192.25.8.110/ionic/"; 
+  //Compu ariel Arielucho
   private llave: string = "8c8b6c186ad4940044533c4303a0ab5c";
 
   constructor(public http: HttpClient) {

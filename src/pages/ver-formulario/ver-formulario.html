@@ -7,10 +7,8 @@
 <ion-content padding>
   <h4>{{ titulo }}</h4>
   <p *ngIf="descripcion != ''" class="formulario-descripcion">{{ descripcion }}</p>
-  <hr/>
   <form [formGroup]="formulario" (ngSubmit) = "logForm()">   
     <ng-container *ngFor ="let campo of camposFormulario">
-      <br/>
       <br/>
       <p class="campo-cabecera" *ngIf="campo.esObligatorio == 'true'">{{ campo.titulo }}
           <span style="color: red; font-weight: bold;">*</span>
@@ -91,11 +89,9 @@
             <ion-icon item-content  name="calendar"></ion-icon>
             <ion-datetime formControlName="{{campo.titulo.split(' ').join('_')}}" cancelText="Cancelar" displayFormat="DD/MM/YYYY" doneText="Aceptar" placeholder="Toque aquí para elegir una fecha"></ion-datetime>
           </ion-item>
-          <ion-item >
-            <button  class="botonBorrar" type="button" color="danger2" icon-end item-content round ion-button outline (click)="borrarFecha(campo.titulo.split(' ').join('_'))">
-              Limpiar campo<ion-icon name="backspace"></ion-icon>
-            </button>
-          </ion-item>
+          <button class="botonBorrar" type="button" color="danger2" small icon-end item-content round ion-button outline (click)="borrarFecha(campo.titulo.split(' ').join('_'))">
+            Limpiar campo<ion-icon name="backspace"></ion-icon>
+          </button>
           <ng-container *ngFor="let error of mensajesdeError[campo.titulo.split(' ').join('_')]">
             <ng-container *ngIf="formulario.get(campo.titulo.split(' ').join('_')).hasError(error.tipo) && formulario.get(campo.titulo.split(' ').join('_')).touched">
               <p item-content class="mensajeError"> {{ error.mensaje }} </p>

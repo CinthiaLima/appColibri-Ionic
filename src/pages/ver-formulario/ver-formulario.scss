@@ -13,15 +13,15 @@ page-ver-formulario {
         width: 100%;
     }
     button.botonBorrar{
-        float: right;
+        width: 100%;
     }
-<<<<<<< HEAD
 
     .mensajeError{
         color: #dc3545;
-        float: right;
-        display: block;
+        width: auto;
+        text-align: right;
+     //   display: inline-block;
+       // text-align: right;
+       //float:right; 
     }
-=======
->>>>>>> 40c9ec7583b58bb0e047adb89de4c03d9f3b6127
 }

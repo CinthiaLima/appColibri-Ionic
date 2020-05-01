@@ -3,12 +3,31 @@ page-formularios {
         color: "primary";
     }
 
+    .titulo{
+        color: "primary";
+    }
     .descripcion{
         color: gray;
+        -webkit-line-clamp: 3;
+        position: relative;
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
     }
     .completar{
         width: 50%;
         float: right;
+    }
+
+    .spinnerBuscar{
+        margin-bottom: 23px;
+        margin-top: 7px;
+        text-align: center;
+    }
+    
+    .buscando{
+        color: gray; 
+        margin-top: 8px;
     }
     
 }

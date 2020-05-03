@@ -20,8 +20,9 @@ page-ver-formulario {
         color: #dc3545;
         width: auto;
         text-align: right;
-     //   display: inline-block;
-       // text-align: right;
-       //float:right; 
+    }
+
+    .listaOpciones{
+        max-width: 100% !important;
     }
 }

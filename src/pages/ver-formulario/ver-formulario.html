@@ -21,10 +21,10 @@
         <!-- Campo de texto (texto, numerico, email)--> 
         <ng-container *ngSwitchCase="'campo_texto'">
           <ion-item>
-            <ion-input formControlName="{{campo.titulo.split(' ').join('_')}}" placeholder="{{campo.pista}}" type="{{campo.subtipo}}"></ion-input>
+            <ion-input formControlName="{{campo.titulo}}" placeholder="{{campo.pista}}" type="{{campo.subtipo}}"></ion-input>
           </ion-item>
-          <ng-container *ngFor="let error of mensajesdeError[campo.titulo.split(' ').join('_')]">
-            <ng-container *ngIf="formulario.get(campo.titulo.split(' ').join('_')).hasError(error.tipo) && formulario.get(campo.titulo.split(' ').join('_')).touched">
+          <ng-container *ngFor="let error of mensajesdeError[campo.titulo]">
+            <ng-container *ngIf="formulario.get(campo.titulo).hasError(error.tipo) && formulario.get(campo.titulo).touched">
               <p item-content class="mensajeError"> {{error.mensaje}} </p>
             </ng-container>
           </ng-container>
@@ -33,10 +33,10 @@
         <!-- Area de texto -->
         <ng-container *ngSwitchCase= "'area_texto'">
           <ion-item>
-            <ion-textarea formControlName="{{campo.titulo.split(' ').join('_')}}" rows="3" maxlength="{{campo.limiteCaracteres}}"></ion-textarea>
+            <ion-textarea formControlName="{{campo.titulo}}" rows="3" maxlength="{{campo.limiteCaracteres}}"></ion-textarea>
           </ion-item>       
-          <ng-container *ngFor="let error of mensajesdeError[campo.titulo.split(' ').join('_')]">
-            <ng-container *ngIf="formulario.get(campo.titulo.split(' ').join('_')).hasError(error.tipo) && formulario.get(campo.titulo.split(' ').join('_')).touched">
+          <ng-container *ngFor="let error of mensajesdeError[campo.titulo]">
+            <ng-container *ngIf="formulario.get(campo.titulo).hasError(error.tipo) && formulario.get(campo.titulo).touched">
               <p item-content class="mensajeError"> {{ error.mensaje }} </p>
             </ng-container>
           </ng-container>
@@ -45,14 +45,14 @@
         <!-- Lista desplegable -->
         <ng-container *ngSwitchCase="'lista_desplegable'">
           <ion-item>
-            <ion-label>Elija una opción</ion-label>
-              <ion-select formControlName="{{campo.titulo.split(' ').join('_')}}" okText="Aceptar" cancelText="Cancelar">
+            <ion-label>{{ campo.titulo }}</ion-label>
+              <ion-select class="listaOpciones" formControlName="{{campo.titulo}}" okText="Aceptar" cancelText="Cancelar">
                 <ion-option value="ninguna">Ninguna</ion-option>
                 <ion-option *ngFor="let opcion of campo.opciones" value="{{opcion}}"> {{ opcion }} </ion-option>
               </ion-select>
           </ion-item>
-          <ng-container *ngFor="let error of mensajesdeError[campo.titulo.split(' ').join('_')]">
-            <ng-container *ngIf="formulario.get(campo.titulo.split(' ').join('_')).hasError(error.tipo) && formulario.get(campo.titulo.split(' ').join('_')).touched">
+          <ng-container *ngFor="let error of mensajesdeError[campo.titulo]">
+            <ng-container *ngIf="formulario.get(campo.titulo).hasError(error.tipo) && formulario.get(campo.titulo).touched">
               <p item-content class="mensajeError"> {{ error.mensaje }} </p>
             </ng-container>
           </ng-container>
@@ -60,14 +60,14 @@
         
         <!-- Lista radio-button -->
         <ng-container *ngSwitchCase="'lista_boton_radio'">
-          <ion-list radio-group formControlName="{{campo.titulo.split(' ').join('_')}}">
+          <ion-list radio-group formControlName="{{campo.titulo}}">
             <ion-item *ngFor="let opcion of campo.opciones">
               <ion-label>{{ opcion }}</ion-label>
               <ion-radio value="{{opcion}}"></ion-radio>
             </ion-item>
           </ion-list>
-          <ng-container *ngFor="let error of mensajesdeError[campo.titulo.split(' ').join('_')]">
-            <ng-container *ngIf="formulario.get(campo.titulo.split(' ').join('_')).hasError(error.tipo)">
+          <ng-container *ngFor="let error of mensajesdeError[campo.titulo]">
+            <ng-container *ngIf="formulario.get(campo.titulo).hasError(error.tipo)">
               <p item-content class="mensajeError"> {{ error.mensaje }} </p>
             </ng-container>
           </ng-container>
@@ -87,19 +87,20 @@
         <ng-container *ngSwitchCase="'fecha'">
           <ion-item>
             <ion-icon item-content  name="calendar"></ion-icon>
-            <ion-datetime formControlName="{{campo.titulo.split(' ').join('_')}}" cancelText="Cancelar" displayFormat="DD/MM/YYYY" doneText="Aceptar" placeholder="Toque aquí para elegir una fecha"></ion-datetime>
+            <ion-datetime formControlName="{{campo.titulo}}" cancelText="Cancelar" displayFormat="DD/MM/YYYY" doneText="Aceptar" placeholder="Toque aquí para elegir una fecha"></ion-datetime>
           </ion-item>
-          <button class="botonBorrar" type="button" color="danger2" small icon-end item-content round ion-button outline (click)="borrarFecha(campo.titulo.split(' ').join('_'))">
+          <button class="botonBorrar" type="button" color="danger2" small icon-end item-content round ion-button outline (click)="borrarFecha(campo.titulo)">
             Limpiar campo<ion-icon name="backspace"></ion-icon>
           </button>
-          <ng-container *ngFor="let error of mensajesdeError[campo.titulo.split(' ').join('_')]">
-            <ng-container *ngIf="formulario.get(campo.titulo.split(' ').join('_')).hasError(error.tipo) && formulario.get(campo.titulo.split(' ').join('_')).touched">
+          <ng-container *ngFor="let error of mensajesdeError[campo.titulo]">
+            <ng-container *ngIf="formulario.get(campo.titulo).hasError(error.tipo) && formulario.get(campo.titulo).touched">
               <p item-content class="mensajeError"> {{ error.mensaje }} </p>
             </ng-container>
           </ng-container>
         </ng-container>
       </ng-container>
     </ng-container>
+    <br/>
     <button class="botonEnviar"disable="!formulario.valid" ion-button round icon-end type="submit" click="enviarFormulario()">Enviar
       <ion-icon name="paper-plane"></ion-icon>
     </button>

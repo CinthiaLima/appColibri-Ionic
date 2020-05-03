@@ -36536,3 +36536,7 @@ page-ver-formulario .mensajeError {
   width: auto;
   text-align: right;
 }
+
+page-ver-formulario .listaOpciones {
+  max-width: 100% !important;
+}

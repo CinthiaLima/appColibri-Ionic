@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ConectorProvider } from '../../providers/conector/conector';
-import { FormGroup, Validators, FormControl, ValidationErrors} from '@angular/forms';
+import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { FormBuilder } from '@angular/forms/'
 import { ToastController } from 'ionic-angular';
 import { ViewController } from 'ionic-angular';
@@ -29,7 +29,6 @@ export class VerFormularioPage {
     this.getCampos(id);
     this.formulario = this.formBuilder.group({ });
     this.formulario.addControl('idFormulario', new FormControl(''));
-//    this.formulario.controls.get['idFormulario'].setValue("");
     this.formulario.patchValue({idFormulario: id});
   }
 
@@ -55,29 +54,29 @@ export class VerFormularioPage {
         let validaciones = null;
         if(campo.esObligatorio == "true"){
           validaciones = [Validators.required];
-          this.formulario.addControl(campo.titulo.split(" ").join("_"), new FormControl('', validaciones));
-          this.mensajesdeError[campo.titulo.split(" ").join("_")] = [mensajeErrorRequired];  
+          this.formulario.addControl(campo.titulo, new FormControl('', validaciones));
+          this.mensajesdeError[campo.titulo] = [mensajeErrorRequired];  
         }else{
-          this.formulario.addControl(campo.titulo.split(" ").join("_"), new FormControl(''));
+          this.formulario.addControl(campo.titulo, new FormControl(''));
         }
         break;
       }
       case 'lista_desplegable':
       {
         if(campo.esObligatorio == "true"){
-          this.formulario.addControl(campo.titulo.split(" ").join("_"), new FormControl('', Validators.required));
-          this.mensajesdeError[campo.titulo.split(" ").join("_")] = [mensajeErrorRequired];  
+          this.formulario.addControl(campo.titulo, new FormControl('', Validators.required));
+          this.mensajesdeError[campo.titulo] = [mensajeErrorRequired];  
         }else{
-          this.formulario.addControl(campo.titulo.split(" ").join("_"), new FormControl(''));
+          this.formulario.addControl(campo.titulo, new FormControl(''));
         }
       }
       case 'lista_boton_radio':
       {
         if(campo.esObligatorio == "true"){
-          this.formulario.addControl(campo.titulo.split(" ").join("_"), new FormControl('', Validators.required));
-          this.mensajesdeError[campo.titulo.split(" ").join("_")] = [mensajeErrorRequired];
+          this.formulario.addControl(campo.titulo, new FormControl('', Validators.required));
+          this.mensajesdeError[campo.titulo] = [mensajeErrorRequired];
         }else{
-          this.formulario.addControl(campo.titulo.split(" ").join("_"), new FormControl(''));
+          this.formulario.addControl(campo.titulo, new FormControl(''));
         }
         break;
       }
@@ -89,16 +88,16 @@ export class VerFormularioPage {
           this.opcionesCheckboxes.addControl(opcion, new FormControl('false'));
         })
 
-        this.formulario.addControl(campo.titulo.split(" ").join("_"), this.formBuilder.array([]));
+        this.formulario.addControl(campo.titulo, this.formBuilder.array([]));
         break;
       }
       case 'fecha':
       {
         if(campo.esObligatorio == "true"){
-          this.formulario.addControl(campo.titulo.split(" ").join("_"), new FormControl('', Validators.required));
-          this.mensajesdeError[campo.titulo.split(" ").join("_")] = [mensajeErrorRequired];
+          this.formulario.addControl(campo.titulo, new FormControl('', Validators.required));
+          this.mensajesdeError[campo.titulo] = [mensajeErrorRequired];
         }else{
-          this.formulario.addControl(campo.titulo.split(" ").join("_"), new FormControl(''));
+          this.formulario.addControl(campo.titulo, new FormControl(''));
         }
         break;
       }
@@ -117,14 +116,14 @@ export class VerFormularioPage {
 
   private guardarOpcion(campo: any, opcion: any){    
     this.opcionesElegidas.push(opcion);
-    this.formulario.setControl(campo.titulo.split(" ").join("_"), this.formBuilder.array(this.opcionesElegidas));
+    this.formulario.setControl(campo.titulo, this.formBuilder.array(this.opcionesElegidas));
   }
 
   private eliminarOpcion(campo: any, opcion: any){
     if(this.opcionesElegidas.indexOf(opcion) > -1){
       this.opcionesElegidas.splice(this.opcionesElegidas.indexOf(opcion),1); 
     }
-    this.formulario.setControl(campo.titulo.split(" ").join("_"), this.formBuilder.array(this.opcionesElegidas));
+    this.formulario.setControl(campo.titulo, this.formBuilder.array(this.opcionesElegidas));
   }
 
   private setValidacionesCampoTexto(campoTexto: any){
@@ -141,18 +140,18 @@ export class VerFormularioPage {
           validaciones = [Validators.min(0), Validators.required];
           mensajesError = [mensajeErrorMin, mensajeErrorRequired];
         }
-        this.formulario.addControl(campoTexto.titulo.split(" ").join("_"), new FormControl('', validaciones));
-        this.mensajesdeError[campoTexto.titulo.split(" ").join("_")] = mensajesError;
+        this.formulario.addControl(campoTexto.titulo, new FormControl('', validaciones));
+        this.mensajesdeError[campoTexto.titulo] = mensajesError;
         break;
       }
       case 'text':
       {
         if(campoTexto.esObligatorio == 'true'){
           validaciones = [Validators.required];
-          this.formulario.addControl(campoTexto.titulo.split(" ").join("_"), new FormControl('', validaciones));
-          this.mensajesdeError[campoTexto.titulo.split(" ").join("_")] = [mensajeErrorRequired];
+          this.formulario.addControl(campoTexto.titulo, new FormControl('', validaciones));
+          this.mensajesdeError[campoTexto.titulo] = [mensajeErrorRequired];
         }else{
-          this.formulario.addControl(campoTexto.titulo.split(" ").join("_"), new FormControl(''));
+          this.formulario.addControl(campoTexto.titulo, new FormControl(''));
         }
         break;
       }
@@ -165,8 +164,8 @@ export class VerFormularioPage {
           validaciones = [Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"), Validators.required];
           mensajesError = [mensajeErrorMail, mensajeErrorRequired];
         }
-        this.formulario.addControl(campoTexto.titulo.split(" ").join("_"), new FormControl('', validaciones));
-        this.mensajesdeError[campoTexto.titulo.split(" ").join("_")] = mensajesError;
+        this.formulario.addControl(campoTexto.titulo, new FormControl('', validaciones));
+        this.mensajesdeError[campoTexto.titulo] = mensajesError;
         break;
       }
     }
@@ -177,19 +176,6 @@ export class VerFormularioPage {
   }
   
   logForm(){
-    Object.keys(this.formulario.controls).forEach(key => {
-
-      const controlErrors: ValidationErrors = this.formulario.get(key).errors;
-      if (controlErrors != null) {
-            Object.keys(controlErrors).forEach(keyError => {
-              console.log('Key control: ' + key + ', keyError: ' + keyError + ', err value: ', controlErrors[keyError]);
-            });
-          }
-        });
-      
-   // if(this.formulario.hasError){
-     // console.log("errores");
-    //}
     if(this.formulario.valid){
       console.log("OK");
       console.log(this.formulario.value);
@@ -200,24 +186,17 @@ export class VerFormularioPage {
         console.log(err)
       })
       this.toastExitoFormulario();
-//      this.navCtrl.remove(this.viewCtrl.index - 2, 3); 
-      this.navCtrl.popToRoot();
-     // this.navCtrl.push(VerFormularioPage).then(() => {
-       // const index = this.viewCtrl.index-1;
-        //this.navCtrl.remove(index);
- // });
-     
+      this.navCtrl.popToRoot();     
     }else{
       this.toastErrorFormulario();
       console.log(this.formulario.errors);
-      
       console.log("Los datos no son válidos");
     }
   }
 
   toastErrorFormulario() {
     let toast = this.toastCtrl.create({
-      message: 'Complete los campos del formulario correctamente',
+      message: 'Complete los campos del formulario correctamente.',
       duration: 3500,
       position: 'bottom',
       showCloseButton: true,
@@ -229,7 +208,18 @@ export class VerFormularioPage {
 
   toastExitoFormulario() {
     let toast = this.toastCtrl.create({
-      message: 'Gracias. Su respuesta fue enviada con éxito',
+      message: 'Gracias. Su respuesta fue enviada con éxito.',
+      duration: 5000,
+      position: 'bottom',
+      showCloseButton: true,
+      closeButtonText: 'Ok',
+    });
+    toast.present();
+  }
+
+  toastIntentfallido(){
+    let toast = this.toastCtrl.create({
+      message: 'No se ha podido enviar su respuesta. Intente más tarde.',
       duration: 5000,
       position: 'bottom',
       showCloseButton: true,

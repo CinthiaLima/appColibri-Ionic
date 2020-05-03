@@ -16,7 +16,14 @@
     <ion-list>
       <ion-item *ngFor="let formulario of formularios">
         <h2 class="titulo" text-wrap>{{ formulario.titulo }}</h2>
-        <p text-wrap class="descripcion">{{ formulario.descripcion }} . . . </p>
+        <ng-container *ngIf="formulario.descripcion.length > '130'; then descripcionPuntos else descripcion"></ng-container>
+          <ng-template #descripcionPuntos>
+            <p text-wrap class="descripcion">{{ formulario.descripcion }} . . . </p>
+          </ng-template>
+          <ng-template #descripcion>
+            <p text-wrap class="descripcion">{{ formulario.descripcion }}</p>
+          </ng-template>
+        
         <button class="completar" (click)="verFormulario(formulario.idFormulario, formulario.titulo, formulario.descripcion)" ion-button round icon-end color="green-dark">Ver formulario
           <ion-icon name="arrow-dropright-circle"></ion-icon>
         </button>

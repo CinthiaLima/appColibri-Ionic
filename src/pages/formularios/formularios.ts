@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
+import { ToastController } from 'ionic-angular';
+
 import { ConectorProvider } from '../../providers/conector/conector'
 import { VerFormularioPage } from '../ver-formulario/ver-formulario';
 import { FormControl } from '@angular/forms/'
@@ -17,7 +19,7 @@ export class FormulariosPage {
   private nombreABuscar: string = "";
   private controladorBusqueda: FormControl;
 
-  constructor(public navCtrl: NavController,private servicioConector:ConectorProvider) {
+  constructor(public navCtrl: NavController,private servicioConector:ConectorProvider, private toastCtrl: ToastController) {
     this.controladorBusqueda = new FormControl();
     this.formulariosAuxiliar = [];
     this.getFormularios();
@@ -33,6 +35,10 @@ export class FormulariosPage {
   getFormularios(){
     this.servicioConector.recuperarFormularios().subscribe((datosFormulario)=>{
       this.formularios = datosFormulario;
+    },
+    (error)=>{
+      console.log("E: Se produjo el siguiente error al intentar recuperar los formularios de la base de datos: " + error);
+      this.showtoastSinConexion();
     })
   }
   
@@ -49,7 +55,9 @@ export class FormulariosPage {
   }
 
   private filtrar() {
-    this.servicioConector.recuperarFormularios().subscribe((formularios: Response) => this.formulariosAuxiliar = formularios, error => console.log("E: Se produjo el siguiente error al intentar recuperar los formularios de la base de datos: " + error));
+    this.servicioConector.recuperarFormularios().subscribe((formularios: Response) => 
+      this.formulariosAuxiliar = formularios, 
+      error => console.log("E: Se produjo el siguiente error al intentar recuperar los formularios de la base de datos: " + error));
 
     return this.formulariosAuxiliar.filter((formulario) => {
       return formulario.titulo.toLowerCase().indexOf(this.nombreABuscar.toLowerCase()) > -1;
@@ -60,4 +68,14 @@ export class FormulariosPage {
     this.buscandoResultados = true;
   }
 
+  private showtoastSinConexion(){
+    let toast = this.toastCtrl.create({
+      message: 'No se puede conectar con el servidor.',
+      duration: 5000,
+      position: 'bottom',
+      showCloseButton: true,
+      closeButtonText: 'Ok',
+    });
+    toast.present();
+  }
 }

@@ -3,7 +3,7 @@
 <ion-menu [content]="content">
   <ion-header>
     <div class="toolbar toolbar-md banner">
-      <img alt="" src="assets/imgs/Colibri.svg" style="height: 60px; margin-bottom: 5px; margin-top: 5px; margin-right: -5px;"/>
+      <img class="imagen" alt="" src="assets/imgs/Colibri.svg"/>
       <div class="toolbar-title">Colibri</div>    
     </div>
   </ion-header>
@@ -13,8 +13,8 @@
     <ion-list>
       <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
         <div *ngIf="p.title == 'Formularios'; then iconoFormulario else iconoAcercaDe"></div>
-        <ng-template #iconoFormulario><ion-icon name="copy" style="margin-right: 5px;"></ion-icon></ng-template>
-        <ng-template #iconoAcercaDe><ion-icon name="contacts" style="margin-right: 5px;"></ion-icon></ng-template>
+        <ng-template #iconoFormulario><ion-icon name="copy" class="iconMenu"></ion-icon></ng-template>
+        <ng-template #iconoAcercaDe><ion-icon name="contacts" class="iconMenu"></ion-icon></ng-template>
         {{p.title}}
       </button>
     </ion-list>

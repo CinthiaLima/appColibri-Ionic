@@ -36478,6 +36478,21 @@ div.banner > div {
   padding: 0 12px;
 }
 
+img.imagen {
+  height: 60px;
+  margin-bottom: 5px;
+  margin-top: 5px;
+  margin-right: -5px;
+}
+
+ion-icon.iconMenu {
+  margin-right: 5px;
+}
+
+page-list .titulos {
+  font-size: 18px;
+}
+
 page-formularios .navbar {
   color: "primary";
 }
@@ -36496,8 +36511,10 @@ page-formularios .descripcion {
 }
 
 page-formularios .completar {
+  margin-top: 25px;
   width: 50%;
   float: right;
+  height: 34px !important;
 }
 
 page-formularios .spinnerBuscar {
@@ -36539,4 +36556,13 @@ page-ver-formulario .mensajeError {
 
 page-ver-formulario .listaOpciones {
   max-width: 100% !important;
+}
+
+page-ver-formulario .asteriscoRojo {
+  color: red;
+  font-weight: bold;
+}
+
+page-ver-formulario .espacioCampos {
+  margin-bottom: 40px;
 }

@@ -6,101 +6,99 @@
 
 <ion-content padding>
   <h4>{{ titulo }}</h4>
-  <p *ngIf="descripcion != ''" class="formulario-descripcion">{{ descripcion }}</p>
-  <form [formGroup]="formulario" (ngSubmit) = "logForm()">   
-    <ng-container *ngFor ="let campo of camposFormulario">
-      <br/>
-      <p class="campo-cabecera" *ngIf="campo.esObligatorio == 'true'">{{ campo.titulo }}
-          <span style="color: red; font-weight: bold;">*</span>
-      </p>
-      <p class="campo-cabecera" *ngIf="campo.esObligatorio == 'false'">{{ campo.titulo }}</p>
-      <p class="campo-descripcion">{{ campo.descripcion }}</p>
+  <p *ngIf="descripcion != ''" class="formulario-descripcion">{{ descripcion }}</p><br/>
+  <form [formGroup]="formulario" (ngSubmit)="logForm()">
+    <ng-container *ngFor="let campo of camposFormulario">
+      <div class="espacioCampos">
+        <p class="campo-cabecera" *ngIf="campo.esObligatorio == 'true'">{{ campo.titulo }}<span class="asteriscoRojo">*</span></p>
+        <p class="campo-cabecera" *ngIf="campo.esObligatorio == 'false'">{{ campo.titulo }}</p>
+        <p class="campo-descripcion">{{ campo.descripcion }}</p>
 
-      <ng-container [ngSwitch]="campo.tipo">
-        
-        <!-- Campo de texto (texto, numerico, email)--> 
-        <ng-container *ngSwitchCase="'campo_texto'">
-          <ion-item>
-            <ion-input formControlName="{{campo.titulo}}" placeholder="{{campo.pista}}" type="{{campo.subtipo}}"></ion-input>
-          </ion-item>
-          <ng-container *ngFor="let error of mensajesdeError[campo.titulo]">
-            <ng-container *ngIf="formulario.get(campo.titulo).hasError(error.tipo) && formulario.get(campo.titulo).touched">
-              <p item-content class="mensajeError"> {{error.mensaje}} </p>
-            </ng-container>
-          </ng-container>
-        </ng-container>
-   
-        <!-- Area de texto -->
-        <ng-container *ngSwitchCase= "'area_texto'">
-          <ion-item>
-            <ion-textarea formControlName="{{campo.titulo}}" rows="3" maxlength="{{campo.limiteCaracteres}}"></ion-textarea>
-          </ion-item>       
-          <ng-container *ngFor="let error of mensajesdeError[campo.titulo]">
-            <ng-container *ngIf="formulario.get(campo.titulo).hasError(error.tipo) && formulario.get(campo.titulo).touched">
-              <p item-content class="mensajeError"> {{ error.mensaje }} </p>
-            </ng-container>
-          </ng-container>
-        </ng-container>
-   
-        <!-- Lista desplegable -->
-        <ng-container *ngSwitchCase="'lista_desplegable'">
-          <ion-item>
-            <ion-label>{{ campo.titulo }}</ion-label>
-              <ion-select class="listaOpciones" formControlName="{{campo.titulo}}" okText="Aceptar" cancelText="Cancelar">
-                <ion-option value="ninguna">Ninguna</ion-option>
-                <ion-option *ngFor="let opcion of campo.opciones" value="{{opcion}}"> {{ opcion }} </ion-option>
-              </ion-select>
-          </ion-item>
-          <ng-container *ngFor="let error of mensajesdeError[campo.titulo]">
-            <ng-container *ngIf="formulario.get(campo.titulo).hasError(error.tipo) && formulario.get(campo.titulo).touched">
-              <p item-content class="mensajeError"> {{ error.mensaje }} </p>
-            </ng-container>
-          </ng-container>
-        </ng-container>
-        
-        <!-- Lista radio-button -->
-        <ng-container *ngSwitchCase="'lista_boton_radio'">
-          <ion-list radio-group formControlName="{{campo.titulo}}">
-            <ion-item *ngFor="let opcion of campo.opciones">
-              <ion-label>{{ opcion }}</ion-label>
-              <ion-radio value="{{opcion}}"></ion-radio>
+        <ng-container [ngSwitch]="campo.tipo">
+          
+          <!-- Campo de texto (texto, numerico, email)--> 
+          <ng-container *ngSwitchCase="'campo_texto'">
+            <ion-item>
+              <ion-input formControlName="{{campo.titulo}}" placeholder="{{campo.pista}}" type="{{campo.subtipo}}"></ion-input>
             </ion-item>
-          </ion-list>
-          <ng-container *ngFor="let error of mensajesdeError[campo.titulo]">
-            <ng-container *ngIf="formulario.get(campo.titulo).hasError(error.tipo)">
-              <p item-content class="mensajeError"> {{ error.mensaje }} </p>
+            <ng-container *ngFor="let error of mensajesdeError[campo.titulo]">
+              <ng-container *ngIf="formulario.get(campo.titulo).hasError(error.tipo) && formulario.get(campo.titulo).touched">
+                <p item-content class="mensajeError"> {{ error.mensaje }} </p>
+              </ng-container>
             </ng-container>
           </ng-container>
-        </ng-container>
-        
-        <!-- Lista checkbox -->
-        <ng-container *ngSwitchCase="'lista_checkbox'">
-          <ion-list [formGroup]="opcionesCheckboxes">
-            <ion-item *ngFor="let opcion of campo.opciones" >
-              <ion-label>{{ opcion }}</ion-label>
-                <ion-checkbox formControlName="{{opcion}}" (ionChange)="opcionSeleccionada(campo, opcion, $event)"></ion-checkbox>
+    
+          <!-- Area de texto -->
+          <ng-container *ngSwitchCase= "'area_texto'">
+            <ion-item>
+              <ion-textarea formControlName="{{campo.titulo}}" rows="3" maxlength="{{campo.limiteCaracteres}}"></ion-textarea>
+            </ion-item>       
+            <ng-container *ngFor="let error of mensajesdeError[campo.titulo]">
+              <ng-container *ngIf="formulario.get(campo.titulo).hasError(error.tipo) && formulario.get(campo.titulo).touched">
+                <p item-content class="mensajeError"> {{ error.mensaje }} </p>
+              </ng-container>
+            </ng-container>
+          </ng-container>
+    
+          <!-- Lista desplegable -->
+          <ng-container *ngSwitchCase="'lista_desplegable'">
+            <ion-item>
+              <ion-label>{{ campo.titulo }}</ion-label>
+                <ion-select class="listaOpciones" formControlName="{{campo.titulo}}" okText="Aceptar" cancelText="Cancelar">
+                  <ion-option value="ninguna">Ninguna</ion-option>
+                  <ion-option *ngFor="let opcion of campo.opciones" value="{{opcion}}"> {{ opcion }} </ion-option>
+                </ion-select>
             </ion-item>
-          </ion-list>
-        </ng-container>
-        
-        <!-- Fecha -->
-        <ng-container *ngSwitchCase="'fecha'">
-          <ion-item>
-            <ion-icon item-content  name="calendar"></ion-icon>
-            <ion-datetime formControlName="{{campo.titulo}}" cancelText="Cancelar" displayFormat="DD/MM/YYYY" doneText="Aceptar" placeholder="Toque aquí para elegir una fecha"></ion-datetime>
-          </ion-item>
-          <button class="botonBorrar" type="button" color="danger2" small icon-end item-content round ion-button outline (click)="borrarFecha(campo.titulo)">
-            Limpiar campo<ion-icon name="backspace"></ion-icon>
-          </button>
-          <ng-container *ngFor="let error of mensajesdeError[campo.titulo]">
-            <ng-container *ngIf="formulario.get(campo.titulo).hasError(error.tipo) && formulario.get(campo.titulo).touched">
-              <p item-content class="mensajeError"> {{ error.mensaje }} </p>
+            <ng-container *ngFor="let error of mensajesdeError[campo.titulo]">
+              <ng-container *ngIf="formulario.get(campo.titulo).hasError(error.tipo) && formulario.get(campo.titulo).touched">
+                <p item-content class="mensajeError"> {{ error.mensaje }} </p>
+              </ng-container>
+            </ng-container>
+          </ng-container>
+          
+          <!-- Lista radio-button -->
+          <ng-container *ngSwitchCase="'lista_boton_radio'">
+            <ion-list radio-group formControlName="{{campo.titulo}}">
+              <ion-item *ngFor="let opcion of campo.opciones">
+                <ion-label>{{ opcion }}</ion-label>
+                <ion-radio value="{{opcion}}"></ion-radio>
+              </ion-item>
+            </ion-list>
+            <ng-container *ngFor="let error of mensajesdeError[campo.titulo]">
+              <ng-container *ngIf="formulario.get(campo.titulo).hasError(error.tipo)">
+                <p item-content class="mensajeError"> {{ error.mensaje }} </p>
+              </ng-container>
+            </ng-container>
+          </ng-container>
+          
+          <!-- Lista checkbox -->
+          <ng-container *ngSwitchCase="'lista_checkbox'">
+            <ion-list [formGroup]="opcionesCheckboxes">
+              <ion-item *ngFor="let opcion of campo.opciones" >
+                <ion-label>{{ opcion }}</ion-label>
+                  <ion-checkbox formControlName="{{opcion}}" (ionChange)="opcionSeleccionada(campo, opcion, $event)"></ion-checkbox>
+              </ion-item>
+            </ion-list>
+          </ng-container>
+          
+          <!-- Fecha -->
+          <ng-container *ngSwitchCase="'fecha'">
+            <ion-item>
+              <ion-icon item-content  name="calendar"></ion-icon>
+              <ion-datetime formControlName="{{campo.titulo}}" cancelText="Cancelar" displayFormat="DD/MM/YYYY" doneText="Aceptar" placeholder="Toque aquí para elegir una fecha"></ion-datetime>
+            </ion-item>
+            <button class="botonBorrar" type="button" color="danger2" icon-end item-content round ion-button outline (click)="borrarFecha(campo.titulo)">
+              Borrar fecha<ion-icon name="backspace"></ion-icon>
+            </button>
+            <ng-container *ngFor="let error of mensajesdeError[campo.titulo]">
+              <ng-container *ngIf="formulario.get(campo.titulo).hasError(error.tipo) && formulario.get(campo.titulo).touched">
+                <p item-content class="mensajeError"> {{ error.mensaje }} </p>
+              </ng-container>
             </ng-container>
           </ng-container>
         </ng-container>
-      </ng-container>
+      </div>
     </ng-container>
-    <br/>
     <button class="botonEnviar"disable="!formulario.valid" ion-button round icon-end type="submit" click="enviarFormulario()">Enviar
       <ion-icon name="paper-plane"></ion-icon>
     </button>

@@ -21,8 +21,7 @@ export class VerFormularioPage {
   public mensajesdeError = {};
 
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private servicioConector: ConectorProvider, private formBuilder: FormBuilder, private toastCtrl: ToastController, public viewCtrl: ViewController){
-    
+  constructor(public navCtrl: NavController, public navParams: NavParams, private servicioConector: ConectorProvider, private formBuilder: FormBuilder, private toastCtrl: ToastController, public viewCtrl: ViewController){    
     let id = navParams.get('id');
     this.titulo = navParams.get('titulo');
     this.descripcion = navParams.get('descripcion');
@@ -38,8 +37,13 @@ export class VerFormularioPage {
       campos.forEach(campo => {
         this.setValidacionesCampo(campo);
       });
+    },
+    (error)=>{
+      console.log("E: Se produjo el siguiente error al intentar recuperar los campos de la base de datos: " + error);
+      this.showtoastSinConexion();
     })
   }
+  
 
   private setValidacionesCampo(campo: any){
   let mensajeErrorRequired = {"tipo": "required", "mensaje": "Este campo es obligatorio"};
@@ -177,20 +181,17 @@ export class VerFormularioPage {
   
   logForm(){
     if(this.formulario.valid){
-      console.log("OK");
-      console.log(this.formulario.value);
       this.servicioConector.enviarRespuesta(this.formulario.value).subscribe(datos=>{
-        console.log(datos);
+        //console.log(datos);
       },
-      (err)=>{
-        console.log(err)
+      (error)=>{
+        console.log("E: Se produjo el siguiente error al intentar enviar la respuesta al servidor: " + error);
+        this.showtoastSinConexion();
       })
       this.toastExitoFormulario();
       this.navCtrl.popToRoot();     
     }else{
       this.toastErrorFormulario();
-      console.log(this.formulario.errors);
-      console.log("Los datos no son válidos");
     }
   }
 
@@ -220,6 +221,16 @@ export class VerFormularioPage {
   toastIntentfallido(){
     let toast = this.toastCtrl.create({
       message: 'No se ha podido enviar su respuesta. Intente más tarde.',
+      duration: 5000,
+      position: 'bottom',
+      showCloseButton: true,
+      closeButtonText: 'Ok',
+    });
+    toast.present();
+  }
+  private showtoastSinConexion(){
+    let toast = this.toastCtrl.create({
+      message: 'No se puede conectar con el servidor.',
       duration: 5000,
       position: 'bottom',
       showCloseButton: true,

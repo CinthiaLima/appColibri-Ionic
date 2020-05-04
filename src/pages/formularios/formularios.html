@@ -14,7 +14,8 @@
     <ion-spinner></ion-spinner><br><p class="buscando">Buscando...</p>
   </div>
     <ion-list>
-      <ion-item *ngFor="let formulario of formularios">
+      <ng-container *ngFor="let formulario of formularios">
+        <ion-item>
         <h2 class="titulo" text-wrap>{{ formulario.titulo }}</h2>
         <ng-container *ngIf="formulario.descripcion.length > '130'; then descripcionPuntos else descripcion"></ng-container>
           <ng-template #descripcionPuntos>
@@ -23,10 +24,12 @@
           <ng-template #descripcion>
             <p text-wrap class="descripcion">{{ formulario.descripcion }}</p>
           </ng-template>
-        
-        <button class="completar" (click)="verFormulario(formulario.idFormulario, formulario.titulo, formulario.descripcion)" ion-button round icon-end color="green-dark">Ver formulario
-          <ion-icon name="arrow-dropright-circle"></ion-icon>
-        </button>
-      </ion-item>
+          <button class="completar" type="button" ion-button round icon-end color="green-dark" (click)="verFormulario(formulario.idFormulario, formulario.titulo, formulario.descripcion)">Ver formulario
+            <ion-icon name="arrow-dropright-circle"></ion-icon>
+          </button>
+        </ion-item>
+ 
+      </ng-container>
+      
     </ion-list>
 </ion-content>

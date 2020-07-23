@@ -7,8 +7,9 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class ConectorProvider {
   //Localhost
-  host: string = "http://192.25.8.113/ionic/";
-  //host: string = "http://192.25.8.125/colibri/ionic/";
+  //host: string = "http://192.25.8.113/ionic/";
+  //host: string = "http://192.25.8.121/colibri/ionic/";
+  host: string = "http://172.16.8.18/colibri/ionic/";
   private llave: string = "8c8b6c186ad4940044533c4303a0ab5c";
 
   constructor(public http: HttpClient) {
@@ -46,7 +47,7 @@ export class ConectorProvider {
   }
 
   enviarRespuesta(respuesta:any){
-    return this.http.post(this.host + "ionicPost.php", JSON.stringify(respuesta));
+    return this.http.post(this.host + "formulario.enviar.php", JSON.stringify(respuesta));
   }
 
 }

@@ -68,6 +68,12 @@ export class FormulariosPage {
     this.buscandoResultados = true;
   }
 
+  public decodificarEntidades(html) {
+    var txt = document.createElement("textarea");
+    txt.innerHTML = html;
+    return txt.value;
+  }
+  
   private showtoastSinConexion(){
     let toast = this.toastCtrl.create({
       message: 'No se puede conectar con el servidor.',

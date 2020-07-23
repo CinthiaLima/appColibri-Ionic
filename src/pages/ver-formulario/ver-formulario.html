@@ -5,14 +5,14 @@
 </ion-header>
 
 <ion-content padding>
-  <h4>{{ titulo }}</h4>
-  <p *ngIf="descripcion != ''" class="formulario-descripcion">{{ descripcion }}</p><br/>
+  <h4>{{ decodificarEntidades(titulo) }}</h4>
+  <p *ngIf="descripcion != ''" class="formulario-descripcion">{{ decodificarEntidades(descripcion) }}</p><br/>
   <form [formGroup]="formulario" (ngSubmit)="logForm()">
     <ng-container *ngFor="let campo of camposFormulario">
       <div class="espacioCampos">
-        <p class="campo-cabecera" *ngIf="campo.esObligatorio == 'true'">{{ campo.titulo }}<span class="asteriscoRojo">*</span></p>
-        <p class="campo-cabecera" *ngIf="campo.esObligatorio == 'false'">{{ campo.titulo }}</p>
-        <p class="campo-descripcion">{{ campo.descripcion }}</p>
+        <p class="campo-cabecera" *ngIf="campo.esObligatorio == 'true'">{{ decodificarEntidades(campo.titulo) }}<span class="asteriscoRojo">*</span></p>
+        <p class="campo-cabecera" *ngIf="campo.esObligatorio == 'false'">{{ decodificarEntidades(campo.titulo) }}</p>
+        <p class="campo-descripcion">{{ decodificarEntidades(campo.descripcion) }}</p>
 
         <ng-container [ngSwitch]="campo.tipo">
           
@@ -43,10 +43,10 @@
           <!-- Lista desplegable -->
           <ng-container *ngSwitchCase="'lista_desplegable'">
             <ion-item>
-              <ion-label>{{ campo.titulo }}</ion-label>
+              <ion-label>{{ decodificarEntidades(campo.titulo) }}</ion-label>
                 <ion-select class="listaOpciones" formControlName="{{campo.titulo}}" okText="Aceptar" cancelText="Cancelar">
                   <ion-option value="ninguna">Ninguna</ion-option>
-                  <ion-option *ngFor="let opcion of campo.opciones" value="{{opcion}}"> {{ opcion }} </ion-option>
+                  <ion-option *ngFor="let opcion of campo.opciones" value="{{opcion}}"> {{ decodificarEntidades(opcion) }} </ion-option>
                 </ion-select>
             </ion-item>
             <ng-container *ngFor="let error of mensajesdeError[campo.titulo]">
@@ -60,7 +60,7 @@
           <ng-container *ngSwitchCase="'lista_boton_radio'">
             <ion-list radio-group formControlName="{{campo.titulo}}">
               <ion-item *ngFor="let opcion of campo.opciones">
-                <ion-label>{{ opcion }}</ion-label>
+                <ion-label>{{ decodificarEntidades(opcion) }}</ion-label>
                 <ion-radio value="{{opcion}}"></ion-radio>
               </ion-item>
             </ion-list>
@@ -75,7 +75,7 @@
           <ng-container *ngSwitchCase="'lista_checkbox'">
             <ion-list [formGroup]="opcionesCheckboxes">
               <ion-item *ngFor="let opcion of campo.opciones" >
-                <ion-label>{{ opcion }}</ion-label>
+                <ion-label>{{ decodificarEntidades(opcion) }}</ion-label>
                   <ion-checkbox formControlName="{{opcion}}" (ionChange)="opcionSeleccionada(campo, opcion, $event)"></ion-checkbox>
               </ion-item>
             </ion-list>

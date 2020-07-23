@@ -161,11 +161,11 @@ export class VerFormularioPage {
       }
       case 'email':
       {
-        let mensajeErrorMail = {"tipo": "pattern", "mensaje": "Escriba el mail en el formato ejemplo@aaaaa.com"};
+        let mensajeErrorMail = {"tipo": "pattern", "mensaje": "Escriba el mail en el formato ejemplo@ejemplo.com"};
         mensajesError = [mensajeErrorMail];
-        validaciones = [Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$")];     
+        validaciones = [Validators.pattern("[A-Za-z0-9._%-]+@[A-Za-z0-9._%-]+\\.[a-z]{2,3}")];     
         if(campoTexto.esObligatorio == 'true'){
-          validaciones = [Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"), Validators.required];
+          validaciones = [Validators.pattern("[A-Za-z0-9._%-]+@[A-Za-z0-9._%-]+\\.[a-z]{2,3}"), Validators.required];
           mensajesError = [mensajeErrorMail, mensajeErrorRequired];
         }
         this.formulario.addControl(campoTexto.titulo, new FormControl('', validaciones));
@@ -175,8 +175,14 @@ export class VerFormularioPage {
     }
   }
   
-  public borrarFecha(nombreCampo: string){
+  public borrarFecha(nombreCampo: string) {
     this.formulario.controls[nombreCampo].setValue('');
+  }
+
+  public decodificarEntidades(html) {
+    var txt = document.createElement("textarea");
+    txt.innerHTML = html;
+    return txt.value;
   }
   
   logForm(){
